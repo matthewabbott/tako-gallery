@@ -5,6 +5,8 @@ import { User } from '@/models/User';
 import { Card } from '@/models/Card';
 import { hashApiKey, isValidApiKeyFormat } from '@/lib/apiKey';
 import { createSuccessResponse, createErrorResponse } from '@/lib/utils';
+import { handleApiError } from '@/lib/error';
+import { TakoKnowledgeCard } from '@/lib/types';
 
 export async function POST(request: Request) {
     try {
@@ -27,22 +29,77 @@ export async function POST(request: Request) {
             );
         }
 
-        // TODO: Connect to database
+        // Connect to database
+        await connectToDatabase();
 
-        // TODO: Check if API key hash exists in database
+        // Hash the API key for database lookup
+        const apiKeyHash = await hashApiKey(apiKey);
 
-        // TODO: Execute Tako API search
+        // Execute Tako API search
+        let searchResult;
+        try {
+            searchResult = await searchKnowledge(apiKey, query);
+        } catch (error) {
+            return handleApiError(error, 'Error searching Tako API');
+        }
 
-        // TODO: Save search results to database
+        // Check if we got any results
+        if (!searchResult.outputs?.knowledge_cards?.length) {
+            return NextResponse.json(
+                createErrorResponse('No results found for your query'),
+                { status: 404 }
+            );
+        }
 
-        // TODO: Return response with card data and collection info
+        // Get the first card from the results
+        const knowledgeCard = searchResult.outputs.knowledge_cards[0];
 
-        // Temporary response for skeleton
+        // Check if user exists in database
+        let user = await User.findOne({ apiKeyHash });
+        let isNewUser = false;
+
+        if (!user) {
+            // This is a new user (first time using this API key)
+            isNewUser = true;
+
+            // We'll create a temporary username based on the card ID
+            // The user will be prompted to choose a permanent username later
+            const tempUsername = `user_${Date.now().toString(36)}`;
+
+            // Create a new user
+            user = new User({
+                apiKeyHash,
+                username: tempUsername,
+                createdAt: new Date(),
+            });
+
+            await user.save();
+        }
+
+        // Save the card to the database
+        const card = await saveCardToDatabase(apiKeyHash, knowledgeCard, query);
+
+        // Return the response
         return NextResponse.json(
             createSuccessResponse({
-                message: 'Search route skeleton created',
-                apiKey: 'Validated',
-                query,
+                card: {
+                    id: card._id.toString(),
+                    cardId: card.cardId,
+                    title: card.title,
+                    description: card.description,
+                    webpageUrl: card.webpageUrl,
+                    imageUrl: card.imageUrl,
+                    embedUrl: card.embedUrl,
+                    sources: card.sources,
+                    methodologies: card.methodologies,
+                    sourceIndexes: card.sourceIndexes,
+                    query: card.query,
+                    createdAt: card.createdAt,
+                },
+                collection: {
+                    username: user.username,
+                    isNewUser,
+                },
             })
         );
     } catch (error) {
@@ -53,4 +110,50 @@ export async function POST(request: Request) {
             { status: 500 }
         );
     }
+}
+
+/**
+ * Save a Tako knowledge card to the database
+ * @param apiKeyHash The hashed API key
+ * @param knowledgeCard The Tako knowledge card
+ * @param query The original search query
+ * @returns The saved card document
+ */
+async function saveCardToDatabase(
+    apiKeyHash: string,
+    knowledgeCard: TakoKnowledgeCard,
+    query: string
+) {
+    // Check if the card already exists
+    let card = await Card.findOne({ cardId: knowledgeCard.card_id });
+
+    if (card) {
+        // If the card exists but is associated with a different API key,
+        // we'll create a new card for this API key
+        if (card.apiKeyHash !== apiKeyHash) {
+            card = null;
+        } else {
+            // Card already exists for this API key, return it
+            return card;
+        }
+    }
+
+    // Create a new card
+    card = new Card({
+        apiKeyHash,
+        cardId: knowledgeCard.card_id,
+        title: knowledgeCard.title,
+        description: knowledgeCard.description,
+        webpageUrl: knowledgeCard.webpage_url,
+        imageUrl: knowledgeCard.image_url,
+        embedUrl: knowledgeCard.embed_url,
+        sources: knowledgeCard.sources,
+        methodologies: knowledgeCard.methodologies,
+        sourceIndexes: knowledgeCard.source_indexes,
+        query,
+        createdAt: new Date(),
+    });
+
+    await card.save();
+    return card;
 }
