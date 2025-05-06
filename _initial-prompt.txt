@@ -1,0 +1,370 @@
+I'd like to build the applet as a gallery of 'cards' from generated from queries to the Knowledge Search API of the company Tako. Tako is a company that automatically generates charts from semantic search queries.
+
+Can you construct a plan for the applet such that:
+- It accepts a Tako API key and a query string, which it uses to run a Tako Knowledge search
+- It then saves the resulting card to a hosted mongodb atlas database (I will save the atlas database credentials as the `MONGODB_URI` environment variable)
+- It hashes the Tako API key, stores that in the database, then associates a 'collection' of cards with each unique API key
+- Allows the user to choose a unique 'username' for the API Key/collection, which will be the URL endpoint for users to view all cards generated with that API Key
+- Allows a user to delete a card by entering the API key used to generate it.
+- It is all hosted on vercel
+
+Don't produce any code just yet. First let's create a design specification and implementation plan for this applet. Try to minimize complexity. Write the plan with an AI coding agent in mind.
+
+---
+
+For context, here is the API specification for the Tako Knowledge Search API:
+"""
+Knowledge Search
+Use natural language to search for Tako Data Visualizations.
+
+POST
+/
+v1
+/
+knowledge_search
+
+Try it
+​
+Notes
+This endpoint executes a Tako Visualization Search using a natural language query. Tako will parse the query and perform a collection and keyword search to assemble a visualization relevant to the query.
+If the query requests multiple series of data (i.e. “Tesla Stock Price vs Tesla Net Income”), Tako will adjust the chart so the data makes sense. This may necessitate using both a left and right y-axis to visualize data of far different dimensions/magnitudes, or using a percent change since start y-axis when there are many series.
+If you have additional questions, please contact us.
+
+Authorizations
+​
+Authorization
+stringheaderrequired
+Bearer authentication header of the form Bearer <token>, where <token> is your auth token.
+
+Body
+application/json
+​
+inputs
+object | nullrequired
+The inputs for the knowledge search request
+
+
+Show child attributes
+
+​
+source_indexes
+enum<string>[] | null
+The priority order of potential source indexes to search.Once relevant results are found in a source index, the search will stopand results from remaining source indexes will not be searched.Valid values are: tako, web
+
+Available options: tako, web 
+Response
+200 - application/json
+A list of knowledge search results
+​
+outputs
+object | null
+
+Hide child attributes
+
+​
+outputs.knowledge_cards
+object[] | null
+
+Hide child attributes
+
+​
+outputs.knowledge_cards.card_id
+string | nullrequired
+The unique ID of the knowledge card
+
+Examples:
+"jLmsqH4NfXFLqhWnZqhM"
+​
+outputs.knowledge_cards.title
+string | nullrequired
+The title of the knowledge card
+
+Examples:
+"Nvidia, Advanced Micro Devices - Full Time Employees"
+​
+outputs.knowledge_cards.description
+string | nullrequired
+The description of the knowledge card
+
+Examples:
+"This is a time series bar chart showing 2 series between 12:00AM UTC-04:00 on 04/01/2013 and 08:55PM UTC on 04/30/2025. Nvidia Full Time Employees latest value was at 12:00AM UTC on 12-31-2024, and had a final value of 36.0K Employees, or 308.72% growth since 12:00AM UTC on 12-31-2013, with a maximum value of 36.0K Employees at 12:00AM UTC on 12-31-2024 and a minimum value of 8.81K Employees at 12:00AM UTC on 12-31-2013; Advanced Micro Devices Full Time Employees latest value was at 12:00AM UTC on 12-31-2024, and had a final value of 28.0K Employees, or 162.39% growth since 12:00AM UTC on 12-31-2013, with a maximum value of 28.0K Employees at 12:00AM UTC on 12-31-2024 and a minimum value of 8.2K Employees at 12:00AM UTC on 12-31-2016. The source of the data is S&P Global. S&P Global is a US-based financial data and analytics company that provides products and services to the financial industry."
+​
+outputs.knowledge_cards.webpage_url
+string | nullrequired
+URL of a webpage hosting the interactive knowledge card
+
+Examples:
+"https://trytako.com/card/jLmsqH4NfXFLqhWnZqhM/"
+​
+outputs.knowledge_cards.image_url
+string | nullrequired
+URL of a static image of the knowledge card
+
+Examples:
+"https://trytako.com/api/v1/image/jLmsqH4NfXFLqhWnZqhM/"
+​
+outputs.knowledge_cards.embed_url
+string | nullrequired
+URL of an embeddable iframe of the knowledge card
+
+Examples:
+"https://trytako.com/embed/jLmsqH4NfXFLqhWnZqhM/"
+​
+outputs.knowledge_cards.sources
+object[] | nullrequired
+The sources of the knowledge card
+
+
+Hide child attributes
+
+​
+outputs.knowledge_cards.sources.source_name
+string | nullrequired
+The name of the source
+
+Examples:
+"S&P Global""The World Bank"
+​
+outputs.knowledge_cards.sources.source_description
+string | nullrequired
+The description of the source
+
+Examples:
+"S&P Global is a US-based financial data and analytics company that provides products and services to the financial industry.""The World Bank is an international financial institution that provides financial and technical assistance to developing countries to help them achieve sustainable economic growth and improve living conditions."
+​
+outputs.knowledge_cards.sources.source_index
+enum<string>required
+The index of the source
+
+Available options: tako, web 
+Examples:
+"tako""web"
+​
+outputs.knowledge_cards.sources.url
+string | nullrequired
+The URL of the source
+
+Examples:
+"https://xignite.com""https://stats.com"
+​
+outputs.knowledge_cards.methodologies
+object[] | nullrequired
+The methodologies of the knowledge card
+
+
+Hide child attributes
+
+​
+outputs.knowledge_cards.methodologies.methodology_name
+string | nullrequired
+The name of the methodology
+
+Examples:
+"Where the Data Comes From - S&P Global"
+​
+outputs.knowledge_cards.methodologies.methodology_description
+string | nullrequired
+The description of the methodology
+
+Examples:
+"The financial metrics are collected from S&P Global, where information is sourced from original regulatory filings, press releases, and subsequent restatements. Data points, including over 5,000 financial, supplemental, segment, ratio, and industry-specific items, are standardized across over 180,000 companies to ensure consistency and comparability across different reporting formats. This comprehensive and methodical process enables robust historical analysis and back-testing by seamlessly integrating diverse financial datasets while preserving the granularity of the original reports."
+​
+outputs.knowledge_cards.source_indexes
+enum<string>[] | nullrequired
+The source indexes of the knowledge card
+
+Available options: tako, web 
+​
+request_id
+string | null
+"""
+
+Here is an example instance of a query in JavaScript:
+```
+const options = {
+  method: 'POST',
+  headers: {Authorization: 'Bearer <token>', 'Content-Type': 'application/json'},
+  body: '{"inputs":{"text":"AMD vs. Nvidia headcount since 2013"},"source_indexes":["tako"]}'
+};
+
+fetch('https://trytako.com/api/v1/knowledge_search', options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
+```
+
+And here is an example query response:
+```
+{
+  "outputs": {
+    "knowledge_cards": [
+      {
+        "card_id": "jLmsqH4NfXFLqhWnZqhM",
+        "title": "Nvidia, Advanced Micro Devices - Full Time Employees",
+        "description": "This is a time series bar chart showing 2 series between 12:00AM UTC-04:00 on 04/01/2013 and 08:55PM UTC on 04/30/2025. Nvidia Full Time Employees latest value was at 12:00AM UTC on 12-31-2024, and had a final value of 36.0K Employees, or 308.72% growth since 12:00AM UTC on 12-31-2013, with a maximum value of 36.0K Employees at 12:00AM UTC on 12-31-2024 and a minimum value of 8.81K Employees at 12:00AM UTC on 12-31-2013; Advanced Micro Devices Full Time Employees latest value was at 12:00AM UTC on 12-31-2024, and had a final value of 28.0K Employees, or 162.39% growth since 12:00AM UTC on 12-31-2013, with a maximum value of 28.0K Employees at 12:00AM UTC on 12-31-2024 and a minimum value of 8.2K Employees at 12:00AM UTC on 12-31-2016. The source of the data is S&P Global. S&P Global is a US-based financial data and analytics company that provides products and services to the financial industry.",
+        "webpage_url": "https://trytako.com/card/jLmsqH4NfXFLqhWnZqhM/",
+        "image_url": "https://trytako.com/api/v1/image/jLmsqH4NfXFLqhWnZqhM/",
+        "embed_url": "https://trytako.com/embed/jLmsqH4NfXFLqhWnZqhM/",
+        "sources": [
+          {
+            "source_name": "S&P Global",
+            "source_description": "S&P Global is a US-based financial data and analytics company that provides products and services to the financial industry.",
+            "source_index": "tako",
+            "url": "https://xignite.com"
+          }
+        ],
+        "methodologies": [
+          {
+            "methodology_name": "Where the Data Comes From - S&P Global",
+            "methodology_description": "The financial metrics are collected from S&P Global, where information is sourced from original regulatory filings, press releases, and subsequent restatements. Data points, including over 5,000 financial, supplemental, segment, ratio, and industry-specific items, are standardized across over 180,000 companies to ensure consistency and comparability across different reporting formats. This comprehensive and methodical process enables robust historical analysis and back-testing by seamlessly integrating diverse financial datasets while preserving the granularity of the original reports."
+          }
+        ],
+        "source_indexes": [
+          "tako"
+        ]
+      }
+    ]
+  },
+  "request_id": "<string>"
+}
+```
+
+Tako also has documentation on how to embed cards. I will provide that as well.
+"""
+Tako Fundamentals
+Tako is a search engine for knowledge.
+
+Tako finds the data you’re looking for and transforms it into a interactive card.
+
+Querying Tako  How to query Tako
+Grounding Your Answers With Tako  How to ground answers with Tako’s
+Embedding Tako Cards  How to embed Tako answers
+Customizing Tako  How to customize Tako cards
+
+​
+Querying Tako
+Tako can handle natural language queries like “How has Nvidia performed over the last 10 years?” Or more direct queries like “Nvidia stock price last 10 years”
+
+
+Short Form Query
+
+Query: “Top Performing Stock Today”
+
+
+
+You can also give Tako longer form text (eg an article or essay) and it will find data related to the text.
+
+
+Long Form Query
+
+Query: “The military expenditures of Russia, Ukraine, and China have garnered significant attention in light of geopolitical tensions and ongoing conflicts. This essay examines the current state of military spending in these three countries, highlighting budgeting trends, strategic implications, and international ramifications. By analyzing the defense budgets for 2024 and their broader military objectives, we can gain a clearer understanding of regional security dynamics and the global military landscape.”
+
+
+
+Try it in our playground
+
+​
+Grounding Your Answers With Tako
+Tako includes the following information in each API response that can be used to ground answers.
+
+Data Description: A natural language description of the data and visual elements included in the card (including last data point)
+Sources: A list of sources, including a description of the source
+Methodology: Methodology information for data present in the card
+Static Image: A link to a static image of the card
+
+Example API Response With Grounding Information
+
+The following is an example response for a Weather Card from Tako:
+
+
+
+Copy
+{
+  "outputs": {
+    "knowledge_cards": [
+      {
+        "card_id": "mA-C6b48zxyU3G33JJdO",
+        "title": "San Francisco, CA Weather Metrics",
+        "description": "This card displays the weather forecast for San Francisco, CA for today, May 01, 2025, 08:00 PM. Currently, it's 52°F and feels like 52°F. The high for today is 54°F and the low is 50°F. The weather is expected to be partly cloudy. The card is focused on the Temperature tab, which shows the hourly Temperature forecast. The card also displays the weekly forecast for San Francisco, CA. On May 02, 2025, the weather is expected to be clear, with a high of 55°F and a low of 49°F. On May 03, 2025, the weather is expected to be clear, with a high of 53°F and a low of 48°F. On May 04, 2025, the weather is expected to be clear, with a high of 53°F and a low of 49°F. On May 05, 2025, the weather is expected to be clear, with a high of 55°F and a low of 50°F. On May 06, 2025, the weather is expected to be clear, with a high of 55°F and a low of 50°F. And finally on May 07, 2025, the weather is expected to be clear, with a high of 55°F and a low of 50°F. ",
+        "webpage_url": "https://trytako.com/card/mA-C6b48zxyU3G33JJdO/",
+        "image_url": "https://trytako.com/api/v1/get_image/mA-C6b48zxyU3G33JJdO/",
+        "embed_url": "https://trytako.com/embed/mA-C6b48zxyU3G33JJdO/",
+        "sources": [
+          {
+            "source_name": "NOAA National Weather Service",
+            "source_description": "The National Weather Service (NWS) is an agency of the United States federal government that is tasked with providing weather forecasts, warnings of hazardous weather, and other weather-related products to organizations and the public for the purposes of protection, safety, and general information. It is a part of the National Oceanic and Atmospheric Administration (NOAA) branch of the Department of Commerce, and is headquartered in Silver Spring, Maryland, within the Washington metropolitan area.",
+            "source_index": "tako"
+          }
+        ],
+        "methodologies": [
+          {
+            "methodology_name": "Data Collection",
+            "methodology_description": "This weather visualization utilizes raw meteorological data from the National Oceanic and Atmospheric Administration's (NOAA) National Weather Service (NWS). Hourly and daily forecast data were sourced directly from NWS APIs through their public-facing weather.gov data services. Temperature, precipitation probability, humidity, and wind measurements reflect NOAA's standard meteorological observations and predictive models, which incorporate ground station measurements, radar, satellite imagery, and numerical weather prediction models. The temperature graph displays a 24-hour forecast with readings taken at hourly intervals. All temperatures are displayed in Fahrenheit with Celsius conversion available. Moon phase calculations are derived from NOAA astronomical data. No statistical adjustments or data transformations were applied to the raw NWS datasets. This visualization was last updated on March 14, 2025, at 8:00 PM PDT to reflect the most current forecast information available from NOAA."
+          }
+        ],
+        "source_indexes": [
+          "tako"
+        ]
+      }
+    ]
+  },
+  "request_id": "f20f965b-6bbd-40df-b50b-a8861f34df24"
+}
+By consuming the grounding information in the Tako API response, you can ensure your content is always up to date and accurate!
+
+
+​
+Embedding Tako Cards
+Tako API responses contain one or more knowledge_cards that can be embedded in your application. Each knowledge_card entry includes:
+
+embed_url: An iframe URL for embedding the interactive card
+image_url: A link to a static image of the card
+Dynamic Sizing
+Tako Knowledge Cards vary in size. Some interactive elements will change the card’s dimensions. The iframe emits a resize event when the card is resized, allowing you to adjust the size in your application.
+
+
+Example Dynamic Resizing Script
+
+
+Copy
+<iframe 
+  width="100%" 
+  src="https://trytako.com/embed/mA-C6b48zxyU3G33JJdO/" 
+  scrolling="no" 
+  frameborder="0"
+></iframe>
+
+<script type="text/javascript">
+!function() {
+  "use strict";
+  window.addEventListener("message", function(e) {
+    const d = e.data;
+    if (d.type !== "tako::resize") return;
+    
+    for (let iframe of document.querySelectorAll("iframe")) {
+      if (iframe.contentWindow !== e.source) continue;
+      iframe.style.height = d.height + "px";
+    }
+  });
+}();
+</script>
+Static Images
+For cases where you need a static representation, you can use the image_url to download and embed a static image of the card in your application.
+"""
+
+---
+
+The goal for the gallery applet is to create a sort of stateless public archive of Tako queries. Anyone with a Tako API key can use the applet, but the applet itself has minimal authentication--essentially piggybacking off of Tako's own auth setup, and storing only the necessary credentials to use my mongodb atlas cluster and to associate cards with API keys to have separate collections. The database should also only store the json representations of the Tako cards, taking advantage of the fact that tako hosts the meat of the representation.
+
+Tako cards should be shown in a minized form and should expand when selected. Expanded Tako cards should furthermore have an option to show their associated grounding info. 
+
+The webapp should automatically generate a new collection page when an as-yet unused API key is used *successfully* to make a query, and should prompt the user of the API key to select a username, which will then be used as the URL endpoint for the user's collection page. 
+
+Please use this information to generate the design document and implementation plan for the applet. Keep in mind the primary aims of the webapp:
+- It accepts a Tako API key and a query string, which it uses to run a Tako Knowledge search
+- It then saves the resulting card to a hosted mongodb atlas database (I will save the atlas database credentials as the `MONGODB_URI` environment variable)
+- It hashes the Tako API key, stores that in the database, then associates a 'collection' of cards with each unique API key
+- Allows the user to choose a unique 'username' for the API Key/collection, which will be the URL endpoint for users to view all cards generated with that API Key
+- Allows a user to delete a card by entering the API key used to generate it.
+
+Let me know if you've got any questions as to how the implementation should be done. Write any specification and implementation documents with an AI coding agent in mind.
