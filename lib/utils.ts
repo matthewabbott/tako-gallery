@@ -1,4 +1,15 @@
 import { ApiResponse } from './types';
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+/**
+ * Merge class names with Tailwind CSS classes
+ * @param inputs Class names to merge
+ * @returns Merged class names
+ */
+export function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+}
 
 /**
  * Create a successful API response
