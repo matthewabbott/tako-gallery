@@ -1,5 +1,5 @@
 // components/ui/Button.tsx
-import { ButtonHTMLAttributes, forwardRef } from 'react';
+import { ButtonHTMLAttributes, forwardRef, ElementType } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
@@ -33,16 +33,19 @@ const buttonVariants = cva(
     }
 );
 
-export interface ButtonProps
+export interface ButtonProps<C extends ElementType = 'button'>
     extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
     isLoading?: boolean;
+    as?: C;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant, size, fullWidth, isLoading, children, ...props }, ref) => {
+    ({ className, variant, size, fullWidth, isLoading, children, as: Component = 'button', ...props }, ref) => {
+        const Comp = Component as any;
+
         return (
-            <button
+            <Comp
                 className={cn(buttonVariants({ variant, size, fullWidth, className }))}
                 ref={ref}
                 disabled={isLoading || props.disabled}
@@ -71,7 +74,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                     </svg>
                 )}
                 {children}
-            </button>
+            </Comp>
         );
     }
 );
