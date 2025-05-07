@@ -31,6 +31,12 @@ export function Header() {
                             Explore
                         </Link>
                         <Link
+                            href="/username"
+                            className="text-gray-700 hover:text-blue-600 transition-colors"
+                        >
+                            Update Username
+                        </Link>
+                        <Link
                             href="/about"
                             className="text-gray-700 hover:text-blue-600 transition-colors"
                         >
@@ -87,6 +93,13 @@ export function Header() {
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Explore
+                            </Link>
+                            <Link
+                                href="/username"
+                                className="text-gray-700 hover:text-blue-600 transition-colors py-2"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Update Username
                             </Link>
                             <Link
                                 href="/about"

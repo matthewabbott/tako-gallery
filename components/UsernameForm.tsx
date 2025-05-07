@@ -1,0 +1,134 @@
+'use client';
+
+import { useEffect } from 'react';
+import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { useUsername } from '@/hooks/useUsername';
+
+interface UsernameFormProps {
+    className?: string;
+    initialApiKey?: string;
+    onSuccess?: (username: string, collectionUrl: string) => void;
+}
+
+export function UsernameForm({ className, initialApiKey, onSuccess }: UsernameFormProps) {
+    const {
+        apiKey,
+        setApiKey,
+        username,
+        setUsername,
+        isAvailable,
+        availabilityError,
+        isLoading,
+        error,
+        isCheckingAvailability,
+        handleSubmit,
+    } = useUsername({ initialApiKey, onSuccess });
+
+    // Get API key from session storage if not provided
+    useEffect(() => {
+        if (!initialApiKey && typeof window !== 'undefined') {
+            const storedApiKey = sessionStorage.getItem('takoApiKey');
+            if (storedApiKey) {
+                setApiKey(storedApiKey);
+            }
+        }
+    }, [initialApiKey, setApiKey]);
+
+    return (
+        <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
+            <h2 className="text-2xl font-bold mb-6 text-center">Choose Your Username</h2>
+
+            <p className="mb-6 text-gray-600">
+                Choose a username for your collection. This will be used as the URL for your collection page.
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+                {!initialApiKey && (
+                    <div>
+                        <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 mb-1">
+                            Tako API Key
+                        </label>
+                        <Input
+                            id="apiKey"
+                            type="password"
+                            value={apiKey}
+                            onChange={(e) => setApiKey(e.target.value)}
+                            placeholder="Enter your Tako API key"
+                            fullWidth
+                            required
+                        />
+                    </div>
+                )}
+
+                <div>
+                    <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+                        Username
+                    </label>
+                    <div className="relative">
+                        <Input
+                            id="username"
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Choose a username"
+                            fullWidth
+                            required
+                            className={
+                                isAvailable === true ? 'border-green-500 pr-10' :
+                                    isAvailable === false ? 'border-red-500 pr-10' : ''
+                            }
+                        />
+                        {isCheckingAvailability && (
+                            <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                                <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
+                            </div>
+                        )}
+                        {!isCheckingAvailability && isAvailable === true && (
+                            <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                                <CheckCircle2 className="h-4 w-4 text-green-500" />
+                            </div>
+                        )}
+                        {!isCheckingAvailability && isAvailable === false && !availabilityError && (
+                            <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                                <AlertCircle className="h-4 w-4 text-red-500" />
+                            </div>
+                        )}
+                    </div>
+                    {availabilityError && (
+                        <p className="mt-1 text-sm text-red-600">{availabilityError}</p>
+                    )}
+                    {isAvailable === true && (
+                        <p className="mt-1 text-sm text-green-600">Username is available!</p>
+                    )}
+                    {isAvailable === false && !availabilityError && (
+                        <p className="mt-1 text-sm text-red-600">Username is already taken</p>
+                    )}
+                    <p className="mt-1 text-xs text-gray-500">
+                        Username must be 3-30 characters long and can only contain letters, numbers, underscores, and hyphens.
+                    </p>
+                </div>
+
+                <Button
+                    type="submit"
+                    isLoading={isLoading}
+                    disabled={!isAvailable || isLoading}
+                    fullWidth
+                >
+                    Create Collection
+                </Button>
+            </form>
+
+            {error && (
+                <div className="mt-6 p-4 bg-red-50 text-red-700 rounded-md flex items-start">
+                    <AlertCircle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5" />
+                    <div>
+                        <p className="font-medium">Error</p>
+                        <p className="text-sm">{error}</p>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
