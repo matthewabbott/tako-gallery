@@ -1,14 +1,17 @@
+import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 
 /**
  * Hash an API key for secure storage
+ * This uses a deterministic hashing approach to ensure the same API key
+ * always hashes to the same value
+ * 
  * @param apiKey The raw API key to hash
  * @returns A promise that resolves to the hashed API key
  */
 export async function hashApiKey(apiKey: string): Promise<string> {
-    // Use a salt rounds of 10 for a good balance of security and performance
-    const saltRounds = 10;
-    return bcrypt.hash(apiKey, saltRounds);
+    // Use SHA-256 for a deterministic hash
+    return crypto.createHash('sha256').update(apiKey).digest('hex');
 }
 
 /**
@@ -18,7 +21,8 @@ export async function hashApiKey(apiKey: string): Promise<string> {
  * @returns A promise that resolves to true if the API key matches the hash
  */
 export async function verifyApiKey(apiKey: string, storedHash: string): Promise<boolean> {
-    return bcrypt.compare(apiKey, storedHash);
+    const hashedApiKey = await hashApiKey(apiKey);
+    return hashedApiKey === storedHash;
 }
 
 /**
