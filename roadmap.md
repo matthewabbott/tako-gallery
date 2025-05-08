@@ -247,9 +247,9 @@ Below is a series of commits to take the Tako Gallery project from initial scaff
 
 **Files to create/modify:**
 
-- `app/[username]/page.tsx`
-- `app/[username]/loading.tsx`
-- `app/[username]/not-found.tsx`
+- `app/collections/[username]/page.tsx`
+- `app/collections/[username]/loading.tsx`
+- `app/collections/[username]/not-found.tsx`
 - `components/CollectionHeader.tsx`
 
 
@@ -268,9 +268,9 @@ Below is a series of commits to take the Tako Gallery project from initial scaff
 
 **Files to create/modify:**
 
-- `app/[username]/[cardId]/page.tsx`
-- `app/[username]/[cardId]/loading.tsx`
-- `app/[username]/[cardId]/not-found.tsx`
+- `app/collections/[username]/[cardId]/page.tsx`
+- `app/collections/[username]/[cardId]/loading.tsx`
+- `app/collections/[username]/[cardId]/not-found.tsx`
 - `components/GroundingInfo.tsx`
 
 
@@ -291,7 +291,7 @@ Below is a series of commits to take the Tako Gallery project from initial scaff
 
 - `components/DeleteCard.tsx`
 - `hooks/useDeleteCard.ts`
-- `app/[username]/[cardId]/page.tsx` (update)
+- `app/collections/[username]/[cardId]/page.tsx` (update)
 
 
 **Functions:**
@@ -311,7 +311,7 @@ Below is a series of commits to take the Tako Gallery project from initial scaff
 
 - `components/CollectionSearch.tsx`
 - `hooks/useCollectionSearch.ts`
-- `app/[username]/page.tsx` (update)
+- `app/collections/[username]/page.tsx` (update)
 
 
 **Functions:**

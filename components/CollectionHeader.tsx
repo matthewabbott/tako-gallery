@@ -1,0 +1,46 @@
+'use client';
+
+import { Share2, Calendar, Grid } from 'lucide-react';
+import { Button } from './ui/Button';
+import { formatDate } from '@/lib/utils';
+
+interface CollectionHeaderProps {
+    username: string;
+    createdAt: string;
+    cardCount: number;
+}
+
+export function CollectionHeader({ username, createdAt, cardCount }: CollectionHeaderProps) {
+    const shareCollection = () => {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url);
+        // Could add a toast notification here
+        alert('Collection URL copied to clipboard!');
+    };
+
+    return (
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">{username}&apos;s Collection</h1>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-gray-600">
+                        <div className="flex items-center">
+                            <Calendar className="h-4 w-4 mr-2" />
+                            <span>Created {formatDate(createdAt)}</span>
+                        </div>
+                        <div className="flex items-center">
+                            <Grid className="h-4 w-4 mr-2" />
+                            <span>{cardCount} {cardCount === 1 ? 'card' : 'cards'}</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-4 md:mt-0">
+                    <Button onClick={shareCollection} variant="outline" className="flex items-center">
+                        <Share2 className="h-4 w-4 mr-2" />
+                        Share Collection
+                    </Button>
+                </div>
+            </div>
+        </div>
+    );
+}

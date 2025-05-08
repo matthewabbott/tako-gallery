@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { env } from './env';
+import { env } from '@/lib/env';
 
 const MONGODB_URI = env.MONGODB_URI;
 
@@ -9,9 +9,10 @@ const MONGODB_URI = env.MONGODB_URI;
  * during API Route usage.
  */
 declare global {
+    // eslint-disable-next-line no-var
     var mongoose: {
-        conn: typeof mongoose | null;
-        promise: Promise<typeof mongoose> | null;
+        conn: mongoose.Mongoose | null;
+        promise: Promise<mongoose.Mongoose> | null;
     };
 }
 
@@ -21,11 +22,10 @@ if (!global.mongoose) {
 
 /**
  * Connect to MongoDB
- * @returns Mongoose instance
  */
-export async function connectToDatabase(): Promise<typeof mongoose> {
+export async function connectToDatabase(): Promise<void> {
     if (global.mongoose.conn) {
-        return global.mongoose.conn;
+        return;
     }
 
     if (!global.mongoose.promise) {
@@ -33,9 +33,7 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
             bufferCommands: false,
         };
 
-        global.mongoose.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-            return mongoose;
-        });
+        global.mongoose.promise = mongoose.connect(MONGODB_URI, opts);
     }
 
     try {
@@ -44,8 +42,6 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
         global.mongoose.promise = null;
         throw e;
     }
-
-    return global.mongoose.conn;
 }
 
 /**
@@ -54,7 +50,7 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
  */
 export async function disconnectFromDatabase(): Promise<void> {
     if (global.mongoose.conn) {
-        await global.mongoose.conn.disconnect();
+        await mongoose.disconnect();
         global.mongoose.conn = null;
         global.mongoose.promise = null;
     }
