@@ -1,23 +1,34 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { CardItem } from '@/components/CardItem';
 import { CardDetail } from '@/components/CardDetail';
 import { Button } from './ui/Button';
-import { Input } from './ui/Input';
 import { Card, useCards } from '@/hooks/useCards';
+import { CollectionSearch } from '@/components/CollectionSearch';
+import { useCollectionSearch, SortField, SortOrder } from '@/hooks/useCollectionSearch';
 
 interface CardGridProps {
     username: string;
     initialPage?: number;
     limit?: number;
     initialSearch?: string;
+    initialSortField?: SortField;
+    initialSortOrder?: SortOrder;
 }
 
-export function CardGrid({ username, initialPage = 1, limit = 12, initialSearch = '' }: CardGridProps) {
-    const [searchInput, setSearchInput] = useState(initialSearch);
+export function CardGrid({
+    username,
+    initialPage = 1,
+    limit = 12,
+    initialSearch = '',
+    initialSortField = 'createdAt',
+    initialSortOrder = 'desc'
+}: CardGridProps) {
     const [selectedCard, setSelectedCard] = useState<Card | null>(null);
+    const [sortField, setSortField] = useState<SortField>(initialSortField);
+    const [sortOrder, setSortOrder] = useState<SortOrder>(initialSortOrder);
 
     const {
         cards,
@@ -27,6 +38,7 @@ export function CardGrid({ username, initialPage = 1, limit = 12, initialSearch 
         error,
         handleSearch,
         handlePageChange,
+        searchQuery,
     } = useCards({
         username,
         initialPage,
@@ -34,10 +46,22 @@ export function CardGrid({ username, initialPage = 1, limit = 12, initialSearch 
         search: initialSearch,
     });
 
-    const handleSearchSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        handleSearch(searchInput);
-    };
+    // Use client-side filtering and sorting
+    const {
+        filteredCards,
+        searchQuery: clientSearchQuery,
+        sortField: clientSortField,
+        sortOrder: clientSortOrder,
+        setSearchQuery: setClientSearchQuery,
+        setSortField: setClientSortField,
+        setSortOrder: setClientSortOrder,
+        resetFilters,
+    } = useCollectionSearch({
+        cards,
+        initialSearch: searchQuery,
+        initialSortField: sortField,
+        initialSortOrder: sortOrder,
+    });
 
     return (
         <div className="space-y-8">
@@ -51,22 +75,22 @@ export function CardGrid({ username, initialPage = 1, limit = 12, initialSearch 
                 </div>
             )}
 
-            {/* Search Bar */}
-            <div className="mb-6">
-                <form onSubmit={handleSearchSubmit} className="flex gap-2">
-                    <Input
-                        type="text"
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
-                        placeholder="Search cards..."
-                        fullWidth
-                    />
-                    <Button type="submit" variant="default">
-                        <Search className="h-4 w-4 mr-2" />
-                        Search
-                    </Button>
-                </form>
-            </div>
+            {/* Collection Search */}
+            <CollectionSearch
+                searchQuery={clientSearchQuery}
+                sortField={clientSortField}
+                sortOrder={clientSortOrder}
+                onSearchChange={(query) => {
+                    setClientSearchQuery(query);
+                    handleSearch(query);
+                }}
+                onSortFieldChange={setClientSortField}
+                onSortOrderChange={setClientSortOrder}
+                onReset={() => {
+                    resetFilters();
+                    handleSearch('');
+                }}
+            />
 
             {/* Error Message */}
             {error && (
@@ -89,14 +113,14 @@ export function CardGrid({ username, initialPage = 1, limit = 12, initialSearch 
                 <div className="text-center py-12 bg-gray-50 rounded-lg">
                     <h3 className="text-xl font-semibold text-gray-700 mb-2">No cards found</h3>
                     <p className="text-gray-600 mb-4">
-                        {initialSearch
-                            ? `No results found for "${initialSearch}"`
+                        {clientSearchQuery
+                            ? `No results found for "${clientSearchQuery}"`
                             : "This collection doesn't have any cards yet."}
                     </p>
-                    {initialSearch && (
+                    {clientSearchQuery && (
                         <Button
                             onClick={() => {
-                                setSearchInput('');
+                                setClientSearchQuery('');
                                 handleSearch('');
                             }}
                             variant="outline"
@@ -110,7 +134,7 @@ export function CardGrid({ username, initialPage = 1, limit = 12, initialSearch 
             {/* Card Grid */}
             {!loading && cards.length > 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {cards.map((card) => (
+                    {filteredCards.map((card) => (
                         <CardItem
                             key={card.id}
                             card={card}
