@@ -1,375 +1,153 @@
-### Tako Gallery - Design Specification and Implementation Plan
+# Tako Gallery
 
-## Overview
+![Tako Gallery](https://trytako.com/images/tako-logo.png)
 
-The Tako Gallery is a web application that allows users to generate data visualization cards using the Tako Knowledge Search API, save them to a collection, and share these collections publicly. Each collection is associated with a unique Tako API key and a user-chosen username that serves as the URL endpoint for viewing the collection.
+Tako Gallery is a web application that allows users to generate data visualization cards using the Tako Knowledge Search API, save them to a collection, and share these collections publicly. Collections are associated with the Tako API key used to generate the data visualizations within. When a user creates a collection, they get to choose a username, which also serves as the URL endpoint for viewing the collection.
 
-## System Architecture
+## Features
 
-```mermaid
-Tako Gallery Architecture.download-icon {
-            cursor: pointer;
-            transform-origin: center;
-        }
-        .download-icon .arrow-part {
-            transition: transform 0.35s cubic-bezier(0.35, 0.2, 0.14, 0.95);
-             transform-origin: center;
-        }
-        button:has(.download-icon):hover .download-icon .arrow-part, button:has(.download-icon):focus-visible .download-icon .arrow-part {
-          transform: translateY(-1.5px);
-        }
-        #mermaid-diagram-r557n{font-family:var(--font-geist-sans);font-size:12px;fill:#000000;}#mermaid-diagram-r557n .error-icon{fill:#552222;}#mermaid-diagram-r557n .error-text{fill:#552222;stroke:#552222;}#mermaid-diagram-r557n .edge-thickness-normal{stroke-width:1px;}#mermaid-diagram-r557n .edge-thickness-thick{stroke-width:3.5px;}#mermaid-diagram-r557n .edge-pattern-solid{stroke-dasharray:0;}#mermaid-diagram-r557n .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-diagram-r557n .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-diagram-r557n .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-diagram-r557n .marker{fill:#666;stroke:#666;}#mermaid-diagram-r557n .marker.cross{stroke:#666;}#mermaid-diagram-r557n svg{font-family:var(--font-geist-sans);font-size:12px;}#mermaid-diagram-r557n p{margin:0;}#mermaid-diagram-r557n .label{font-family:var(--font-geist-sans);color:#000000;}#mermaid-diagram-r557n .cluster-label text{fill:#333;}#mermaid-diagram-r557n .cluster-label span{color:#333;}#mermaid-diagram-r557n .cluster-label span p{background-color:transparent;}#mermaid-diagram-r557n .label text,#mermaid-diagram-r557n span{fill:#000000;color:#000000;}#mermaid-diagram-r557n .node rect,#mermaid-diagram-r557n .node circle,#mermaid-diagram-r557n .node ellipse,#mermaid-diagram-r557n .node polygon,#mermaid-diagram-r557n .node path{fill:#eee;stroke:#999;stroke-width:1px;}#mermaid-diagram-r557n .rough-node .label text,#mermaid-diagram-r557n .node .label text{text-anchor:middle;}#mermaid-diagram-r557n .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-diagram-r557n .node .label{text-align:center;}#mermaid-diagram-r557n .node.clickable{cursor:pointer;}#mermaid-diagram-r557n .arrowheadPath{fill:#333333;}#mermaid-diagram-r557n .edgePath .path{stroke:#666;stroke-width:2.0px;}#mermaid-diagram-r557n .flowchart-link{stroke:#666;fill:none;}#mermaid-diagram-r557n .edgeLabel{background-color:white;text-align:center;}#mermaid-diagram-r557n .edgeLabel p{background-color:white;}#mermaid-diagram-r557n .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}#mermaid-diagram-r557n .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-diagram-r557n .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}#mermaid-diagram-r557n .cluster text{fill:#333;}#mermaid-diagram-r557n .cluster span{color:#333;}#mermaid-diagram-r557n div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:var(--font-geist-sans);font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-diagram-r557n .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}#mermaid-diagram-r557n .flowchart-link{stroke:hsl(var(--gray-400));stroke-width:1px;}#mermaid-diagram-r557n .marker,#mermaid-diagram-r557n marker,#mermaid-diagram-r557n marker *{fill:hsl(var(--gray-400))!important;stroke:hsl(var(--gray-400))!important;}#mermaid-diagram-r557n .label,#mermaid-diagram-r557n text,#mermaid-diagram-r557n text>tspan{fill:hsl(var(--black))!important;color:hsl(var(--black))!important;}#mermaid-diagram-r557n .background,#mermaid-diagram-r557n rect.relationshipLabelBox{fill:hsl(var(--white))!important;}#mermaid-diagram-r557n .entityBox,#mermaid-diagram-r557n .attributeBoxEven{fill:hsl(var(--gray-150))!important;}#mermaid-diagram-r557n .attributeBoxOdd{fill:hsl(var(--white))!important;}#mermaid-diagram-r557n .label-container,#mermaid-diagram-r557n rect.actor{fill:hsl(var(--white))!important;stroke:hsl(var(--gray-400))!important;}#mermaid-diagram-r557n line{stroke:hsl(var(--gray-400))!important;}#mermaid-diagram-r557n :root{--mermaid-font-family:var(--font-geist-sans);}Client BrowserNext.js FrontendAPI RoutesTako APIMongoDB AtlasPublic Collection View
-```
+- **Data Visualization Generation**: Create data visualizations using natural language queries through the Tako Knowledge Search API
+- **Collection Management**: Save visualizations to your personal collection with your Tako API key
+- **Custom Usernames**: Choose a unique username for your collection URL
+- **Card Management**: View, search, and delete cards in your collection
+- **Responsive Design**: Fully responsive interface that works on desktop and (should) work on mobile devices as well
 
-## Data Model
+## Getting Started
 
-### MongoDB Collections
+### Prerequisites
 
-1. **Users Collection**
+- Node.js 18.x or later
+- npm or yarn
+- MongoDB database (local or Atlas)
+- Tako API key (get one at [trytako.com](https://trytako.com))
 
-```json
-{
-  "_id": "ObjectId",
-  "apiKeyHash": "String (hashed API key)",
-  "username": "String (unique)",
-  "createdAt": "Date"
-}
-```
+### Installation
 
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/matthewabbott/tako-gallery.git
+   cd tako-gallery
+   ```
 
-2. **Cards Collection**
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-```json
-{
-  "_id": "ObjectId",
-  "apiKeyHash": "String (reference to Users collection)",
-  "cardId": "String (Tako card ID)",
-  "title": "String",
-  "description": "String",
-  "webpageUrl": "String",
-  "imageUrl": "String",
-  "embedUrl": "String",
-  "sources": "Array",
-  "methodologies": "Array",
-  "sourceIndexes": "Array",
-  "query": "String (original query text)",
-  "createdAt": "Date"
-}
-```
+3. Create a `.env.local` file in the root directory with the following variables:
+   ```
+   MONGODB_URI=your_mongodb_connection_string
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   ```
 
+4. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
+## Usage
 
-## Core Functionality
+### Generating a Visualization
 
-### 1. API Key Management
+1. On the home page, enter your Tako API key and a natural language query
+2. Click "Generate Visualization" to create a data visualization
+3. The visualization will be saved to your collection automatically
 
-- Hash API keys before storing in the database
-- Associate collections with hashed API keys
-- Verify API keys when making requests to Tako API
+### Managing Your Collection
 
+1. After generating your first visualization, you'll be prompted to choose a username for your collection
+2. Once set, your collection will be available at `/collections/your-username`
+3. You can view, search, and delete cards in your collection
+4. Share your collection URL with others to showcase your visualizations
 
-### 2. Query Processing
+### Updating Your Username
 
-- Accept user queries and API keys
-- Forward queries to Tako Knowledge Search API
-- Process and store responses in MongoDB
+1. Navigate to the "Update Username" page
+2. Enter your Tako API key and desired username
+3. Click "Update Username" to change your collection URL
 
+## Configuration
 
-### 3. Collection Management
+### Environment Variables
 
-- Create new collections for first-time API key users
-- Allow users to choose unique usernames for collections
-- Generate public URLs for collections based on usernames
+- `MONGODB_URI`: MongoDB connection string
+- `NEXT_PUBLIC_APP_URL`: Public URL of the application (used for generating collection links)
 
+## API Documentation
 
-### 4. Card Management
+Tako Gallery provides several API endpoints for interacting with the application (if you felt like engaging with the applet *not* through the webpage proper):
 
-- Display cards in a minimized/gallery view
-- Provide expanded view with full details
-- Allow deletion of cards with API key verification
+### `/api/search`
 
+- **Method**: POST
+- **Purpose**: Submit a query to Tako API
+- **Inputs**: API key, query string
+- **Returns**: Tako card data, collection info
 
-## User Interface Components
+### `/api/username`
 
-1. **Search Interface**
+- **Method**: POST
+- **Purpose**: Set/update username for an API key
+- **Inputs**: API key, desired username
+- **Returns**: Success/failure, collection URL
 
-1. API key input field
-2. Query input field
-3. Submit button
+### `/api/cards`
 
+- **Method**: GET
+- **Purpose**: Retrieve cards for a collection
+- **Inputs**: Username (from URL)
+- **Returns**: Array of cards
 
+### `/api/cards/:id`
 
-2. **Username Selection**
+- **Method**: DELETE
+- **Purpose**: Delete a specific card
+- **Inputs**: Card ID, API key
+- **Returns**: Success/failure
 
-1. Username input field
-2. Availability check
-3. Confirmation button
+### `/api/collections`
 
+- **Method**: GET
+- **Purpose**: Retrieve a list of public collections
+- **Returns**: Array of collections with metadata
 
+## Technologies
 
-3. **Gallery View**
+- **Frontend**:
+  - Next.js 14+ (App Router)
+  - React
+  - TypeScript
+  - Tailwind CSS
 
-1. Grid of minimized cards
-2. Pagination controls
-3. Filter/sort options
+- **Backend**:
+  - Next.js API Routes
+  - MongoDB with Mongoose
+  - bcrypt for API key hashing
 
+- **APIs**:
+  - Tako Knowledge Search API
 
+- **Deployment**:
+  - Vercel
 
-4. **Card Detail View**
-
-1. Expanded card with Tako visualization
-2. Toggle for grounding information
-3. Delete option (requires API key)
-
-
-
-5. **Collection Management**
-
-1. Collection URL display
-2. Copy link button
-
-
-
-
-
-## API Endpoints
-
-1. **`/api/search`**
-
-1. Method: POST
-2. Purpose: Submit a query to Tako API
-3. Inputs: API key, query string
-4. Returns: Tako card data, collection info
-
-
-
-2. **`/api/username`**
-
-1. Method: POST
-2. Purpose: Set/update username for an API key
-3. Inputs: API key, desired username
-4. Returns: Success/failure, collection URL
-
-
-
-3. **`/api/cards`**
-
-1. Method: GET
-2. Purpose: Retrieve cards for a collection
-3. Inputs: Username (from URL)
-4. Returns: Array of cards
-
-
-
-4. **`/api/cards/:id`**
-
-1. Method: DELETE
-2. Purpose: Delete a specific card
-3. Inputs: Card ID, API key
-4. Returns: Success/failure
-
-
-
-
-
-## Pages
-
-1. **Home Page (`/`)**
-
-1. Search interface
-2. Brief explanation of the service
-3. Examples of collections
-
-
-
-2. **Collection Page (`/:username`)**
-
-1. Gallery view of all cards for a username
-2. Collection information
-3. Search within collection
-
-
-
-3. **Card Detail Page (`/:username/:cardId`)**
-
-1. Expanded view of a specific card
-2. Grounding information
-3. Related cards
-
-
-
-
-
-## Implementation Plan (IN PROGRESS)
-
-### Phase 1: Setup and Basic Infrastructure
-
-1. **Project Initialization**
-
-1. Create Next.js project
-2. Set up MongoDB connection
-3. Configure Vercel deployment
-
-
-
-2. **Database Setup**
-
-1. Create MongoDB collections
-2. Set up indexes for efficient queries
-3. Implement database connection utilities
-
-
-
-3. **API Integration**
-
-1. Create Tako API client
-2. Implement API key hashing functionality
-3. Test API connectivity
-
-
-
-
-
-### Phase 2: Core Functionality
-
-1. **Search Implementation**
-
-1. Create search form component
-2. Implement API endpoint for Tako queries
-3. Store search results in database
-
-### COMPLETE UP TO HERE
-
-2. **User Management**
-
-1. Implement username selection flow
-2. Create API endpoint for username management
-3. Associate API keys with usernames
-
-
-
-3. **Card Storage**
-
-1. Implement card saving functionality
-2. Create card retrieval endpoints
-3. Implement card deletion with API key verification
-
-
-
-
-
-### Phase 3: UI Development
-
-1. **Gallery View**
-
-1. Create responsive card grid
-2. Implement minimized card component
-3. Add pagination and filtering
-
-
-
-2. **Card Detail View**
-
-1. Create expandable card component
-2. Implement iframe embedding for Tako cards
-3. Add grounding information toggle
-
-
-
-3. **Collection Management**
-
-1. Create collection page
-2. Implement shareable URLs
-3. Add collection metadata display
-
-
-
-
-
-### Phase 4: Refinement and Deployment
-
-1. **Error Handling**
-
-1. Implement comprehensive error handling
-2. Add user-friendly error messages
-3. Create fallbacks for API failures
-
-
-
-2. **Performance Optimization**
-
-1. Implement caching strategies
-2. Optimize database queries
-3. Add loading states
-
-
-
-3. **Deployment**
-
-1. Configure Vercel environment variables
-2. Set up MongoDB Atlas connection
-3. Deploy and test the application
-
-
-
-
+- **Development**:
+  - Vibe coded with Vercel v0 and Claude Sonnet 3.7
 
 ## Security Considerations
 
-1. **API Key Protection**
+- API keys SHA256 hashed before storing in the database
+- User inputs are validated and sanitized
+- Error handling to avoid exposing sensitive information
+## Acknowledgments
 
-1. Never store raw API keys
-2. Use secure hashing algorithm (bcrypt)
-3. Implement rate limiting for API endpoints
-
-
-
-2. **Data Validation**
-
-1. Validate all user inputs
-2. Sanitize data before storage
-3. Implement request size limits
-
-
-
-3. **Error Handling**
-
-1. Avoid exposing sensitive information in errors
-2. Log errors securely
-3. Implement graceful failure modes
-
-
-
-
-
-## Technical Stack
-
-1. **Frontend**
-
-1. Next.js (App Router)
-2. React
-3. Tailwind CSS for styling
-
-
-
-2. **Backend**
-
-1. Next.js API Routes
-2. MongoDB Atlas for database
-3. Mongoose for ODM
-
-
-
-3. **Infrastructure**
-
-1. Vercel for hosting
-2. MongoDB Atlas for database hosting
-
-
-
-4. **Utilities**
-
-1. bcrypt for API key hashing
-2. axios for API requests
-3. react-query for data fetching
+- [Tako](https://trytako.com) for providing the Knowledge Search API
+- [Next.js](https://nextjs.org) for the React framework
+- [Tailwind CSS](https://tailwindcss.com) for the styling
+- [MongoDB](https://mongodb.com) for the database
+- [Vercel](https://vercel.com) for hosting

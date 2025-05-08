@@ -96,7 +96,7 @@ export function Header() {
                             <Search size={20} />
                         </Link>
                         <Link
-                            href="https://github.com/yourusername/tako-gallery"
+                            href="https://github.com/matthewabbott/tako-gallery"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="p-2 text-gray-700 hover:text-blue-600 transition-colors"
@@ -124,8 +124,8 @@ export function Header() {
             {/* Mobile Menu - Slide down animation */}
             <div
                 className={`md:hidden bg-white border-b shadow-sm overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen
-                        ? 'max-h-[400px] opacity-100'
-                        : 'max-h-0 opacity-0'
+                    ? 'max-h-[400px] opacity-100'
+                    : 'max-h-0 opacity-0'
                     }`}
             >
                 <div className="container-responsive py-4">
@@ -171,7 +171,7 @@ export function Header() {
                             <span>Search</span>
                         </Link>
                         <Link
-                            href="https://github.com/yourusername/tako-gallery"
+                            href="https://github.com/matthewabbott/tako-gallery"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors py-3 px-2 rounded-md"
