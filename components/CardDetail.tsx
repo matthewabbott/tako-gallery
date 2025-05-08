@@ -80,6 +80,24 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
                             <Calendar className="h-4 w-4 mr-1" />
                             <span>{new Date(card.createdAt).toLocaleDateString()}</span>
                         </div>
+                        {card.sources && (
+                            <div className="flex items-center">
+                                <span className="font-medium">{card.sources.length}</span>
+                                <span className="ml-1">sources</span>
+                            </div>
+                        )}
+                        {card.methodologies && (
+                            <div className="flex items-center">
+                                <span className="font-medium">{card.methodologies.length}</span>
+                                <span className="ml-1">methodologies</span>
+                            </div>
+                        )}
+                        {card.sourceIndexes && card.sourceIndexes.length > 0 && (
+                            <div className="flex items-center">
+                                <span className="font-medium">Indexes:</span>
+                                <span className="ml-1">{card.sourceIndexes.join(', ')}</span>
+                            </div>
+                        )}
                     </div>
 
                     {/* Card Iframe */}

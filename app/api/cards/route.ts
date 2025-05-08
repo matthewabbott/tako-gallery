@@ -24,6 +24,11 @@ export async function GET(request: Request) {
         const sortBy = searchParams.get('sortBy') || 'createdAt';
         const sortOrder = searchParams.get('sortOrder') || 'desc';
 
+        // Tako-specific filters
+        const sourceFilter = searchParams.get('sourceFilter') || '';
+        const sourceIndexFilter = searchParams.get('sourceIndexFilter') || '';
+        const methodologyFilter = searchParams.get('methodologyFilter') || '';
+
         // Validate username
         if (!username) {
             return NextResponse.json(
@@ -57,24 +62,56 @@ export async function GET(request: Request) {
             ];
         }
 
+        // Add Tako-specific filters
+        if (sourceFilter) {
+            query['sources.source_name'] = { $regex: sourceFilter, $options: 'i' };
+        }
+
+        if (sourceIndexFilter) {
+            query['sources.source_index'] = sourceIndexFilter;
+        }
+
+        if (methodologyFilter) {
+            query['methodologies.methodology_name'] = { $regex: methodologyFilter, $options: 'i' };
+        }
+
         // Calculate pagination
         const skip = (page - 1) * limit;
 
         // Determine sort direction
         const sortDirection = sortOrder === 'asc' ? 1 : -1;
 
-        // Build sort object
-        const sort: any = {};
-        sort[sortBy] = sortDirection;
-
         // Get total count of cards matching the query
         const totalCards = await Card.countDocuments(query);
 
-        // Get cards with pagination and sorting
-        const cards = await Card.find(query)
-            .sort(sort)
-            .skip(skip)
-            .limit(limit);
+        // Handle special sorting cases
+        let cards;
+        if (sortBy === 'sourcesCount' || sortBy === 'methodologiesCount') {
+            // Use aggregation for array length sorting
+            const arrayField = sortBy === 'sourcesCount' ? 'sources' : 'methodologies';
+
+            cards = await Card.aggregate([
+                { $match: query },
+                {
+                    $addFields: {
+                        arrayLength: { $size: { $ifNull: [`$${arrayField}`, []] } }
+                    }
+                },
+                { $sort: { arrayLength: sortDirection } },
+                { $skip: skip },
+                { $limit: limit }
+            ]);
+        } else {
+            // Build sort object for regular sorting
+            const sort: any = {};
+            sort[sortBy] = sortDirection;
+
+            // Get cards with pagination and regular sorting
+            cards = await Card.find(query)
+                .sort(sort)
+                .skip(skip)
+                .limit(limit);
+        }
 
         // Calculate total pages
         const totalPages = Math.ceil(totalCards / limit);
@@ -88,6 +125,9 @@ export async function GET(request: Request) {
             webpageUrl: card.webpageUrl,
             imageUrl: card.imageUrl,
             embedUrl: card.embedUrl,
+            sources: card.sources,
+            methodologies: card.methodologies,
+            sourceIndexes: card.sourceIndexes,
             query: card.query,
             createdAt: card.createdAt,
         }));

@@ -52,9 +52,25 @@ export function CardItem({ card, username, onClick }: CardItemProps) {
                         <span className="line-clamp-1">{card.query}</span>
                     </div>
 
-                    <div className="flex items-center text-xs text-gray-500">
-                        <Calendar className="h-3 w-3 mr-1" />
-                        <span>{new Date(card.createdAt).toLocaleDateString()}</span>
+                    <div className="flex items-center gap-3 text-xs text-gray-500">
+                        <div className="flex items-center">
+                            <Calendar className="h-3 w-3 mr-1" />
+                            <span>{new Date(card.createdAt).toLocaleDateString()}</span>
+                        </div>
+
+                        {card.sources && card.sources.length > 0 && (
+                            <div className="flex items-center">
+                                <span className="font-medium">{card.sources.length}</span>
+                                <span className="ml-1">sources</span>
+                            </div>
+                        )}
+
+                        {card.methodologies && card.methodologies.length > 0 && (
+                            <div className="flex items-center">
+                                <span className="font-medium">{card.methodologies.length}</span>
+                                <span className="ml-1">methodologies</span>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

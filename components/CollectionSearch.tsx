@@ -10,9 +10,15 @@ interface CollectionSearchProps {
     searchQuery: string;
     sortField: SortField;
     sortOrder: SortOrder;
+    sourceFilter?: string;
+    sourceIndexFilter?: string;
+    methodologyFilter?: string;
     onSearchChange: (query: string) => void;
     onSortFieldChange: (field: SortField) => void;
     onSortOrderChange: (order: SortOrder) => void;
+    onSourceFilterChange?: (filter: string) => void;
+    onSourceIndexFilterChange?: (filter: string) => void;
+    onMethodologyFilterChange?: (filter: string) => void;
     onReset: () => void;
 }
 
@@ -20,18 +26,40 @@ export function CollectionSearch({
     searchQuery,
     sortField,
     sortOrder,
+    sourceFilter = '',
+    sourceIndexFilter = '',
+    methodologyFilter = '',
     onSearchChange,
     onSortFieldChange,
     onSortOrderChange,
+    onSourceFilterChange,
+    onSourceIndexFilterChange,
+    onMethodologyFilterChange,
     onReset,
 }: CollectionSearchProps) {
     const [inputValue, setInputValue] = useState(searchQuery);
+    const [sourceFilterValue, setSourceFilterValue] = useState(sourceFilter);
+    const [sourceIndexFilterValue, setSourceIndexFilterValue] = useState(sourceIndexFilter);
+    const [methodologyFilterValue, setMethodologyFilterValue] = useState(methodologyFilter);
     const [showSortOptions, setShowSortOptions] = useState(false);
+    const [showTakoFilters, setShowTakoFilters] = useState(false);
 
-    // Update input value when searchQuery prop changes
+    // Update input values when props change
     useEffect(() => {
         setInputValue(searchQuery);
     }, [searchQuery]);
+
+    useEffect(() => {
+        setSourceFilterValue(sourceFilter);
+    }, [sourceFilter]);
+
+    useEffect(() => {
+        setSourceIndexFilterValue(sourceIndexFilter);
+    }, [sourceIndexFilter]);
+
+    useEffect(() => {
+        setMethodologyFilterValue(methodologyFilter);
+    }, [methodologyFilter]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -85,6 +113,16 @@ export function CollectionSearch({
                         Sort
                     </Button>
 
+                    <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setShowTakoFilters(!showTakoFilters)}
+                        className={showTakoFilters ? 'bg-blue-50 border-blue-300' : ''}
+                    >
+                        <Filter className="h-4 w-4 mr-2" />
+                        Tako Filters
+                    </Button>
+
                     {searchQuery && (
                         <Button type="button" variant="outline" onClick={onReset}>
                             Reset
@@ -124,6 +162,22 @@ export function CollectionSearch({
                                 >
                                     Query
                                 </Button>
+                                <Button
+                                    type="button"
+                                    variant={sortField === 'sourcesCount' ? 'default' : 'outline'}
+                                    size="sm"
+                                    onClick={() => onSortFieldChange('sourcesCount')}
+                                >
+                                    Sources Count
+                                </Button>
+                                <Button
+                                    type="button"
+                                    variant={sortField === 'methodologiesCount' ? 'default' : 'outline'}
+                                    size="sm"
+                                    onClick={() => onSortFieldChange('methodologiesCount')}
+                                >
+                                    Methodologies Count
+                                </Button>
                             </div>
                         </div>
 
@@ -148,6 +202,76 @@ export function CollectionSearch({
                                     </>
                                 )}
                             </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Tako-specific Filters */}
+            {showTakoFilters && (
+                <div className="mt-4 p-3 bg-blue-50 rounded-md border border-blue-200">
+                    <h3 className="text-sm font-semibold text-blue-800 mb-3">Tako API Filters</h3>
+
+                    <div className="space-y-4">
+                        {/* Source Filter */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Source Name
+                            </label>
+                            <div className="flex gap-2">
+                                <Input
+                                    type="text"
+                                    value={sourceFilterValue}
+                                    onChange={(e) => {
+                                        setSourceFilterValue(e.target.value);
+                                        if (onSourceFilterChange) {
+                                            onSourceFilterChange(e.target.value);
+                                        }
+                                    }}
+                                    placeholder="Filter by source name..."
+                                    fullWidth
+                                />
+                            </div>
+                        </div>
+
+                        {/* Source Index Filter */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Source Index
+                            </label>
+                            <select
+                                value={sourceIndexFilterValue}
+                                onChange={(e) => {
+                                    setSourceIndexFilterValue(e.target.value);
+                                    if (onSourceIndexFilterChange) {
+                                        onSourceIndexFilterChange(e.target.value);
+                                    }
+                                }}
+                                className="w-full p-2 border rounded"
+                            >
+                                <option value="">All Indexes</option>
+                                <option value="tako">Tako</option>
+                                {/* Add other indexes as needed */}
+                            </select>
+                        </div>
+
+                        {/* Methodology Filter */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Methodology
+                            </label>
+                            <Input
+                                type="text"
+                                value={methodologyFilterValue}
+                                onChange={(e) => {
+                                    setMethodologyFilterValue(e.target.value);
+                                    if (onMethodologyFilterChange) {
+                                        onMethodologyFilterChange(e.target.value);
+                                    }
+                                }}
+                                placeholder="Filter by methodology..."
+                                fullWidth
+                            />
                         </div>
                     </div>
                 </div>

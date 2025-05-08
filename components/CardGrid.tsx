@@ -29,6 +29,9 @@ export function CardGrid({
     const [selectedCard, setSelectedCard] = useState<Card | null>(null);
     const [sortField, setSortField] = useState<SortField>(initialSortField);
     const [sortOrder, setSortOrder] = useState<SortOrder>(initialSortOrder);
+    const [sourceFilter, setSourceFilter] = useState('');
+    const [sourceIndexFilter, setSourceIndexFilter] = useState('');
+    const [methodologyFilter, setMethodologyFilter] = useState('');
 
     const {
         cards,
@@ -61,6 +64,9 @@ export function CardGrid({
         initialSearch: searchQuery,
         initialSortField: sortField,
         initialSortOrder: sortOrder,
+        sourceFilter,
+        sourceIndexFilter,
+        methodologyFilter,
     });
 
     return (
@@ -80,12 +86,18 @@ export function CardGrid({
                 searchQuery={clientSearchQuery}
                 sortField={clientSortField}
                 sortOrder={clientSortOrder}
+                sourceFilter={sourceFilter}
+                sourceIndexFilter={sourceIndexFilter}
+                methodologyFilter={methodologyFilter}
                 onSearchChange={(query) => {
                     setClientSearchQuery(query);
                     handleSearch(query);
                 }}
                 onSortFieldChange={setClientSortField}
                 onSortOrderChange={setClientSortOrder}
+                onSourceFilterChange={setSourceFilter}
+                onSourceIndexFilterChange={setSourceIndexFilter}
+                onMethodologyFilterChange={setMethodologyFilter}
                 onReset={() => {
                     resetFilters();
                     handleSearch('');
