@@ -1,17 +1,27 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { Calendar, Search } from 'lucide-react';
 import { Card } from '@/hooks/useCards';
 
 interface CardItemProps {
     card: Card;
-    onClick: () => void;
+    username: string;
+    onClick?: () => void;
 }
 
-export function CardItem({ card, onClick }: CardItemProps) {
+export function CardItem({ card, username, onClick }: CardItemProps) {
+    const handleClick = (e: React.MouseEvent) => {
+        if (onClick) {
+            e.preventDefault();
+            onClick();
+        }
+    };
+
     return (
-        <div
-            className="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow cursor-pointer"
-            onClick={onClick}
+        <Link
+            href={`/collections/${username}/${card.cardId}`}
+            className="block bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow"
+            onClick={handleClick}
         >
             {/* Card Image */}
             <div className="relative aspect-video">
@@ -37,6 +47,6 @@ export function CardItem({ card, onClick }: CardItemProps) {
                     <span>{new Date(card.createdAt).toLocaleDateString()}</span>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }

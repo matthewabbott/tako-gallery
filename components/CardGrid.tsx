@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import { Search, Loader2 } from 'lucide-react';
-import { CardItem } from './CardItem';
-import { CardDetail } from './CardDetail';
+import { CardItem } from '@/components/CardItem';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 import { Card, useCards } from '@/hooks/useCards';
@@ -17,7 +16,6 @@ interface CardGridProps {
 
 export function CardGrid({ username, initialPage = 1, limit = 12, initialSearch = '' }: CardGridProps) {
     const [searchInput, setSearchInput] = useState(initialSearch);
-    const [selectedCard, setSelectedCard] = useState<Card | null>(null);
 
     const {
         cards,
@@ -114,7 +112,7 @@ export function CardGrid({ username, initialPage = 1, limit = 12, initialSearch 
                         <CardItem
                             key={card.id}
                             card={card}
-                            onClick={() => setSelectedCard(card)}
+                            username={username}
                         />
                     ))}
                 </div>
@@ -150,15 +148,6 @@ export function CardGrid({ username, initialPage = 1, limit = 12, initialSearch 
                         </Button>
                     </div>
                 </div>
-            )}
-
-            {/* Card Detail Modal */}
-            {selectedCard && (
-                <CardDetail
-                    card={selectedCard}
-                    isOpen={!!selectedCard}
-                    onClose={() => setSelectedCard(null)}
-                />
             )}
         </div>
     );
