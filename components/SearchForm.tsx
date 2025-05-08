@@ -103,7 +103,7 @@ export function SearchForm({ className }: SearchFormProps) {
                             Visualization &quot;{result.card.title}&quot; has been generated and saved to your collection.
                         </p>
                         <a
-                            href={`/${result.collection.username}`}
+                            href={`/collections/${result.collection.username}`}
                             className="text-blue-600 hover:underline text-sm mt-2 inline-block"
                         >
                             View your collection
