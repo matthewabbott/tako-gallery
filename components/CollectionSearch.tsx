@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Search, SortAsc, SortDesc, X, Filter } from 'lucide-react';
 import { Button } from './ui/Button';
-import { Input } from './ui/Input';
+import { Input } from './ui/input';
 import { SortField, SortOrder } from '@/hooks/useCollectionSearch';
 
 interface CollectionSearchProps {

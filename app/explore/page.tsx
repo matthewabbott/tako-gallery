@@ -1,11 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, Loader2 } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { CollectionCard } from '@/components/CollectionCard';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { Input } from '@/components/ui/input';
 import { useCollections } from '@/hooks/useCollections';
+import { ErrorDisplay } from '@/components/ErrorBoundary';
+import { LoadingState } from '@/components/LoadingState';
 
 export default function ExplorePage() {
     const [searchInput, setSearchInput] = useState('');
@@ -48,17 +50,15 @@ export default function ExplorePage() {
 
                 {/* Error Message */}
                 {error && (
-                    <div className="p-4 bg-red-50 text-red-700 rounded-md mb-6">
-                        <p className="font-medium">Error</p>
-                        <p>{error}</p>
+                    <div className="mb-6">
+                        <ErrorDisplay error={error} />
                     </div>
                 )}
 
                 {/* Loading State */}
                 {loading && (
-                    <div className="flex justify-center items-center py-12">
-                        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
-                        <span className="ml-2 text-gray-600">Loading collections...</span>
+                    <div className="py-12">
+                        <LoadingState text="Loading collections..." size="lg" />
                     </div>
                 )}
 

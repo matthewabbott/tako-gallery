@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Search, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { Input } from '@/components/ui/input';
 import { useSearch } from '@/hooks/useSearch';
+import { ErrorDisplay } from '@/components/ErrorBoundary';
+import { LoadingState } from '@/components/LoadingState';
 
 interface SearchFormProps {
     className?: string;
@@ -85,12 +87,8 @@ export function SearchForm({ className }: SearchFormProps) {
             </form>
 
             {error && (
-                <div className="mt-6 p-4 bg-red-50 text-red-700 rounded-md flex items-start">
-                    <AlertCircle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5" />
-                    <div>
-                        <p className="font-medium">Error</p>
-                        <p className="text-sm">{error}</p>
-                    </div>
+                <div className="mt-6">
+                    <ErrorDisplay error={error} />
                 </div>
             )}
 

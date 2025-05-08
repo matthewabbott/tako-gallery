@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Trash2, AlertTriangle, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { Input } from '@/components/ui/input';
 import { useDeleteCard } from '@/hooks/useDeleteCard';
+import { ErrorDisplay } from '@/components/ErrorBoundary';
+import { LoadingState } from '@/components/LoadingState';
 
 interface DeleteCardProps {
     cardId: string;
@@ -66,8 +68,8 @@ export function DeleteCard({ cardId, username }: DeleteCardProps) {
                     </div>
 
                     {error && (
-                        <div className="mb-4 p-2 bg-red-100 border border-red-300 text-red-700 text-sm rounded">
-                            {error}
+                        <div className="mb-4">
+                            <ErrorDisplay error={error} />
                         </div>
                     )}
 

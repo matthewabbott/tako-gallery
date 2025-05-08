@@ -3,8 +3,10 @@
 import { useEffect } from 'react';
 import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { Input } from '@/components/ui/input';
 import { useUsername } from '@/hooks/useUsername';
+import { ErrorDisplay } from '@/components/ErrorBoundary';
+import { LoadingState } from '@/components/LoadingState';
 
 interface UsernameFormProps {
     className?: string;
@@ -121,12 +123,8 @@ export function UsernameForm({ className, initialApiKey, onSuccess }: UsernameFo
             </form>
 
             {error && (
-                <div className="mt-6 p-4 bg-red-50 text-red-700 rounded-md flex items-start">
-                    <AlertCircle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5" />
-                    <div>
-                        <p className="font-medium">Error</p>
-                        <p className="text-sm">{error}</p>
-                    </div>
+                <div className="mt-6">
+                    <ErrorDisplay error={error} />
                 </div>
             )}
         </div>
