@@ -24,7 +24,7 @@ export function CollectionCard({ username, createdAt, cardCount, sampleCards }: 
     return (
         <Link
             href={`/collections/${username}`}
-            className="block bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+            className="block bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-md hover:border-blue-300 hover:translate-y-[-4px]"
         >
             <div className="p-4 border-b">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">{username}&apos;s Collection</h3>
@@ -43,12 +43,12 @@ export function CollectionCard({ username, createdAt, cardCount, sampleCards }: 
             {sampleCards.length > 0 ? (
                 <div className="grid grid-cols-2 gap-1 p-1">
                     {sampleCards.slice(0, 4).map((card) => (
-                        <div key={card.id} className="aspect-video relative rounded overflow-hidden">
+                        <div key={card.id} className="aspect-video relative rounded overflow-hidden group">
                             <Image
                                 src={card.imageUrl || "/placeholder.svg"}
                                 alt={card.title}
                                 fill
-                                className="object-cover"
+                                className="object-cover transition-transform duration-300 group-hover:scale-110"
                             />
                         </div>
                     ))}

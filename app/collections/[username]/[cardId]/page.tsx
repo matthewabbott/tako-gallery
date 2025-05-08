@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ArrowLeft, ExternalLink, Info, Calendar, Search } from 'lucide-react';
 import { useCard } from '@/hooks/useCard';
 import { GroundingInfo } from '@/components/GroundingInfo';
+import { DeleteCard } from '@/components/DeleteCard';
 import { Button } from '@/components/ui/Button';
 import { formatDate } from '@/lib/utils';
 
@@ -111,27 +112,31 @@ export default function CardDetailPage() {
                             ></iframe>
                         </div>
 
-                        {/* Grounding Toggle */}
-                        <div className="mb-6">
-                            <Button
-                                onClick={() => setShowGrounding(!showGrounding)}
-                                variant="outline"
-                                className="mb-4"
-                            >
-                                <Info className="h-4 w-4 mr-2" />
-                                {showGrounding ? 'Hide Details' : 'Show Details'}
-                            </Button>
+                        {/* Action Buttons */}
+                        <div className="mb-6 flex flex-wrap justify-between">
+                            <div>
+                                <Button
+                                    onClick={() => setShowGrounding(!showGrounding)}
+                                    variant="outline"
+                                >
+                                    <Info className="h-4 w-4 mr-2" />
+                                    {showGrounding ? 'Hide Details' : 'Show Details'}
+                                </Button>
+                            </div>
 
-                            {/* External Link */}
-                            <a
-                                href={card.webpageUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-transparent border border-gray-300 hover:bg-gray-100 focus-visible:ring-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 h-10 py-2 px-4 ml-4"
-                            >
-                                <ExternalLink className="h-4 w-4 mr-2" />
-                                View on Tako
-                            </a>
+                            <div className="flex gap-2">
+                                <a
+                                    href={card.webpageUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-transparent border border-gray-300 hover:bg-gray-100 focus-visible:ring-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 h-10 py-2 px-4"
+                                >
+                                    <ExternalLink className="h-4 w-4 mr-2" />
+                                    View on Tako
+                                </a>
+
+                                <DeleteCard cardId={cardId} username={username} />
+                            </div>
                         </div>
 
                         {/* Grounding Information */}
