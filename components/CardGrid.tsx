@@ -7,6 +7,7 @@ import { CardDetail } from '@/components/CardDetail';
 import { Button } from './ui/Button';
 import { Card, useCards } from '@/hooks/useCards';
 import { CollectionSearch } from '@/components/CollectionSearch';
+import { CollectionHeader } from '@/components/CollectionHeader';
 import { useCollectionSearch, SortField, SortOrder } from '@/hooks/useCollectionSearch';
 import { LoadingState, CardGridSkeleton } from '@/components/LoadingState';
 import { ErrorDisplay } from '@/components/ErrorBoundary';
@@ -28,12 +29,14 @@ function VirtualizedGrid({
     cards,
     username,
     gridColumns,
-    onCardClick
+    onCardClick,
+    onCardHover
 }: {
     cards: Card[],
     username: string,
     gridColumns: number,
-    onCardClick: (card: Card) => void
+    onCardClick: (card: Card) => void,
+    onCardHover?: (index: number) => void
 }) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [visibleRange, setVisibleRange] = useState({ start: 0, end: 20 });
@@ -125,6 +128,7 @@ function VirtualizedGrid({
                                 card={card}
                                 username={username}
                                 onClick={() => onCardClick(card)}
+                                onHover={() => onCardHover && onCardHover(actualIndex)}
                                 priority={actualIndex < 8} // Prioritize first 8 cards
                                 index={actualIndex}
                             />
@@ -230,6 +234,14 @@ export function CardGrid({
         setUseVirtualization(filteredCards.length > 24);
     }, [filteredCards.length]);
 
+    // Get prefetch function from useCards hook
+    const { prefetchNextPage, prefetchCardDetails } = useCards({
+        username,
+        initialPage,
+        limit,
+        search: initialSearch,
+    });
+
     // Memoized handlers to prevent unnecessary re-renders
     const handleCardClick = useCallback((card: Card) => {
         setSelectedCard(card);
@@ -248,19 +260,50 @@ export function CardGrid({
         handleSearch('');
     }, [setClientSearchQuery, handleSearch]);
 
+    // Handle scroll to prefetch next page
+    const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+        const container = e.currentTarget;
+        const scrollPosition = container.scrollTop;
+        const scrollHeight = container.scrollHeight;
+        const clientHeight = container.clientHeight;
+
+        // If user scrolled past 70% of the content, prefetch next page
+        if (scrollPosition > (scrollHeight - clientHeight) * 0.7) {
+            prefetchNextPage();
+        }
+    }, [prefetchNextPage]);
+
+    // Preload adjacent cards when a card is hovered
+    const handleCardHover = useCallback((index: number) => {
+        // Prefetch the card details
+        const card = filteredCards[index];
+        if (card) {
+            prefetchCardDetails(card.id);
+        }
+
+        // Preload cards that are likely to be viewed next (adjacent cards)
+        const adjacentIndices = [index - 1, index + 1, index - gridColumns, index + gridColumns];
+
+        adjacentIndices.forEach(idx => {
+            if (idx >= 0 && idx < filteredCards.length) {
+                const adjacentCard = filteredCards[idx];
+                prefetchCardDetails(adjacentCard.id);
+            }
+        });
+    }, [filteredCards, gridColumns, prefetchCardDetails]);
+
     // Memoized collection header to prevent re-renders
     const collectionHeader = useMemo(() => {
         if (!collection) return null;
 
         return (
-            <div className="mb-4 sm:mb-6">
-                <h1 className="text-2xl xs:text-3xl font-bold text-gray-900 mb-2">{username}&apos;s Collection</h1>
-                <p className="text-sm xs:text-base text-gray-600">
-                    Created {new Date(collection.createdAt).toLocaleDateString()}
-                </p>
-            </div>
+            <CollectionHeader
+                username={username}
+                createdAt={collection.createdAt}
+                cardCount={pagination?.totalCards || 0}
+            />
         );
-    }, [collection, username]);
+    }, [collection, username, pagination?.totalCards]);
 
     // Memoized pagination component
     const paginationComponent = useMemo(() => {
@@ -387,14 +430,16 @@ export function CardGrid({
                                 username={username}
                                 gridColumns={gridColumns}
                                 onCardClick={handleCardClick}
+                                onCardHover={handleCardHover}
                             />
                         </div>
                     ) : (
                         <div
-                            className={`grid gap-3 xs:gap-4 sm:gap-5 lg:gap-6`}
+                            className={`grid gap-3 xs:gap-4 sm:gap-5 lg:gap-6 overflow-auto`}
                             style={{
                                 gridTemplateColumns: `repeat(${gridColumns}, minmax(0, 1fr))`
                             }}
+                            onScroll={handleScroll}
                         >
                             {filteredCards.map((card, index) => (
                                 <MemoizedCardItem
@@ -402,6 +447,7 @@ export function CardGrid({
                                     card={card}
                                     username={username}
                                     onClick={() => handleCardClick(card)}
+                                    onHover={() => handleCardHover(index)}
                                     priority={index < 8} // Prioritize first 8 cards
                                     index={index}
                                 />

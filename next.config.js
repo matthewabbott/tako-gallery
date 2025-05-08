@@ -12,7 +12,6 @@ const nextConfig = {
         contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     },
     experimental: {
-        serverActions: true,
         optimizeCss: true,
         optimizePackageImports: ['lucide-react'],
     },

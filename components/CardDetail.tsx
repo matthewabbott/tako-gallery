@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { X, ExternalLink, Info, Calendar, Search, ChevronUp, ChevronDown } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Card } from '@/hooks/useCards';
+import { useIframePrerender } from '@/hooks/useIframePrerender';
 
 interface CardDetailProps {
     card: Card;
@@ -16,7 +17,13 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
     const [showGrounding, setShowGrounding] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const [iframeHeight, setIframeHeight] = useState(400);
+    const [iframeLoaded, setIframeLoaded] = useState(false);
+    const [usedPrerendered, setUsedPrerendered] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
+    const iframeContainerRef = useRef<HTMLDivElement>(null);
+
+    // Get iframe prerendering functions
+    const { getPrerenderedIframe, isIframePrerendered, touchIframe } = useIframePrerender();
 
     // Check if mobile on mount and on resize
     useEffect(() => {
@@ -77,6 +84,37 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
             window.removeEventListener('message', handleResize);
         };
     }, [isMobile]);
+
+    // Use prerendered iframe if available
+    useEffect(() => {
+        if (!isOpen || !card || !card.id || usedPrerendered) return;
+
+        // Check if we have a prerendered iframe
+        if (isIframePrerendered(card.id) && iframeContainerRef.current) {
+            // Get the prerendered iframe
+            const prerenderedIframe = getPrerenderedIframe(card.id);
+            if (prerenderedIframe && prerenderedIframe.iframe && prerenderedIframe.ready) {
+                // Update timestamp to keep in cache
+                touchIframe(card.id);
+
+                // Clone the prerendered iframe
+                const clonedIframe = prerenderedIframe.iframe.cloneNode(true) as HTMLIFrameElement;
+                clonedIframe.id = 'tako-iframe';
+                clonedIframe.className = 'w-full';
+                clonedIframe.style.height = `${iframeHeight}px`;
+                clonedIframe.style.minHeight = isMobile ? '250px' : '350px';
+                clonedIframe.style.maxHeight = isMobile ? '50vh' : '70vh';
+
+                // Replace the current iframe
+                const currentIframe = document.getElementById('tako-iframe');
+                if (currentIframe && iframeContainerRef.current) {
+                    iframeContainerRef.current.replaceChild(clonedIframe, currentIframe);
+                    setIframeLoaded(true);
+                    setUsedPrerendered(true);
+                }
+            }
+        }
+    }, [isOpen, card, isMobile, iframeHeight, isIframePrerendered, getPrerenderedIframe, touchIframe, usedPrerendered]);
 
     // Handle clicks outside the modal to close it
     useEffect(() => {
@@ -149,11 +187,19 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
                     </div>
 
                     {/* Card Iframe - Responsive */}
-                    <div className="mb-4 sm:mb-6 rounded-md overflow-hidden border">
+                    <div
+                        ref={iframeContainerRef}
+                        className="mb-4 sm:mb-6 rounded-md overflow-hidden border relative"
+                    >
+                        {/* Loading shimmer overlay */}
+                        {!iframeLoaded && (
+                            <div className="absolute inset-0 animate-shimmer z-10" />
+                        )}
+
                         <iframe
                             id="tako-iframe"
                             src={card.embedUrl}
-                            className="w-full"
+                            className={`w-full transition-opacity duration-300 ${iframeLoaded ? 'opacity-100' : 'opacity-30'}`}
                             style={{
                                 height: `${iframeHeight}px`,
                                 minHeight: isMobile ? '250px' : '350px',
@@ -162,6 +208,7 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
                             frameBorder="0"
                             allowFullScreen
                             loading="lazy"
+                            onLoad={() => setIframeLoaded(true)}
                         ></iframe>
                     </div>
 

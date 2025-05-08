@@ -1,8 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { Calendar, Search, ExternalLink } from 'lucide-react';
 import { Card } from '@/hooks/useCards';
+import { useHoverIntent } from '@/hooks/useHoverIntent';
+import { usePreloadCache } from '@/hooks/usePreloadCache';
+import { getCardHoverStyle, getStaggeredDelay } from '@/lib/animations';
+import { useIframePrerender } from '@/hooks/useIframePrerender';
 
 // Define image dimensions for optimization
 const IMAGE_DIMENSIONS = {
@@ -17,13 +21,32 @@ interface CardItemProps {
     card: Card;
     username: string;
     onClick?: () => void;
+    onHover?: () => void;
     priority?: boolean; // For above-the-fold images
     index?: number; // To determine if card is above the fold
 }
 
-export function CardItem({ card, username, onClick, priority = false, index = 0 }: CardItemProps) {
+export function CardItem({
+    card,
+    username,
+    onClick,
+    onHover,
+    priority = false,
+    index = 0
+}: CardItemProps) {
     const [isVisible, setIsVisible] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isPreloaded, setIsPreloaded] = useState(false);
+    const cardRef = useRef<HTMLDivElement>(null);
+
+    // Get preload cache functions
+    const { preloadImage, preloadIframe } = usePreloadCache();
+
+    // Use hover intent detection
+    const { isHovering, hoverProps } = useHoverIntent({
+        delay: 150, // 150ms delay before considering it an intentional hover
+        sensitivity: 7 // How many pixels the mouse needs to move to reset the timer
+    });
 
     // Determine if this card should have priority loading (first 4 cards)
     const shouldPrioritize = priority || index < 4;
@@ -45,13 +68,41 @@ export function CardItem({ card, username, onClick, priority = false, index = 0 
             { rootMargin: '200px' } // Start loading when within 200px of viewport
         );
 
-        const currentElement = document.getElementById(`card-${card.id}`);
-        if (currentElement) observer.observe(currentElement);
+        if (cardRef.current) observer.observe(cardRef.current);
 
         return () => {
-            if (currentElement) observer.unobserve(currentElement);
+            if (cardRef.current) observer.unobserve(cardRef.current);
         };
     }, [card.id]);
+
+    // Get iframe prerendering functions
+    const { prerenderIframe, isIframePrerendered } = useIframePrerender();
+
+    // Preload resources when hovering
+    useEffect(() => {
+        if (isHovering && !isPreloaded) {
+            // Preload high-res image
+            if (card.imageUrl) {
+                preloadImage(card.imageUrl);
+            }
+
+            // Preload embed iframe if available
+            if (card.embedUrl) {
+                // Standard preloading
+                preloadIframe(card.embedUrl);
+
+                // Advanced prerendering - actually render the iframe in a hidden container
+                prerenderIframe(card.id, card.embedUrl);
+            }
+
+            // Call onHover callback if provided
+            if (onHover) {
+                onHover();
+            }
+
+            setIsPreloaded(true);
+        }
+    }, [isHovering, isPreloaded, card, preloadImage, preloadIframe, prerenderIframe, onHover]);
 
     const handleClick = (e: React.MouseEvent) => {
         if (onClick) {
@@ -60,10 +111,19 @@ export function CardItem({ card, username, onClick, priority = false, index = 0 
         }
     };
 
+    // Calculate staggered animation delay based on index
+    const animationDelay = getStaggeredDelay(index, 30); // 30ms between each card
+
     return (
         <div
+            ref={cardRef}
             id={`card-${card.id}`}
-            className="relative bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow"
+            className={`relative bg-white rounded-lg overflow-hidden border border-gray-200 card-hover-transition ${isHovering ? 'card-hover-active' : ''} animate-fadeIn`}
+            style={{
+                ...getCardHoverStyle(isHovering),
+                ...animationDelay
+            }}
+            {...hoverProps}
         >
             {/* Permalink icon in the corner */}
             <Link
@@ -78,7 +138,7 @@ export function CardItem({ card, username, onClick, priority = false, index = 0 
             {/* Main card content that opens the modal */}
             <div
                 className="cursor-pointer"
-                onClick={onClick}
+                onClick={handleClick}
             >
                 {/* Card Image with optimization */}
                 <div className="relative aspect-video bg-gray-100">
@@ -88,7 +148,7 @@ export function CardItem({ card, username, onClick, priority = false, index = 0 
                             alt={card.title}
                             width={IMAGE_DIMENSIONS.width}
                             height={IMAGE_DIMENSIONS.height}
-                            className={`object-cover transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+                            className={`object-cover transition-all duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${isHovering ? 'scale-105' : 'scale-100'}`}
                             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                             priority={shouldPrioritize}
                             placeholder="blur"
@@ -97,9 +157,15 @@ export function CardItem({ card, username, onClick, priority = false, index = 0 
                             style={{
                                 width: '100%',
                                 height: 'auto',
-                                aspectRatio: '16/9'
+                                aspectRatio: '16/9',
+                                transition: 'transform 0.3s ease-in-out'
                             }}
                         />
+                    )}
+
+                    {/* Shimmer overlay while loading */}
+                    {!isLoaded && (
+                        <div className="absolute inset-0 animate-shimmer" />
                     )}
                 </div>
 

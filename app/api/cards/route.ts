@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import {
     connectToDatabase,
-    getCachedData,
-    cacheData,
-    generateCacheKey
+    getCachedData as getServerCachedData,
+    cacheData as cacheServerData,
+    generateCacheKey as generateServerCacheKey
 } from '@/lib/mongodb';
 import { User } from '@/models/User';
 import { Card } from '@/models/Card';
@@ -46,8 +46,8 @@ export async function GET(request: Request) {
             );
         }
 
-        // Generate cache key
-        const cacheKey = generateCacheKey('cards', {
+        // Generate server-side cache key
+        const cacheKey = generateServerCacheKey('cards', {
             username,
             page,
             limit,
@@ -60,8 +60,8 @@ export async function GET(request: Request) {
             fields
         });
 
-        // Try to get data from cache
-        const cachedData = getCachedData(cacheKey);
+        // Try to get data from server-side cache
+        const cachedData = getServerCachedData(cacheKey);
         if (cachedData) {
             // Return cached data with cache header
             const response = NextResponse.json(
@@ -223,8 +223,8 @@ export async function GET(request: Request) {
             },
         };
 
-        // Cache the response
-        cacheData(cacheKey, responseData, CACHE_TTL);
+        // Cache the response on the server
+        cacheServerData(cacheKey, responseData, CACHE_TTL);
 
         // Create response with cache headers
         const response = NextResponse.json(
