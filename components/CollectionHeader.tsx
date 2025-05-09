@@ -7,6 +7,7 @@ import { Button } from './ui/Button';
 import { formatDate } from '@/lib/utils';
 import { UsernameChangeModal } from './UsernameChangeModal';
 import { CreateCardModal } from './CreateCardModal';
+import { DeleteCollection } from './DeleteCollection';
 
 interface CollectionHeaderProps {
     username: string;
@@ -88,6 +89,7 @@ export function CollectionHeader({ username, createdAt, cardCount }: CollectionH
                         <PlusCircle className="h-4 w-4 mr-2" />
                         Create Card
                     </Button>
+                    <DeleteCollection username={username} />
                 </div>
             </div>
 
