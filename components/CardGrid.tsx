@@ -140,6 +140,17 @@ export function CardGrid({
         }
     }, [initialCardId, cards]);
 
+    // Listen for URL changes
+    useEffect(() => {
+        const cardId = searchParams.get('cardId');
+        if (cardId && cards.length > 0) {
+            const card = cards.find(c => c.cardId === cardId);
+            if (card) {
+                setSelectedCard(card);
+            }
+        }
+    }, [searchParams, cards]);
+
     return (
         <div className="space-y-6 sm:space-y-8">
             {/* Collection Header */}

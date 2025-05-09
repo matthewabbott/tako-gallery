@@ -71,12 +71,13 @@ export function useSearch({ onSuccess }: UseSearchProps = {}) {
             // Store API key in session storage regardless of whether it's a new user
             sessionStorage.setItem('takoApiKey', apiKey);
 
-            // Redirect to the collection page
-            // If this is a new user, add a URL parameter to highlight the username change button
+            // Redirect to the collection page with the cardId parameter
+            // If this is a new user, also add a URL parameter to highlight the username change button
+            const cardId = searchResult.card.cardId;
             if (searchResult.collection.isNewUser) {
-                router.push(`/collections/${searchResult.collection.username}?highlight=username`);
+                router.push(`/collections/${searchResult.collection.username}?highlight=username&cardId=${cardId}`);
             } else {
-                router.push(`/collections/${searchResult.collection.username}`);
+                router.push(`/collections/${searchResult.collection.username}?cardId=${cardId}`);
             }
         } catch (error) {
             console.error('Search error:', error);
