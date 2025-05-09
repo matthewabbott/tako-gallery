@@ -98,13 +98,17 @@ export function useUsername({ initialApiKey, onSuccess }: UseUsernameProps = {})
                 onSuccess(data.data.username, data.data.collectionUrl);
             }
 
-            // Clear API key from session storage if it exists
-            if (typeof window !== 'undefined') {
+            // Only clear API key from session storage if this is the initial username setup
+            // For username changes, we want to keep the API key in session storage
+            if (typeof window !== 'undefined' && !onSuccess) {
                 sessionStorage.removeItem('takoApiKey');
             }
 
-            // Redirect to collection page
-            router.push(`/collections/${data.data.username}`);
+            // If onSuccess callback is provided, let the component handle the redirect
+            // Otherwise, redirect to the collection page
+            if (!onSuccess) {
+                router.push(`/collections/${data.data.username}`);
+            }
         } catch (error) {
             console.error('Username update error:', error);
             setError(error instanceof Error ? error.message : 'An error occurred');

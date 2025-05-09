@@ -62,14 +62,21 @@ export async function POST(request: Request) {
             // This is a new user (first time using this API key)
             isNewUser = true;
 
-            // We'll create a temporary username based on the card ID
-            // The user will be prompted to choose a permanent username later
-            const tempUsername = `user_${Date.now().toString(36)}`;
+            // Generate a more user-friendly auto-username
+            // Use a combination of 'tako' + adjective + noun + random number
+            const adjectives = ['curious', 'bright', 'clever', 'swift', 'keen', 'quick', 'smart', 'sharp'];
+            const nouns = ['explorer', 'finder', 'seeker', 'analyst', 'scholar', 'researcher', 'thinker', 'creator'];
+
+            const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+            const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+            const randomNum = Math.floor(Math.random() * 1000);
+
+            const autoUsername = `tako_${randomAdjective}_${randomNoun}${randomNum}`;
 
             // Create a new user
             user = new User({
                 apiKeyHash,
-                username: tempUsername,
+                username: autoUsername,
                 createdAt: new Date(),
             });
 

@@ -1,8 +1,11 @@
 'use client';
 
-import { Share2, Calendar, Grid } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { Share2, Calendar, Grid, UserRound } from 'lucide-react';
 import { Button } from './ui/Button';
 import { formatDate } from '@/lib/utils';
+import { UsernameChangeModal } from './UsernameChangeModal';
 
 interface CollectionHeaderProps {
     username: string;
@@ -11,11 +14,35 @@ interface CollectionHeaderProps {
 }
 
 export function CollectionHeader({ username, createdAt, cardCount }: CollectionHeaderProps) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [highlightUsernameButton, setHighlightUsernameButton] = useState(false);
+    const searchParams = useSearchParams();
+
+    // Check if we should highlight the username change button
+    useEffect(() => {
+        if (searchParams.get('highlight') === 'username') {
+            setHighlightUsernameButton(true);
+            // Reset the highlight after 5 seconds
+            const timer = setTimeout(() => {
+                setHighlightUsernameButton(false);
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [searchParams]);
+
     const shareCollection = () => {
         const url = window.location.href;
         navigator.clipboard.writeText(url);
         // Could add a toast notification here
         alert('Collection URL copied to clipboard!');
+    };
+
+    const openUsernameModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeUsernameModal = () => {
+        setIsModalOpen(false);
     };
 
     return (
@@ -34,13 +61,29 @@ export function CollectionHeader({ username, createdAt, cardCount }: CollectionH
                         </div>
                     </div>
                 </div>
-                <div className="mt-4 md:mt-0">
+                <div className="mt-4 md:mt-0 flex gap-2">
+                    <Button
+                        onClick={openUsernameModal}
+                        variant={highlightUsernameButton ? "default" : "ghost"}
+                        className={`flex items-center ${highlightUsernameButton ? 'animate-pulse' : ''}`}
+                        title="Change username"
+                    >
+                        <UserRound className="h-4 w-4 mr-2" />
+                        {highlightUsernameButton ? 'Change Username' : ''}
+                    </Button>
                     <Button onClick={shareCollection} variant="outline" className="flex items-center">
                         <Share2 className="h-4 w-4 mr-2" />
                         Share Collection
                     </Button>
                 </div>
             </div>
+
+            {/* Username change modal */}
+            <UsernameChangeModal
+                isOpen={isModalOpen}
+                onClose={closeUsernameModal}
+                highlightMode={highlightUsernameButton}
+            />
         </div>
     );
 }
