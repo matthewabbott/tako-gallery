@@ -22,11 +22,7 @@ export function CollectionHeader({ username, createdAt, cardCount }: CollectionH
     useEffect(() => {
         if (searchParams.get('highlight') === 'username') {
             setHighlightUsernameButton(true);
-            // Reset the highlight after 5 seconds
-            const timer = setTimeout(() => {
-                setHighlightUsernameButton(false);
-            }, 5000);
-            return () => clearTimeout(timer);
+            // No timeout - will be reset when button is clicked
         }
     }, [searchParams]);
 
@@ -39,6 +35,8 @@ export function CollectionHeader({ username, createdAt, cardCount }: CollectionH
 
     const openUsernameModal = () => {
         setIsModalOpen(true);
+        // Reset highlight when button is clicked
+        setHighlightUsernameButton(false);
     };
 
     const closeUsernameModal = () => {
@@ -65,11 +63,11 @@ export function CollectionHeader({ username, createdAt, cardCount }: CollectionH
                     <Button
                         onClick={openUsernameModal}
                         variant={highlightUsernameButton ? "default" : "ghost"}
-                        className={`flex items-center ${highlightUsernameButton ? 'animate-pulse' : ''}`}
+                        className={`flex items-center justify-center ${highlightUsernameButton ? 'animate-pulse w-auto' : 'w-10 h-10 p-0'}`}
                         title="Change username"
                     >
-                        <UserRound className="h-4 w-4 mr-2" />
-                        {highlightUsernameButton ? 'Change Username' : ''}
+                        <UserRound className="h-4 w-4" />
+                        {highlightUsernameButton && <span className="ml-2">Change Username</span>}
                     </Button>
                     <Button onClick={shareCollection} variant="outline" className="flex items-center">
                         <Share2 className="h-4 w-4 mr-2" />
