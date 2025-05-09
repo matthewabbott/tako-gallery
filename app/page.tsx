@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { SearchForm } from '@/components/SearchForm';
+import { FindCollectionForm } from '@/components/FindCollectionForm';
 import { Button } from '@/components/ui/Button';
 
 export default function Home() {
@@ -16,8 +17,9 @@ export default function Home() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-12">
-                    <div className="lg:col-span-3">
+                    <div className="lg:col-span-3 space-y-8">
                         <SearchForm />
+                        <FindCollectionForm />
                     </div>
 
                     <div className="lg:col-span-2">
@@ -43,14 +45,14 @@ export default function Home() {
                                 </li>
                             </ol>
 
-                            <Button
-                                as={Link}
-                                href="/explore"
-                                variant="outline"
-                                fullWidth
-                            >
-                                Explore Collections
-                            </Button>
+                            <Link href="/explore" className="w-full">
+                                <Button
+                                    variant="outline"
+                                    fullWidth
+                                >
+                                    Explore Collections
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 </div>

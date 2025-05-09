@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, CheckCircle2 } from 'lucide-react';
+import { Search, CheckCircle2, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/input';
 import { useSearch } from '@/hooks/useSearch';
@@ -13,6 +14,7 @@ interface SearchFormProps {
 }
 
 export function SearchForm({ className }: SearchFormProps) {
+    // Add an ID to the form for scrolling
     const [showApiKey, setShowApiKey] = useState(false);
 
     const {
@@ -27,7 +29,7 @@ export function SearchForm({ className }: SearchFormProps) {
     } = useSearch();
 
     return (
-        <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
+        <div id="generate-visualization" className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
             <h2 className="text-2xl font-bold mb-6 text-center">Generate a Visualization</h2>
 
             <form onSubmit={handleSearch} className="space-y-6">
@@ -100,26 +102,16 @@ export function SearchForm({ className }: SearchFormProps) {
                         <p className="text-sm">
                             Visualization &quot;{result.card.title}&quot; has been generated and saved to your collection.
                         </p>
-                        <a
-                            href={`/collections/${result.collection.username}`}
-                            className="text-blue-600 hover:underline text-sm mt-2 inline-block"
+                        <p className="text-sm mt-1">
+                            Redirecting you to your collection...
+                        </p>
+                        <Link
+                            href={`/collections/${result.collection.username}?cardId=${result.card.cardId}`}
+                            className="text-blue-600 hover:underline text-sm mt-2 inline-flex items-center"
                         >
-                            View your collection
-                        </a>
-                    </div>
-                </div>
-            )}
-
-            {result && (
-                <div className="mt-6">
-                    <h3 className="text-lg font-semibold mb-3">{result.card.title}</h3>
-                    <div className="relative aspect-video rounded-md overflow-hidden border">
-                        <iframe
-                            src={result.card.embedUrl}
-                            className="absolute inset-0 w-full h-full"
-                            frameBorder="0"
-                            allowFullScreen
-                        ></iframe>
+                            <span>View your collection</span>
+                            <ArrowRight className="h-3 w-3 ml-1" />
+                        </Link>
                     </div>
                 </div>
             )}
