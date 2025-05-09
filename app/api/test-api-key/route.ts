@@ -1,6 +1,6 @@
 // app/api/test-api-key/route.ts
 import { NextResponse } from 'next/server';
-import { hashApiKey, verifyApiKey, isValidApiKeyFormat, maskApiKey } from '@/lib/apikey';
+import { hashApiKey, verifyApiKey, isValidApiKeyFormat, maskApiKey } from '@/lib/apiKey';
 
 export async function GET(request: Request) {
     // Get the API key from the query parameters

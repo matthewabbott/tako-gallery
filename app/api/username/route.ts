@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import { User } from '@/models/User';
-import { hashApiKey, isValidApiKeyFormat } from '@/lib/apikey';
+import { hashApiKey, isValidApiKeyFormat } from '@/lib/apiKey';
 import { createSuccessResponse, createErrorResponse, isValidUsername } from '@/lib/utils';
 import { handleApiError } from '@/lib/error';
 import { validateUsername } from '@/lib/validation';
@@ -66,7 +66,7 @@ export async function POST(request: Request) {
         return NextResponse.json(
             createSuccessResponse({
                 username: user.username,
-                collectionUrl: `${process.env.NEXT_PUBLIC_APP_URL}/collections/${user.username}`,
+                collectionUrl: `${process.env.NEXT_PUBLIC_APP_URL}/${user.username}`,
             })
         );
     } catch (error) {

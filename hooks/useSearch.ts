@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { clearPagesGlobalCache } from './usePreloadCache';
 
 interface SearchResult {
     card: {
@@ -69,11 +68,12 @@ export function useSearch({ onSuccess }: UseSearchProps = {}) {
                 onSuccess(searchResult);
             }
 
-            // Clear the pages cache to force a fresh fetch when redirecting
-            clearPagesGlobalCache();
-
-            // Redirect to the collection page
-            router.push(`/collections/${searchResult.collection.username}`);
+            // If this is a new user, redirect to username selection
+            if (searchResult.collection.isNewUser) {
+                // Store API key in session storage for username selection
+                sessionStorage.setItem('takoApiKey', apiKey);
+                router.push('/new-collection');
+            }
         } catch (error) {
             console.error('Search error:', error);
             setError(error instanceof Error ? error.message : 'An error occurred');

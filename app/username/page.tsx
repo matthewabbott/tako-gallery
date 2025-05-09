@@ -85,7 +85,7 @@ export default function UsernamePage() {
 
                         <div className="flex justify-center">
                             <a
-                                href={`/collections/${success.username}`}
+                                href={`/${success.username}`}
                                 className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors"
                             >
                                 View Your Collection

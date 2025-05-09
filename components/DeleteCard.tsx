@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input';
 import { useDeleteCard } from '@/hooks/useDeleteCard';
 import { ErrorDisplay } from '@/components/ErrorBoundary';
 import { LoadingState } from '@/components/LoadingState';
-import { clearPagesGlobalCache } from '@/hooks/usePreloadCache';
 
 interface DeleteCardProps {
     cardId: string;
@@ -27,8 +26,6 @@ export function DeleteCard({ cardId, username }: DeleteCardProps) {
 
     // If deletion was successful, redirect to the collection page
     if (success) {
-        // Clear the pages cache to force a fresh fetch when redirecting
-        clearPagesGlobalCache();
         router.push(`/collections/${username}`);
         return null;
     }

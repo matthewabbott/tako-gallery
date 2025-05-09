@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { clearPagesGlobalCache } from './usePreloadCache';
 
 interface UsernameAvailability {
     available: boolean;
@@ -104,11 +103,8 @@ export function useUsername({ initialApiKey, onSuccess }: UseUsernameProps = {})
                 sessionStorage.removeItem('takoApiKey');
             }
 
-            // Clear the pages cache to force a fresh fetch when redirecting
-            clearPagesGlobalCache();
-
             // Redirect to collection page
-            router.push(`/collections/${data.data.username}`);
+            router.push(`/${data.data.username}`);
         } catch (error) {
             console.error('Username update error:', error);
             setError(error instanceof Error ? error.message : 'An error occurred');

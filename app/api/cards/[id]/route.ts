@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import { Card } from '@/models/Card';
-import { hashApiKey, isValidApiKeyFormat, verifyApiKey } from '@/lib/apikey';
+import { hashApiKey, isValidApiKeyFormat, verifyApiKey } from '@/lib/apiKey';
 import { createSuccessResponse, createErrorResponse } from '@/lib/utils';
 import { handleApiError } from '@/lib/error';
 
