@@ -4,9 +4,7 @@ const nextConfig = {
     images: {
         domains: ['trytako.com'],
     },
-    experimental: {
-        serverActions: true,
-    },
+    // Server Actions are available by default in Next.js 14.2.28+
 }
 
 module.exports = nextConfig

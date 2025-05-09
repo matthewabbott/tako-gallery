@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+
+// Force dynamic rendering for this route since it uses request.url
+export const dynamic = 'force-dynamic';
 import { connectToDatabase } from '@/lib/mongodb';
 import { User } from '@/models/User';
 import { Card } from '@/models/Card';
