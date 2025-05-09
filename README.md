@@ -1,8 +1,14 @@
 # Tako Gallery
 
-![Tako Gallery](https://trytako.com/images/tako-logo.png)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://tako-gallery-ten.vercel.app/)
 
 Tako Gallery is a web application that allows users to generate data visualization cards using the Tako Knowledge Search API, save them to a collection, and share these collections publicly. Collections are associated with the Tako API key used to generate the data visualizations within. When a user creates a collection, they get to choose a username, which also serves as the URL endpoint for viewing the collection.
+
+## Live Demo
+
+The project is deployed and accessible at [https://tako-gallery-ten.vercel.app/](https://tako-gallery-ten.vercel.app/)
+
+Powered by [Vercel](https://vercel.com).
 
 ## Features
 
