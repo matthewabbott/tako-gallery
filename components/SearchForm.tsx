@@ -5,6 +5,7 @@ import { Search, CheckCircle2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/input';
+import { TextArea } from '@/components/ui/textarea';
 import { useSearch } from '@/hooks/useSearch';
 import { ErrorDisplay } from '@/components/ErrorBoundary';
 import { LoadingState } from '@/components/LoadingState';
@@ -64,14 +65,14 @@ export function SearchForm({ className }: SearchFormProps) {
                     <label htmlFor="query" className="block text-sm font-medium text-gray-700 mb-1">
                         Search Query
                     </label>
-                    <Input
+                    <TextArea
                         id="query"
-                        type="text"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="e.g., Tesla stock price vs revenue"
                         fullWidth
                         required
+                        rows={2}
                     />
                     <p className="mt-1 text-xs text-gray-500">
                         Enter a natural language query to generate a data visualization.
