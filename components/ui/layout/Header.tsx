@@ -18,20 +18,20 @@ export function Header() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Close menu when clicking outside
-    useEffect(() => {
-        if (!isMenuOpen) return;
+    // Close menu when clicking outside - removed to fix mobile menu interaction
+    // useEffect(() => {
+    //     if (!isMenuOpen) return;
 
-        const handleClickOutside = (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
-            if (!target.closest('nav') && !target.closest('button')) {
-                setIsMenuOpen(false);
-            }
-        };
+    //     const handleClickOutside = (e: MouseEvent) => {
+    //         const target = e.target as HTMLElement;
+    //         if (!target.closest('nav') && !target.closest('button')) {
+    //             setIsMenuOpen(false);
+    //         }
+    //     };
 
-        document.addEventListener('click', handleClickOutside);
-        return () => document.removeEventListener('click', handleClickOutside);
-    }, [isMenuOpen]);
+    //     document.addEventListener('click', handleClickOutside);
+    //     return () => document.removeEventListener('click', handleClickOutside);
+    // }, [isMenuOpen]);
 
     // Prevent body scroll when menu is open on mobile
     useEffect(() => {
@@ -116,7 +116,7 @@ export function Header() {
 
             {/* Mobile Menu - Slide down animation */}
             <div
-                className={`md:hidden bg-white border-b shadow-sm overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen
+                className={`md:hidden bg-white border-b shadow-sm overflow-hidden transition-all duration-300 ease-in-out relative z-45 ${isMenuOpen
                     ? 'max-h-[400px] opacity-100'
                     : 'max-h-0 opacity-0'
                     }`}
@@ -176,15 +176,6 @@ export function Header() {
                     </nav>
                 </div>
             </div>
-
-            {/* Overlay for mobile menu */}
-            {isMenuOpen && (
-                <div
-                    className="md:hidden fixed inset-0 bg-black bg-opacity-25 z-40"
-                    onClick={() => setIsMenuOpen(false)}
-                    aria-hidden="true"
-                />
-            )}
         </header>
     );
 }
