@@ -5,6 +5,7 @@ import { hashApiKey, isValidApiKeyFormat } from '@/lib/apikey';
 import { createSuccessResponse, createErrorResponse, isValidUsername } from '@/lib/utils';
 import { handleApiError } from '@/lib/error';
 import { validateUsername } from '@/lib/validation';
+import { env } from '@/lib/env';
 
 export async function POST(request: Request) {
     try {
@@ -66,7 +67,7 @@ export async function POST(request: Request) {
         return NextResponse.json(
             createSuccessResponse({
                 username: user.username,
-                collectionUrl: `${process.env.NEXT_PUBLIC_APP_URL}/${user.username}`,
+                collectionUrl: `${env.NEXT_PUBLIC_APP_URL}/collections/${user.username}`,
             })
         );
     } catch (error) {
