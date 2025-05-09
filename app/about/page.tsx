@@ -44,7 +44,7 @@ export default function AboutPage() {
                                 <div>
                                     <h3 className="font-semibold text-lg mb-2">Save to your collection</h3>
                                     <p className="text-gray-700">
-                                        The visualization will be automatically saved to your collection. If this is your first time using Tako Gallery with your API key, you&apos;ll be prompted to choose a username for your collection.
+                                        The visualization will be automatically saved to your collection. If this is your first time using Tako Gallery with your API key, you&apos;ll be taken directly to your collection page with a temporary username, and you&apos;ll see a prompt to choose a permanent username.
                                     </p>
                                 </div>
                             </li>
@@ -127,7 +127,14 @@ export default function AboutPage() {
                         <div className="bg-white p-6 rounded-lg shadow-sm">
                             <h3 className="text-xl font-semibold mb-2">Can I update my username?</h3>
                             <p className="text-gray-700">
-                                Yes, you can update your username at any time by visiting the &quot;Update Username&quot; page. You&apos;ll need to provide your Tako API key and choose a new username that isn&apos;t already taken.
+                                Yes, you can update your username at any time by clicking the &quot;Change Username&quot; button on your collection page. You&apos;ll need to provide your Tako API key and choose a new username that isn&apos;t already taken.
+                            </p>
+                        </div>
+
+                        <div className="bg-white p-6 rounded-lg shadow-sm">
+                            <h3 className="text-xl font-semibold mb-2">How do I create a new card?</h3>
+                            <p className="text-gray-700">
+                                To create a new card, go to your collection page and click the &quot;New Card&quot; button. You&apos;ll need to provide your Tako API key and enter a natural language query to generate a new visualization.
                             </p>
                         </div>
 

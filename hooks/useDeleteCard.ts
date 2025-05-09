@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { clearPagesGlobalCache } from './usePreloadCache';
 
 interface UseDeleteCardResult {
     isDeleting: boolean;
@@ -35,6 +36,9 @@ export function useDeleteCard(): UseDeleteCardResult {
             if (!response.ok) {
                 throw new Error(data.error || 'Failed to delete card');
             }
+
+            // Clear the pages cache to force a fresh fetch
+            clearPagesGlobalCache();
 
             setSuccess(true);
         } catch (error) {

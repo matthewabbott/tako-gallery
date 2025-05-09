@@ -61,15 +61,22 @@ Tako Gallery is a web application that allows users to generate data visualizati
 
 ### Managing Your Collection
 
-1. After generating your first visualization, you'll be prompted to choose a username for your collection
-2. Once set, your collection will be available at `/collections/your-username`
-3. You can view, search, and delete cards in your collection
-4. Share your collection URL with others to showcase your visualizations
+1. After generating your first visualization, you'll be taken directly to your collection page
+2. If you're a new user, you'll see a prompt to choose a username for your collection
+3. Your collection will be available at `/collections/your-username`
+4. You can view, search, and delete cards in your collection
+5. Share your collection URL with others to showcase your visualizations
+
+### Creating New Cards
+
+1. From your collection page, click the "New Card" button
+2. Enter your Tako API key and a natural language query
+3. Click "Generate Card" to create a new visualization and add it to your collection
 
 ### Updating Your Username
 
-1. Navigate to the "Update Username" page
-2. Enter your Tako API key and desired username
+1. From your collection page, click the "Change Username" button
+2. Enter your Tako API key and desired new username
 3. Click "Update Username" to change your collection URL
 
 ## Configuration

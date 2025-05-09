@@ -26,6 +26,23 @@ const getGlobalCache = (): PreloadCache => {
     return globalCache;
 };
 
+// Clear all cache data
+export const clearAllGlobalCache = (): void => {
+    if (globalCache) {
+        globalCache.cards.clear();
+        globalCache.pages.clear();
+        globalCache.images.clear();
+        globalCache.iframes.clear();
+    }
+};
+
+// Clear only pages cache
+export const clearPagesGlobalCache = (): void => {
+    if (globalCache) {
+        globalCache.pages.clear();
+    }
+};
+
 export function usePreloadCache() {
     const cache = useRef<PreloadCache>(getGlobalCache());
 
@@ -135,6 +152,16 @@ export function usePreloadCache() {
         return () => clearInterval(interval);
     }, [cleanCache]);
 
+    // Clear all cache data
+    const clearAllCache = useCallback(() => {
+        clearAllGlobalCache();
+    }, []);
+
+    // Clear only pages cache
+    const clearPagesCache = useCallback(() => {
+        clearPagesGlobalCache();
+    }, []);
+
     return {
         preloadCard,
         getPreloadedCard,
@@ -142,5 +169,7 @@ export function usePreloadCache() {
         getPreloadedPage,
         preloadImage,
         preloadIframe,
+        clearAllCache,
+        clearPagesCache,
     };
 }

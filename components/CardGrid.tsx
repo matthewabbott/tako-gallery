@@ -292,6 +292,11 @@ export function CardGrid({
         });
     }, [filteredCards, gridColumns, prefetchCardDetails]);
 
+    // Check if username is temporary (starts with "user_" followed by a timestamp)
+    const isTemporaryUsername = useMemo(() => {
+        return username.startsWith('user_');
+    }, [username]);
+
     // Memoized collection header to prevent re-renders
     const collectionHeader = useMemo(() => {
         if (!collection) return null;
@@ -301,9 +306,10 @@ export function CardGrid({
                 username={username}
                 createdAt={collection.createdAt}
                 cardCount={pagination?.totalCards || 0}
+                isTemporaryUsername={isTemporaryUsername}
             />
         );
-    }, [collection, username, pagination?.totalCards]);
+    }, [collection, username, pagination?.totalCards, isTemporaryUsername]);
 
     // Memoized pagination component
     const paginationComponent = useMemo(() => {
