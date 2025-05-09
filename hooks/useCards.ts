@@ -64,8 +64,36 @@ export function useCards({ username, initialPage = 1, limit = 12, search = '' }:
     const [error, setError] = useState<string | null>(null);
     const [page, setPage] = useState(initialPage);
     const [searchQuery, setSearchQuery] = useState(search);
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-    // Fetch cards when username, page, or search changes
+    // Function to manually trigger a refresh of the cards data
+    const refreshCards = () => {
+        setRefreshTrigger(prev => prev + 1);
+    };
+
+    // Function to add a new card directly to the local state
+    const addCard = (newCard: Card) => {
+        setCards(prevCards => {
+            // Check if the card already exists in the array
+            const exists = prevCards.some(card => card.cardId === newCard.cardId);
+            if (exists) {
+                return prevCards; // Don't add duplicate cards
+            }
+            // Add the new card at the beginning of the array (assuming newest first)
+            return [newCard, ...prevCards];
+        });
+
+        // Update pagination if it exists
+        if (pagination) {
+            setPagination({
+                ...pagination,
+                totalCards: pagination.totalCards + 1,
+                totalPages: Math.ceil((pagination.totalCards + 1) / pagination.limit)
+            });
+        }
+    };
+
+    // Fetch cards when username, page, search, or refreshTrigger changes
     useEffect(() => {
         if (!username) return;
 
@@ -103,7 +131,7 @@ export function useCards({ username, initialPage = 1, limit = 12, search = '' }:
         };
 
         fetchCards();
-    }, [username, page, limit, searchQuery]);
+    }, [username, page, limit, searchQuery, refreshTrigger]);
 
     // Function to handle search
     const handleSearch = (query: string) => {
@@ -126,5 +154,7 @@ export function useCards({ username, initialPage = 1, limit = 12, search = '' }:
         searchQuery,
         handleSearch,
         handlePageChange,
+        refreshCards,
+        addCard,
     };
 }

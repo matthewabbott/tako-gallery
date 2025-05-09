@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/input';
 import { ErrorDisplay } from '@/components/ErrorBoundary';
 import { LoadingState } from '@/components/LoadingState';
+import { useCards } from '@/hooks/useCards';
 
 interface CreateCardModalProps {
     isOpen: boolean;
@@ -24,6 +25,9 @@ export function CreateCardModal({ isOpen, onClose, username }: CreateCardModalPr
     const [error, setError] = useState<string | null>(null);
     const modalRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    // Get the card management functions from the useCards hook
+    const { addCard } = useCards({ username });
 
     // Auto-resize textarea
     useEffect(() => {
@@ -102,11 +106,14 @@ export function CreateCardModal({ isOpen, onClose, username }: CreateCardModalPr
             // Store API key in session storage
             sessionStorage.setItem('takoApiKey', apiKey);
 
-            // Update the URL with the new card ID
-            const cardId = data.data.card.cardId;
+            // Get the newly created card data
+            const newCard = data.data.card;
+
+            // Add the card directly to the local state
+            addCard(newCard);
 
             // Create a URL with the cardId parameter
-            const url = `${pathname}?cardId=${cardId}`;
+            const url = `${pathname}?cardId=${newCard.cardId}`;
 
             // Close the modal
             onClose();

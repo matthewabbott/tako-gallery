@@ -75,6 +75,7 @@ export function CardGrid({
         handleSearch,
         handlePageChange,
         searchQuery,
+        addCard,
     } = useCards({
         username,
         initialPage,
@@ -147,22 +148,37 @@ export function CardGrid({
             const card = cards.find(c => c.cardId === cardId);
             if (card) {
                 setSelectedCard(card);
+            } else {
+                // If the card isn't found in the current cards array,
+                // we might need to fetch it individually
+                const fetchSingleCard = async () => {
+                    try {
+                        const response = await fetch(`/api/cards/${cardId}?username=${username}`);
+                        const data = await response.json();
+
+                        if (response.ok && data.data.card) {
+                            // Add the card to the local state
+                            const newCard = data.data.card;
+                            // Add the card directly to the local state using the addCard function
+                            addCard(newCard);
+                            // Set it as the selected card
+                            setSelectedCard(newCard);
+                        }
+                    } catch (error) {
+                        console.error('Error fetching single card:', error);
+                    }
+                };
+
+                fetchSingleCard();
             }
+        } else if (!cardId) {
+            // Clear selected card if no cardId in URL
+            setSelectedCard(null);
         }
-    }, [searchParams, cards]);
+    }, [searchParams, cards, username, addCard]);
 
     return (
         <div className="space-y-6 sm:space-y-8">
-            {/* Collection Header */}
-            {collection && (
-                <div className="mb-4 sm:mb-6">
-                    <h1 className="text-2xl xs:text-3xl font-bold text-gray-900 mb-2">{username}&apos;s Collection</h1>
-                    <p className="text-sm xs:text-base text-gray-600">
-                        Created {new Date(collection.createdAt).toLocaleDateString()}
-                    </p>
-                </div>
-            )}
-
             {/* Collection Search - Mobile Toggle */}
             <div className="md:hidden mb-4">
                 <Button
