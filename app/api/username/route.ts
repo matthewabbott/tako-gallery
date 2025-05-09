@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import { User } from '@/models/User';
-import { hashApiKey, isValidApiKeyFormat } from '@/lib/apiKey';
+import { hashApiKey, isValidApiKeyFormat } from '@/lib/apikey';
 import { createSuccessResponse, createErrorResponse, isValidUsername } from '@/lib/utils';
 import { handleApiError } from '@/lib/error';
 import { validateUsername } from '@/lib/validation';

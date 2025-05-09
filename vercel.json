@@ -1,0 +1,9 @@
+{
+    "buildCommand": "next build",
+    "outputDirectory": ".next",
+    "framework": "nextjs",
+    "env": {
+        "MONGODB_URI": "@mongodb_uri",
+        "NEXT_PUBLIC_APP_URL": "@next_public_app_url"
+    }
+}

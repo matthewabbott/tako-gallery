@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import { User } from '@/models/User';
 import { Card } from '@/models/Card';
-import { hashApiKey, isValidApiKeyFormat } from '@/lib/apiKey';
+import { hashApiKey, isValidApiKeyFormat } from '@/lib/apikey';
 import { createSuccessResponse, createErrorResponse } from '@/lib/utils';
 import { handleApiError } from '@/lib/error';
 
