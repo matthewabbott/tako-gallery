@@ -1,12 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Search, Github, Home, Compass, User, Info } from 'lucide-react';
 
 export function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+    const menuButtonRef = useRef<HTMLButtonElement>(null);
 
     // Handle scroll event to add shadow when scrolled
     useEffect(() => {
@@ -18,20 +20,26 @@ export function Header() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Close menu when clicking outside - removed to fix mobile menu interaction
-    // useEffect(() => {
-    //     if (!isMenuOpen) return;
+    // Close menu when clicking outside
+    useEffect(() => {
+        if (!isMenuOpen) return;
 
-    //     const handleClickOutside = (e: MouseEvent) => {
-    //         const target = e.target as HTMLElement;
-    //         if (!target.closest('nav') && !target.closest('button')) {
-    //             setIsMenuOpen(false);
-    //         }
-    //     };
+        const handleClickOutside = (e: MouseEvent) => {
+            // Only close if clicking outside both the menu and the toggle button
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(e.target as Node) &&
+                menuButtonRef.current &&
+                !menuButtonRef.current.contains(e.target as Node)
+            ) {
+                setIsMenuOpen(false);
+            }
+        };
 
-    //     document.addEventListener('click', handleClickOutside);
-    //     return () => document.removeEventListener('click', handleClickOutside);
-    // }, [isMenuOpen]);
+        // Use mousedown instead of click for better mobile experience
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isMenuOpen]);
 
     // Prevent body scroll when menu is open on mobile
     useEffect(() => {
@@ -101,6 +109,7 @@ export function Header() {
 
                     {/* Mobile Menu Button */}
                     <button
+                        ref={menuButtonRef}
                         className="md:hidden p-2 text-gray-700 hover:text-blue-600 transition-colors touch-target"
                         onClick={(e) => {
                             e.stopPropagation();
@@ -116,6 +125,7 @@ export function Header() {
 
             {/* Mobile Menu - Slide down animation */}
             <div
+                ref={menuRef}
                 className={`md:hidden bg-white border-b shadow-sm overflow-hidden transition-all duration-300 ease-in-out relative z-45 ${isMenuOpen
                     ? 'max-h-[400px] opacity-100'
                     : 'max-h-0 opacity-0'
