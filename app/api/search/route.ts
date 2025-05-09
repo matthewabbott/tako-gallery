@@ -3,7 +3,7 @@ import { searchKnowledge } from '@/lib/tako-api';
 import { connectToDatabase } from '@/lib/mongodb';
 import { User } from '@/models/User';
 import { Card } from '@/models/Card';
-import { hashApiKey, isValidApiKeyFormat } from '@/lib/apiKey';
+import { hashApiKey, isValidApiKeyFormat, verifyApiKey } from '@/lib/apiKey';
 import { createSuccessResponse, createErrorResponse } from '@/lib/utils';
 import { handleApiError } from '@/lib/error';
 import { TakoKnowledgeCard } from '@/lib/types';
@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     try {
         // Parse request body
         const body = await request.json();
-        const { apiKey, query } = body;
+        const { apiKey, query, username } = body;
 
         // Validate inputs
         if (!apiKey || !isValidApiKeyFormat(apiKey)) {
@@ -34,6 +34,28 @@ export async function POST(request: Request) {
 
         // Hash the API key for database lookup
         const apiKeyHash = await hashApiKey(apiKey);
+
+        // If username is provided, validate that the API key matches the collection's key
+        if (username) {
+            const user = await User.findOne({ username: username.toLowerCase() });
+
+            if (!user) {
+                return NextResponse.json(
+                    createErrorResponse('Collection not found'),
+                    { status: 404 }
+                );
+            }
+
+            // Verify that the provided API key matches the collection's key
+            const isMatch = await verifyApiKey(apiKey, user.apiKeyHash);
+
+            if (!isMatch) {
+                return NextResponse.json(
+                    createErrorResponse('API key does not match this collection'),
+                    { status: 403 }
+                );
+            }
+        }
 
         // Execute Tako API search
         let searchResult;

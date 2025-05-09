@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { CardItem } from '@/components/CardItem';
 import { CardDetail } from '@/components/CardDetail';
 import { Button } from './ui/Button';
@@ -18,6 +19,7 @@ interface CardGridProps {
     initialSearch?: string;
     initialSortField?: SortField;
     initialSortOrder?: SortOrder;
+    initialCardId?: string;
 }
 
 export function CardGrid({
@@ -26,9 +28,13 @@ export function CardGrid({
     limit = 12,
     initialSearch = '',
     initialSortField = 'createdAt',
-    initialSortOrder = 'desc'
+    initialSortOrder = 'desc',
+    initialCardId
 }: CardGridProps) {
     const [selectedCard, setSelectedCard] = useState<Card | null>(null);
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
     const [sortField, setSortField] = useState<SortField>(initialSortField);
     const [sortOrder, setSortOrder] = useState<SortOrder>(initialSortOrder);
     const [sourceFilter, setSourceFilter] = useState('');
@@ -95,6 +101,44 @@ export function CardGrid({
         sourceIndexFilter,
         methodologyFilter,
     });
+
+    // Handle URL updates when a card is selected or closed
+    const updateUrl = (cardId?: string) => {
+        const current = new URLSearchParams(Array.from(searchParams.entries()));
+
+        if (cardId) {
+            current.set('cardId', cardId);
+        } else {
+            current.delete('cardId');
+        }
+
+        const search = current.toString();
+        const query = search ? `?${search}` : '';
+
+        router.replace(`${pathname}${query}`, { scroll: false });
+    };
+
+    // Handle card selection
+    const handleCardSelect = (card: Card) => {
+        setSelectedCard(card);
+        updateUrl(card.cardId);
+    };
+
+    // Handle card modal close
+    const handleCardClose = () => {
+        setSelectedCard(null);
+        updateUrl();
+    };
+
+    // Load card from URL parameter on initial render
+    useEffect(() => {
+        if (initialCardId && cards.length > 0) {
+            const card = cards.find(c => c.cardId === initialCardId);
+            if (card) {
+                setSelectedCard(card);
+            }
+        }
+    }, [initialCardId, cards]);
 
     return (
         <div className="space-y-6 sm:space-y-8">
@@ -192,7 +236,7 @@ export function CardGrid({
                             key={card.id}
                             card={card}
                             username={username}
-                            onClick={() => setSelectedCard(card)}
+                            onClick={() => handleCardSelect(card)}
                         />
                     ))}
                 </div>
@@ -240,7 +284,7 @@ export function CardGrid({
                 <CardDetail
                     card={selectedCard}
                     isOpen={!!selectedCard}
-                    onClose={() => setSelectedCard(null)}
+                    onClose={handleCardClose}
                     username={username}
                 />
             )}

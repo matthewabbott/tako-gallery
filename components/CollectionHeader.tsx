@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Share2, Calendar, Grid, UserRound } from 'lucide-react';
+import { Share2, Calendar, Grid, UserRound, PlusCircle } from 'lucide-react';
 import { Button } from './ui/Button';
 import { formatDate } from '@/lib/utils';
 import { UsernameChangeModal } from './UsernameChangeModal';
+import { CreateCardModal } from './CreateCardModal';
 
 interface CollectionHeaderProps {
     username: string;
@@ -14,7 +15,8 @@ interface CollectionHeaderProps {
 }
 
 export function CollectionHeader({ username, createdAt, cardCount }: CollectionHeaderProps) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isUsernameModalOpen, setIsUsernameModalOpen] = useState(false);
+    const [isCreateCardModalOpen, setIsCreateCardModalOpen] = useState(false);
     const [highlightUsernameButton, setHighlightUsernameButton] = useState(false);
     const searchParams = useSearchParams();
 
@@ -34,14 +36,23 @@ export function CollectionHeader({ username, createdAt, cardCount }: CollectionH
     };
 
     const openUsernameModal = () => {
-        setIsModalOpen(true);
+        setIsUsernameModalOpen(true);
         // Reset highlight when button is clicked
         setHighlightUsernameButton(false);
     };
 
     const closeUsernameModal = () => {
-        setIsModalOpen(false);
+        setIsUsernameModalOpen(false);
     };
+
+    const openCreateCardModal = () => {
+        setIsCreateCardModalOpen(true);
+    };
+
+    const closeCreateCardModal = () => {
+        setIsCreateCardModalOpen(false);
+    };
+
 
     return (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
@@ -59,7 +70,7 @@ export function CollectionHeader({ username, createdAt, cardCount }: CollectionH
                         </div>
                     </div>
                 </div>
-                <div className="mt-4 md:mt-0 flex gap-2">
+                <div className="mt-4 md:mt-0 flex gap-2 flex-wrap justify-end">
                     <Button
                         onClick={openUsernameModal}
                         variant={highlightUsernameButton ? "default" : "ghost"}
@@ -73,14 +84,25 @@ export function CollectionHeader({ username, createdAt, cardCount }: CollectionH
                         <Share2 className="h-4 w-4 mr-2" />
                         Share Collection
                     </Button>
+                    <Button onClick={openCreateCardModal} variant="default" className="flex items-center">
+                        <PlusCircle className="h-4 w-4 mr-2" />
+                        Create Card
+                    </Button>
                 </div>
             </div>
 
             {/* Username change modal */}
             <UsernameChangeModal
-                isOpen={isModalOpen}
+                isOpen={isUsernameModalOpen}
                 onClose={closeUsernameModal}
                 highlightMode={highlightUsernameButton}
+            />
+
+            {/* Create card modal */}
+            <CreateCardModal
+                isOpen={isCreateCardModalOpen}
+                onClose={closeCreateCardModal}
+                username={username}
             />
         </div>
     );

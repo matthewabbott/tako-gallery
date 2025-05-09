@@ -14,6 +14,7 @@ interface CollectionPageProps {
         search?: string;
         sortField?: string;
         sortOrder?: string;
+        cardId?: string;
     };
 }
 
@@ -23,6 +24,7 @@ export default async function CollectionPage({ params, searchParams }: Collectio
     const search = searchParams.search || '';
     const sortField = searchParams.sortField || 'createdAt';
     const sortOrder = searchParams.sortOrder || 'desc';
+    const cardId = searchParams.cardId;
 
     // Connect to database
     await connectToDatabase();
@@ -52,6 +54,7 @@ export default async function CollectionPage({ params, searchParams }: Collectio
                 initialSearch={search}
                 initialSortField={sortField as any}
                 initialSortOrder={sortOrder as any}
+                initialCardId={cardId}
             />
         </div>
     );
