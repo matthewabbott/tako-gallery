@@ -104,7 +104,7 @@ export function useUsername({ initialApiKey, onSuccess }: UseUsernameProps = {})
             }
 
             // Redirect to collection page
-            router.push(`/${data.data.username}`);
+            router.push(`/collections/${data.data.username}`);
         } catch (error) {
             console.error('Username update error:', error);
             setError(error instanceof Error ? error.message : 'An error occurred');
