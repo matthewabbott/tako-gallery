@@ -166,14 +166,6 @@ export function Header() {
                             <span>About</span>
                         </Link>
                         <Link
-                            href="/search"
-                            className="flex items-center text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors py-3 px-2 rounded-md"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            <Search size={18} className="mr-3" />
-                            <span>Search</span>
-                        </Link>
-                        <Link
                             href="https://github.com/matthewabbott/tako-gallery"
                             target="_blank"
                             rel="noopener noreferrer"
