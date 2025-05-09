@@ -43,14 +43,6 @@ export function Footer() {
                                     About
                                 </Link>
                             </li>
-                            <li>
-                                <Link
-                                    href="/search"
-                                    className="text-gray-600 hover:text-blue-600 transition-colors"
-                                >
-                                    Search
-                                </Link>
-                            </li>
                         </ul>
                     </div>
 
@@ -80,7 +72,7 @@ export function Footer() {
                             </li>
                             <li>
                                 <a
-                                    href="https://github.com/yourusername/tako-gallery"
+                                    href="https://github.com/matthewabbott/tako-gallery"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-gray-600 hover:text-blue-600 transition-colors"
