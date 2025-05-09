@@ -22,6 +22,9 @@ export function useDeleteCollection(): UseDeleteCollectionResult {
     const validateApiKey = async (username: string, apiKey: string): Promise<boolean> => {
         if (!apiKey) return false;
 
+        // Clear any previous error when starting a new validation attempt
+        setError(null);
+
         try {
             // Use the find-by-api-key endpoint to validate the API key
             const response = await fetch('/api/collections/find-by-api-key', {
