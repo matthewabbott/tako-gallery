@@ -117,7 +117,7 @@ export default function AboutPage() {
                         <div className="bg-white p-6 rounded-lg shadow-sm">
                             <h3 className="text-xl font-semibold mb-2">Is my Tako API key secure?</h3>
                             <p className="text-gray-700">
-                                Fairly. Your Tako API key is hashed before being stored in our database. We never store the raw API key, only a SHA256 hash that allows us to verify your requests. This hash is unsalted, however, as your API key essentially *is* your identity in the app. Please understand, I wanted to keep it stateless, you know how it is.
+                                Fairly. Your Tako API key is hashed before being stored in our database. We never store the raw API key, only a SHA256 hash that allows us to verify your requests. This hash is unsalted, however, as your API key essentially *is* your identity in the app. Please understand, I wanted to keep it stateless (aside from just a tiny bit of session, as a treat for me, you know how it is).
                             </p>
                         </div>
 

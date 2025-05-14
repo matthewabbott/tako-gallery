@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, Search, Github, Home, Compass, User, Info } from 'lucide-react';
+import { Menu, X, Search, Github, Home, Compass, User, Info, BookOpen } from 'lucide-react';
 
 export function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -92,6 +92,12 @@ export function Header() {
                         >
                             About
                         </Link>
+                        <Link
+                            href="/making-of"
+                            className="text-gray-700 hover:text-blue-600 transition-colors text-sm lg:text-base"
+                        >
+                            Making Of
+                        </Link>
                     </nav>
 
                     {/* Desktop Actions */}
@@ -164,6 +170,14 @@ export function Header() {
                         >
                             <Info size={18} className="mr-3" />
                             <span>About</span>
+                        </Link>
+                        <Link
+                            href="/making-of"
+                            className="flex items-center text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors py-3 px-2 rounded-md"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            <BookOpen size={18} className="mr-3" />
+                            <span>Making Of</span>
                         </Link>
                         <Link
                             href="https://github.com/matthewabbott/tako-gallery"

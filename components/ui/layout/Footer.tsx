@@ -85,7 +85,6 @@ export function Footer() {
                 </div>
 
                 <div className="border-t mt-8 pt-8 text-center text-gray-600">
-                    <p>© {currentYear} Tako Gallery. All rights reserved.</p>
                     <p className="mt-2 text-sm">
                         Powered by{' '}
                         <a
