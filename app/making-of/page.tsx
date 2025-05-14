@@ -285,7 +285,10 @@ Could you help me add a readme and an about page to this webapp?`}
                                     <h4 className="font-semibold text-lg mb-2">Provide API documentation upfront</h4>
                                     <p className="text-gray-700">
                                         Dumping the API documentation into the initial prompt just worked out really well for me.
-                                        I dunno if this is a 'lesson', because really it was my first instinct, but man it just really worked out. Would recommend.
+                                        I dunno if this is a 'lesson', because really it was my first instinct, but it went quite well. Would recommend.
+                                    </p>
+                                    <p className="text-gray-700">
+                                        Perhaps a point in favor of the 'simple ask, context, life story' prompt structure, and also favor of the Tako API definition.
                                     </p>
                                 </div>
                             </li>
