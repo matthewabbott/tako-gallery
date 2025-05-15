@@ -4,7 +4,9 @@
 
 :root {
     --foreground-rgb: 0, 0, 0;
-    --background-rgb: 245, 245, 245;
+    /* Black text for light mode */
+    --background-rgb: 241, 245, 249;
+    /* slate-100 (#F1F5F9) for light mode page background */
 
     /* Spacing variables for responsive design */
     --spacing-xs: 0.5rem;

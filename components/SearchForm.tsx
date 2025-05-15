@@ -57,7 +57,7 @@ export function SearchForm({ className }: SearchFormProps) {
                         </button>
                     </div>
                     <p className="mt-1 text-xs text-gray-500 dark:text-tako-dark-text-secondary">
-                        Don't have a Tako API key? <a href="https://trytako.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:underline">Get one here</a>.
+                        Don't have a Tako API key? <a href="https://trytako.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline">Get one here</a>.
                     </p>
                 </div>
 
@@ -108,7 +108,7 @@ export function SearchForm({ className }: SearchFormProps) {
                         </p>
                         <Link
                             href={`/collections/${result.collection.username}?cardId=${result.card.cardId}`}
-                            className="text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:underline text-sm mt-2 inline-flex items-center"
+                            className="text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline text-sm mt-2 inline-flex items-center"
                         >
                             <span>View your collection</span>
                             <ArrowRight className="h-3 w-3 ml-1" /> {/* Icon color will inherit */}

@@ -16,16 +16,16 @@ module.exports = {
             },
             colors: {
                 primary: {
-                    50: '#f0f9ff',
-                    100: '#e0f2fe',
-                    200: '#bae6fd',
-                    300: '#7dd3fc',
-                    400: '#38bdf8',
-                    500: '#0ea5e9',
-                    600: '#0284c7',
-                    700: '#0369a1',
-                    800: '#075985',
-                    900: '#0c4a6e',
+                    50: '#eef2ff',  // indigo-50
+                    100: '#e0e7ff', // indigo-100
+                    200: '#c7d2fe', // indigo-200
+                    300: '#a5b4fc', // indigo-300
+                    400: '#818cf8', // indigo-400
+                    500: '#6366f1', // indigo-500
+                    600: '#4f46e5', // indigo-600
+                    700: '#4338ca', // indigo-700
+                    800: '#3730a3', // indigo-800
+                    900: '#312e81', // indigo-900
                 },
                 'tako-dark-bg': '#17191C',
                 'tako-dark-surface': '#22252B',

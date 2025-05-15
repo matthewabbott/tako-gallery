@@ -8,12 +8,12 @@ const buttonVariants = cva(
     {
         variants: {
             variant: {
-                default: "bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-600 dark:bg-tako-dark-accent dark:hover:bg-tako-dark-accent-hover dark:focus-visible:ring-tako-dark-accent",
+                default: "bg-primary-600 text-white hover:bg-primary-700 focus-visible:ring-primary-600 dark:bg-tako-dark-accent dark:hover:bg-tako-dark-accent-hover dark:focus-visible:ring-tako-dark-accent",
                 destructive: "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-600 dark:bg-red-500 dark:hover:bg-red-600 dark:focus-visible:ring-red-500",
                 outline: "border border-gray-300 bg-transparent hover:bg-gray-100 focus-visible:ring-gray-400 dark:border-tako-dark-border dark:text-tako-dark-text-primary dark:hover:bg-tako-dark-border dark:focus-visible:ring-tako-dark-border",
                 secondary: "bg-gray-200 text-gray-900 hover:bg-gray-300 focus-visible:ring-gray-400 dark:bg-tako-dark-border dark:text-tako-dark-text-primary dark:hover:bg-tako-dark-surface dark:focus-visible:ring-tako-dark-border",
                 ghost: "bg-transparent hover:bg-gray-100 focus-visible:ring-gray-400 dark:text-tako-dark-text-primary dark:hover:bg-tako-dark-border dark:focus-visible:ring-tako-dark-border",
-                link: "bg-transparent underline-offset-4 hover:underline text-blue-600 hover:text-blue-700 focus-visible:ring-blue-600 dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover dark:focus-visible:ring-tako-dark-accent",
+                link: "bg-transparent underline-offset-4 hover:underline text-primary-600 hover:text-primary-700 focus-visible:ring-primary-600 dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover dark:focus-visible:ring-tako-dark-accent",
             },
             size: {
                 default: "h-10 py-2 px-4",

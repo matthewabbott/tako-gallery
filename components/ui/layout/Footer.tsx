@@ -22,7 +22,7 @@ export function Footer() {
                             <li>
                                 <Link
                                     href="/"
-                                    className="text-gray-600 hover:text-blue-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
+                                    className="text-gray-600 hover:text-primary-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
                                 >
                                     Home
                                 </Link>
@@ -30,7 +30,7 @@ export function Footer() {
                             <li>
                                 <Link
                                     href="/explore"
-                                    className="text-gray-600 hover:text-blue-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
+                                    className="text-gray-600 hover:text-primary-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
                                 >
                                     Explore
                                 </Link>
@@ -38,7 +38,7 @@ export function Footer() {
                             <li>
                                 <Link
                                     href="/about"
-                                    className="text-gray-600 hover:text-blue-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
+                                    className="text-gray-600 hover:text-primary-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
                                 >
                                     About
                                 </Link>
@@ -55,7 +55,7 @@ export function Footer() {
                                     href="https://trytako.com"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-gray-600 hover:text-blue-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
+                                    className="text-gray-600 hover:text-primary-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
                                 >
                                     Tako
                                 </a>
@@ -65,7 +65,7 @@ export function Footer() {
                                     href="https://trytako.com/docs"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-gray-600 hover:text-blue-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
+                                    className="text-gray-600 hover:text-primary-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
                                 >
                                     Tako API Documentation
                                 </a>
@@ -75,7 +75,7 @@ export function Footer() {
                                     href="https://github.com/matthewabbott/tako-gallery"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-gray-600 hover:text-blue-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
+                                    className="text-gray-600 hover:text-primary-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
                                 >
                                     GitHub Repository
                                 </a>
@@ -91,7 +91,7 @@ export function Footer() {
                             href="https://trytako.com"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:underline"
+                            className="text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline"
                         >
                             Tako
                         </a>
@@ -100,7 +100,7 @@ export function Footer() {
                             href="https://vercel.com"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:underline"
+                            className="text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline"
                         >
                             Vercel
                         </a>

@@ -117,7 +117,7 @@ export function CollectionSearch({
                         type="button"
                         variant="outline"
                         onClick={() => setShowTakoFilters(!showTakoFilters)}
-                        className={showTakoFilters ? 'bg-blue-50 dark:bg-tako-dark-accent/20 border-blue-300 dark:border-tako-dark-accent/50' : ''}
+                        className={showTakoFilters ? 'bg-primary-50 dark:bg-tako-dark-accent/20 border-primary-300 dark:border-tako-dark-accent/50' : ''}
                     >
                         <Filter className="h-4 w-4 mr-2" />
                         Tako Filters
@@ -209,8 +209,8 @@ export function CollectionSearch({
 
             {/* Tako-specific Filters */}
             {showTakoFilters && (
-                <div className="mt-4 p-3 bg-blue-50 dark:bg-tako-dark-accent/10 rounded-md border border-blue-200 dark:border-tako-dark-accent/30">
-                    <h3 className="text-sm font-semibold text-blue-800 dark:text-tako-dark-accent mb-3">Tako API Filters</h3>
+                <div className="mt-4 p-3 bg-primary-50 dark:bg-tako-dark-accent/10 rounded-md border border-primary-200 dark:border-tako-dark-accent/30">
+                    <h3 className="text-sm font-semibold text-primary-800 dark:text-tako-dark-accent mb-3">Tako API Filters</h3>
 
                     <div className="space-y-4">
                         {/* Source Filter */}

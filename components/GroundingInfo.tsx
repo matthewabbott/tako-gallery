@@ -30,7 +30,7 @@ export function GroundingInfo({ card }: GroundingInfoProps) {
                                         href={source.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:underline flex items-center mt-1"
+                                        className="text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline flex items-center mt-1"
                                     >
                                         <span>View Source</span>
                                         <ExternalLink className="h-3 w-3 ml-1" />

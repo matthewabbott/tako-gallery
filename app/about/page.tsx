@@ -20,7 +20,7 @@ export default function AboutPage() {
                     <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 mb-6">
                         <ol className="space-y-6">
                             <li className="flex">
-                                <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">1</span>
+                                <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">1</span>
                                 <div>
                                     <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-tako-dark-text-primary">Enter your Tako API key and query</h3>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">
@@ -29,7 +29,7 @@ export default function AboutPage() {
                                 </div>
                             </li>
                             <li className="flex">
-                                <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</span>
+                                <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</span>
                                 <div>
                                     <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-tako-dark-text-primary">Generate a visualization</h3>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">
@@ -38,7 +38,7 @@ export default function AboutPage() {
                                 </div>
                             </li>
                             <li className="flex">
-                                <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">3</span>
+                                <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">3</span>
                                 <div>
                                     <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-tako-dark-text-primary">Save to your collection</h3>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">
@@ -47,7 +47,7 @@ export default function AboutPage() {
                                 </div>
                             </li>
                             <li className="flex">
-                                <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">4</span>
+                                <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">4</span>
                                 <div>
                                     <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-tako-dark-text-primary">Share your collection</h3>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">
@@ -95,7 +95,7 @@ export default function AboutPage() {
                 <section className="mb-12">
                     <h2 className="text-2xl font-bold text-gray-800 dark:text-tako-dark-text-primary mb-4">Getting a Tako API Key</h2>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
-                        To use Tako Gallery, you'll need a Tako API key. You can get one by signing up at <a href="https://trytako.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:underline">trytako.com</a>.
+                        To use Tako Gallery, you'll need a Tako API key. You can get one by signing up at <a href="https://trytako.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 visited:text-primary-600 dark:text-blue-400 dark:visited:text-tako-dark-accent hover:underline">trytako.com</a>.
                     </p>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
                         Once you have your API key, you can use it to generate visualizations and create your collection on Tako Gallery.
@@ -158,7 +158,7 @@ export default function AboutPage() {
                         Tako Gallery was created as a showcase application for the Tako Knowledge Search API. It demonstrates how the API can be used to generate data visualizations from natural language queries and how these visualizations can be organized and shared.
                     </p>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
-                        The project is open source and available on <a href="https://github.com/matthewabbott/tako-gallery" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:underline">GitHub</a>
+                        The project is open source and available on <a href="https://github.com/matthewabbott/tako-gallery" target="_blank" rel="noopener noreferrer" className="text-blue-600 visited:text-primary-600 dark:text-blue-400 dark:visited:text-tako-dark-accent hover:underline">GitHub</a>
                     </p>
                     <div className="flex justify-center space-x-4">
                         <Link

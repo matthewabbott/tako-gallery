@@ -11,7 +11,7 @@ export default function MakingOfPage() {
                 <section className="mb-12">
                     <h2 className="text-2xl font-bold text-gray-800 dark:text-tako-dark-text-primary mb-4">Motivation</h2>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
-                        I wanted to toy around with the <a className="cursor-pointer text-blue-600 hover:text-blue-800 dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover" href="https://docs.trytako.com/documentation/getting-started/what-is-tako/introduction">Tako API</a> and experiment with some 'vibe coding' tools.
+                        I wanted to toy around with the <a className="cursor-pointer text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline" href="https://docs.trytako.com/documentation/getting-started/what-is-tako/introduction">Tako API</a> and experiment with some 'vibe coding' tools.
                         Tako is a data visualization service takes natural language queries, finds relevant data, then autogenerates charts for that data.
                     </p>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
@@ -65,7 +65,7 @@ export default function MakingOfPage() {
                     <div className="bg-gray-50 dark:bg-tako-dark-border dark:border-gray-700 rounded-lg p-6 mb-6 border border-gray-200">
                         <h4 className="font-semibold text-gray-800 dark:text-tako-dark-text-primary mb-3">Example: Initial Design Doc Prompt</h4>
                         <details className="mb-4">
-                            <summary className="cursor-pointer text-blue-600 hover:text-blue-800 dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover">
+                            <summary className="cursor-pointer text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline">
                                 The prompt I used to generate the design document:
                             </summary>
                             <div className="mt-3 p-4 bg-gray-100 dark:bg-tako-dark-bg dark:text-tako-dark-text-secondary rounded text-sm overflow-auto max-h-96">
@@ -102,7 +102,7 @@ The webapp should automatically generate a new collection page when an as-yet un
                             <a href="https://github.com/matthewabbott/tako-gallery/blob/master/v0-implementation-plan.md?plain=1"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:underline mx-1">
+                                className="text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline mx-1">
                                 v0-implementation-plan.md
                             </a>
                         </p>
@@ -114,7 +114,7 @@ The webapp should automatically generate a new collection page when an as-yet un
                             I want the AI to have a plan. I don't want it to do everything at once. Thus we request:
                         </p>
                         <details className="mb-4">
-                            <summary className="cursor-pointer text-blue-600 hover:text-blue-800 dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover">
+                            <summary className="cursor-pointer text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline">
                                 The roadmap prompt
                             </summary>
                             <div className="mt-3 p-4 bg-gray-100 dark:bg-tako-dark-bg dark:text-tako-dark-text-secondary rounded text-sm overflow-auto max-h-96">
@@ -132,7 +132,7 @@ Please enumerate the commits that we will need to perform.`}
                             <a href="https://github.com/matthewabbott/tako-gallery/blob/master/roadmap.md"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:underline mx-1">
+                                className="text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline mx-1">
                                 roadmap.md
                             </a>
                         </p>
@@ -142,7 +142,7 @@ Please enumerate the commits that we will need to perform.`}
                 <section className="mb-12">
                     <h2 className="text-2xl font-bold text-gray-800 dark:text-tako-dark-text-primary mb-4">Development Journey</h2>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
-                        With all that ready, I set up a <a className="cursor-pointer text-blue-600 hover:text-blue-800 dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover" href="https://github.com/matthewabbott/tako-gallery">Github Repository</a> and then started asking v0 for files.
+                        With all that ready, I set up a <a className="cursor-pointer text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline" href="https://github.com/matthewabbott/tako-gallery">Github Repository</a> and then started asking v0 for files.
                     </p>
 
                     <h3 className="text-xl font-semibold text-gray-800 dark:text-tako-dark-text-primary mt-6 mb-3">The v0 Phase</h3>
@@ -169,7 +169,7 @@ Please enumerate the commits that we will need to perform.`}
                     <h3 className="text-xl font-semibold text-gray-800 dark:text-tako-dark-text-primary mt-6 mb-3">Switching to Cline + Claude</h3>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
                         At this point, the v0 context was becoming cumbersome, and the issues were becoming difficult to resolve with pure,
-                        thoughtless vibe coding. I decided to switch to my normal workflow of using VSCode with the <a className="cursor-pointer text-blue-600 hover:text-blue-800 dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover" href="
+                        thoughtless vibe coding. I decided to switch to my normal workflow of using VSCode with the <a className="cursor-pointer text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline" href="
                     https://cline.bot/">Cline</a> extension and Claude Sonnet 3.7.
                     </p>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
@@ -177,7 +177,7 @@ Please enumerate the commits that we will need to perform.`}
                     </p>
 
                     <details className="mb-4">
-                        <summary className="cursor-pointer text-blue-600 hover:text-blue-800 dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover">
+                        <summary className="cursor-pointer text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline">
                             Example prompt for Cline x Sonnet
                         </summary>
                         <div className="mt-3 p-4 bg-gray-100 dark:bg-tako-dark-bg dark:text-tako-dark-text-secondary rounded text-sm overflow-auto max-h-96">
@@ -221,7 +221,7 @@ Could you help me add a readme and an about page to this webapp?`}
                     </p>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
                         I even expanded my filtering setup to use more Tako response info (methodology, source name, source index),
-                        and a dump of the documentation page contents <a className="cursor-pointer text-blue-600 hover:text-blue-800 dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover" href="https://docs.trytako.com/api-reference/search">here</a> was sufficient for that too.
+                        and a dump of the documentation page contents <a className="cursor-pointer text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline" href="https://docs.trytako.com/api-reference/search">here</a> was sufficient for that too.
                     </p>
                 </section>
 
@@ -232,7 +232,7 @@ Could you help me add a readme and an about page to this webapp?`}
                         <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-tako-dark-text-primary">Vibe Coding Tips</h3>
                         <ul className="space-y-4">
                             <li className="flex">
-                                <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">1</span>
+                                <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">1</span>
                                 <div>
                                     <h4 className="font-semibold text-lg mb-2 text-gray-900 dark:text-tako-dark-text-primary">Make a plan and force the AI to follow it.</h4>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">
@@ -248,7 +248,7 @@ Could you help me add a readme and an about page to this webapp?`}
                                 </div>
                             </li>
                             <li className="flex">
-                                <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</span>
+                                <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</span>
                                 <div>
                                     <h4 className="font-semibold text-lg mb-2 text-gray-900 dark:text-tako-dark-text-primary">Version control, my beloved.</h4>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">
@@ -258,7 +258,7 @@ Could you help me add a readme and an about page to this webapp?`}
                                 </div>
                             </li>
                             <li className="flex">
-                                <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">3</span>
+                                <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">3</span>
                                 <div>
                                     <h4 className="font-semibold text-lg mb-2 text-gray-900 dark:text-tako-dark-text-primary">If you have to troubleshoot, summon another AI.</h4>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">
@@ -271,7 +271,7 @@ Could you help me add a readme and an about page to this webapp?`}
                                 </div>
                             </li>
                             <li className="flex">
-                                <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">4</span>
+                                <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">4</span>
                                 <div>
                                     <h4 className="font-semibold text-lg mb-2 text-gray-900 dark:text-tako-dark-text-primary">If plans change, update your plan docs.</h4>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">
@@ -281,7 +281,7 @@ Could you help me add a readme and an about page to this webapp?`}
                                 </div>
                             </li>
                             <li className="flex">
-                                <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">5</span>
+                                <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">5</span>
                                 <div>
                                     <h4 className="font-semibold text-lg mb-2 text-gray-900 dark:text-tako-dark-text-primary">Provide API documentation upfront</h4>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">
@@ -329,7 +329,7 @@ Could you help me add a readme and an about page to this webapp?`}
                         </div>
                         <p className="text-gray-700 dark:text-tako-dark-text-secondary text-sm">
                             This card is hosted in a collection on Tako Gallery. You can create your own collections by using the search form on the
-                            <Link href="/" className="text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:underline mx-1">home page</Link>.
+                            <Link href="/" className="text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline mx-1">home page</Link>.
                         </p>
                     </div>
                 </section>
@@ -337,7 +337,7 @@ Could you help me add a readme and an about page to this webapp?`}
                 <section>
                     <h2 className="text-2xl font-bold text-gray-800 dark:text-tako-dark-text-primary mb-4">Try It Yourself</h2>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
-                        <a className="cursor-pointer text-blue-600 hover:text-blue-800 dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover" href="https://trytako.com/dashboard/">Get a Tako API key</a> and start generating visualizations!
+                        <a className="cursor-pointer text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline" href="https://trytako.com/dashboard/">Get a Tako API key</a> and start generating visualizations!
                     </p>
                     <div className="flex justify-center space-x-4">
                         <Link

@@ -50,7 +50,7 @@ export default function CardDetailPage() {
                 <div className="max-w-4xl mx-auto">
                     <Link
                         href={`/collections/${username}`}
-                        className="inline-flex items-center text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover mb-6"
+                        className="inline-flex items-center text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline mb-6"
                     >
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         Back to Collection
@@ -70,7 +70,7 @@ export default function CardDetailPage() {
             <div className="max-w-4xl mx-auto">
                 <Link
                     href={`/collections/${username}`}
-                    className="inline-flex items-center text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover mb-6"
+                    className="inline-flex items-center text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline mb-6"
                 >
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Back to Collection

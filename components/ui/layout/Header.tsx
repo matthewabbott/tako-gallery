@@ -71,31 +71,31 @@ export function Header() {
                     <nav className="hidden md:flex items-center space-x-6">
                         <Link
                             href="/"
-                            className="text-gray-700 hover:text-blue-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors text-sm lg:text-base"
+                            className="text-gray-700 hover:text-primary-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors text-sm lg:text-base"
                         >
                             Home
                         </Link>
                         <Link
                             href="/explore"
-                            className="text-gray-700 hover:text-blue-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors text-sm lg:text-base"
+                            className="text-gray-700 hover:text-primary-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors text-sm lg:text-base"
                         >
                             Explore
                         </Link>
                         <Link
                             href="/username"
-                            className="text-gray-700 hover:text-blue-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors text-sm lg:text-base"
+                            className="text-gray-700 hover:text-primary-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors text-sm lg:text-base"
                         >
                             Update Username
                         </Link>
                         <Link
                             href="/about"
-                            className="text-gray-700 hover:text-blue-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors text-sm lg:text-base"
+                            className="text-gray-700 hover:text-primary-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors text-sm lg:text-base"
                         >
                             About
                         </Link>
                         <Link
                             href="/making-of"
-                            className="text-gray-700 hover:text-blue-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors text-sm lg:text-base"
+                            className="text-gray-700 hover:text-primary-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors text-sm lg:text-base"
                         >
                             Making Of
                         </Link>
@@ -108,7 +108,7 @@ export function Header() {
                             href="https://github.com/matthewabbott/tako-gallery"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hidden md:inline-flex p-2 text-gray-700 hover:text-blue-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
+                            className="hidden md:inline-flex p-2 text-gray-700 hover:text-primary-600 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-accent transition-colors"
                             aria-label="GitHub Repository"
                         >
                             <Github size={20} />
@@ -116,7 +116,7 @@ export function Header() {
                         {/* Mobile Menu Button */}
                         <button
                             ref={menuButtonRef}
-                            className="md:hidden p-2 text-gray-700 hover:text-blue-600 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent transition-colors touch-target"
+                            className="md:hidden p-2 text-gray-700 hover:text-primary-600 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent transition-colors touch-target"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setIsMenuOpen(!isMenuOpen);
@@ -142,7 +142,7 @@ export function Header() {
                     <nav className="flex flex-col">
                         <Link
                             href="/"
-                            className="flex items-center text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent dark:hover:bg-tako-dark-bg transition-colors py-3 px-2 rounded-md"
+                            className="flex items-center text-gray-700 hover:text-primary-600 hover:bg-gray-50 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent dark:hover:bg-tako-dark-bg transition-colors py-3 px-2 rounded-md"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             <Home size={18} className="mr-3" />
@@ -150,7 +150,7 @@ export function Header() {
                         </Link>
                         <Link
                             href="/explore"
-                            className="flex items-center text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent dark:hover:bg-tako-dark-bg transition-colors py-3 px-2 rounded-md"
+                            className="flex items-center text-gray-700 hover:text-primary-600 hover:bg-gray-50 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent dark:hover:bg-tako-dark-bg transition-colors py-3 px-2 rounded-md"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             <Compass size={18} className="mr-3" />
@@ -158,7 +158,7 @@ export function Header() {
                         </Link>
                         <Link
                             href="/username"
-                            className="flex items-center text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent dark:hover:bg-tako-dark-bg transition-colors py-3 px-2 rounded-md"
+                            className="flex items-center text-gray-700 hover:text-primary-600 hover:bg-gray-50 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent dark:hover:bg-tako-dark-bg transition-colors py-3 px-2 rounded-md"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             <User size={18} className="mr-3" />
@@ -166,7 +166,7 @@ export function Header() {
                         </Link>
                         <Link
                             href="/about"
-                            className="flex items-center text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent dark:hover:bg-tako-dark-bg transition-colors py-3 px-2 rounded-md"
+                            className="flex items-center text-gray-700 hover:text-primary-600 hover:bg-gray-50 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent dark:hover:bg-tako-dark-bg transition-colors py-3 px-2 rounded-md"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             <Info size={18} className="mr-3" />
@@ -174,7 +174,7 @@ export function Header() {
                         </Link>
                         <Link
                             href="/making-of"
-                            className="flex items-center text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent dark:hover:bg-tako-dark-bg transition-colors py-3 px-2 rounded-md"
+                            className="flex items-center text-gray-700 hover:text-primary-600 hover:bg-gray-50 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent dark:hover:bg-tako-dark-bg transition-colors py-3 px-2 rounded-md"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             <BookOpen size={18} className="mr-3" />
@@ -184,7 +184,7 @@ export function Header() {
                             href="https://github.com/matthewabbott/tako-gallery"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent dark:hover:bg-tako-dark-bg transition-colors py-3 px-2 rounded-md"
+                            className="flex items-center text-gray-700 hover:text-primary-600 hover:bg-gray-50 dark:text-tako-dark-text-primary dark:hover:text-tako-dark-accent dark:hover:bg-tako-dark-bg transition-colors py-3 px-2 rounded-md"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             <Github size={18} className="mr-3" />
