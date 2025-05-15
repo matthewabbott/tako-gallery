@@ -59,7 +59,7 @@ export function FindCollectionForm({ className }: FindCollectionFormProps) {
     };
 
     return (
-        <div className={`bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 ${className}`}>
+        <div className={`bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 ${className}`}>
             <h2 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-tako-dark-text-primary">Find Your Collection</h2>
 
             <p className="text-gray-600 dark:text-tako-dark-text-secondary mb-4 text-center">

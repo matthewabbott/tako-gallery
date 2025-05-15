@@ -5,8 +5,8 @@
 :root {
     --foreground-rgb: 0, 0, 0;
     /* Black text for light mode */
-    --background-rgb: 241, 245, 249;
-    /* slate-100 (#F1F5F9) for light mode page background */
+    --background-rgb: 226, 232, 240;
+    /* slate-200 (#E2E8F0) for light mode page background */
 
     /* Spacing variables for responsive design */
     --spacing-xs: 0.5rem;
@@ -116,7 +116,8 @@ html.dark {
     }
 
     .card {
-        @apply bg-white rounded-lg shadow-md overflow-hidden;
+        @apply bg-slate-50 rounded-lg shadow-md overflow-hidden;
+        /* Updated for softer white */
     }
 
     /* Responsive container with adaptive padding */
@@ -191,7 +192,8 @@ html.dark {
     }
 
     .modal-responsive .modal-content {
-        @apply bg-white dark:bg-tako-dark-surface rounded-lg shadow-xl w-full max-h-[90vh] overflow-hidden flex flex-col;
+        @apply bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-xl w-full max-h-[90vh] overflow-hidden flex flex-col;
+        /* Updated for softer white */
         max-width: 95vw;
     }
 

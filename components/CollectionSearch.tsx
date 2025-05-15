@@ -76,7 +76,7 @@ export function CollectionSearch({
     };
 
     return (
-        <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-sm dark:shadow-md border border-gray-200 dark:border-tako-dark-border p-4 mb-6">
+        <div className="bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-sm dark:shadow-md border border-gray-200 dark:border-tako-dark-border p-4 mb-6">
             <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3">
                 <div className="relative flex-grow">
                     <Input
@@ -133,7 +133,7 @@ export function CollectionSearch({
 
             {/* Sort Options */}
             {showSortOptions && (
-                <div className="mt-4 p-3 bg-gray-50 dark:bg-tako-dark-border rounded-md">
+                <div className="mt-4 p-3 bg-slate-100 dark:bg-tako-dark-border rounded-md">
                     <div className="flex flex-wrap gap-3">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-tako-dark-text-primary mb-1">Sort By</label>

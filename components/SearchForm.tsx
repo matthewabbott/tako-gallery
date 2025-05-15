@@ -30,7 +30,7 @@ export function SearchForm({ className }: SearchFormProps) {
     } = useSearch();
 
     return (
-        <div id="generate-visualization" className={`bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 ${className}`}>
+        <div id="generate-visualization" className={`bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 ${className}`}>
             <h2 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-tako-dark-text-primary">Generate a Visualization</h2>
 
             <form onSubmit={handleSearch} className="space-y-6">

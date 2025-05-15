@@ -28,7 +28,7 @@ export default function UsernamePage() {
         <div className="container mx-auto px-4 py-12">
             <div className="max-w-md mx-auto">
                 {!showForm && !success && (
-                    <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6">
+                    <div className="bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6">
                         <h1 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-tako-dark-text-primary">Update Username</h1>
 
                         <p className="mb-6 text-gray-600 dark:text-tako-dark-text-secondary">
@@ -66,7 +66,7 @@ export default function UsernamePage() {
                 )}
 
                 {success && (
-                    <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6">
+                    <div className="bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6">
                         <h1 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-tako-dark-text-primary">Username Updated</h1>
 
                         <div className="p-4 bg-green-50 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-md mb-6">

@@ -23,24 +23,24 @@ export default function Home() {
                     </div>
 
                     <div className="lg:col-span-2">
-                        <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 h-full">
+                        <div className="bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 h-full">
                             <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-tako-dark-text-primary">How It Works</h2>
 
                             <ol className="space-y-4 mb-6">
                                 <li className="flex">
-                                    <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                                    <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">Enter your Tako API key and a natural language query</p>
                                 </li>
                                 <li className="flex">
-                                    <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                                    <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">Generate a data visualization from the Tako Knowledge Search API</p>
                                 </li>
                                 <li className="flex">
-                                    <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                                    <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">Save the visualization to your collection</p>
                                 </li>
                                 <li className="flex">
-                                    <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">4</span>
+                                    <span className="bg-primary-600 dark:bg-tako-dark-accent text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">4</span>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">Share your collection with others via a custom URL</p>
                                 </li>
                             </ol>
@@ -58,21 +58,21 @@ export default function Home() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="bg-white dark:bg-tako-dark-surface p-6 rounded-lg shadow-sm dark:shadow-md">
+                    <div className="bg-slate-50 dark:bg-tako-dark-surface p-6 rounded-lg shadow-sm dark:shadow-md">
                         <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-tako-dark-text-primary">Generate</h2>
                         <p className="text-gray-600 dark:text-tako-dark-text-secondary">
                             Use the Tako Knowledge Search API to generate data visualizations from natural language queries.
                         </p>
                     </div>
 
-                    <div className="bg-white dark:bg-tako-dark-surface p-6 rounded-lg shadow-sm dark:shadow-md">
+                    <div className="bg-slate-50 dark:bg-tako-dark-surface p-6 rounded-lg shadow-sm dark:shadow-md">
                         <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-tako-dark-text-primary">Save</h2>
                         <p className="text-gray-600 dark:text-tako-dark-text-secondary">
                             Save your visualizations to your personal collection with your Tako API key.
                         </p>
                     </div>
 
-                    <div className="bg-white dark:bg-tako-dark-surface p-6 rounded-lg shadow-sm dark:shadow-md">
+                    <div className="bg-slate-50 dark:bg-tako-dark-surface p-6 rounded-lg shadow-sm dark:shadow-md">
                         <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-tako-dark-text-primary">Share</h2>
                         <p className="text-gray-600 dark:text-tako-dark-text-secondary">
                             Share your collection with others via a custom URL based on your chosen username.

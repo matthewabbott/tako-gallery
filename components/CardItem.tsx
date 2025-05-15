@@ -18,11 +18,11 @@ export function CardItem({ card, username, onClick }: CardItemProps) {
     };
 
     return (
-        <div className="relative bg-white dark:bg-tako-dark-surface rounded-lg shadow-sm dark:shadow-md hover:shadow-md dark:hover:shadow-lg overflow-hidden border border-gray-200 dark:border-tako-dark-border transition-shadow">
+        <div className="relative bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-sm dark:shadow-md hover:shadow-md dark:hover:shadow-lg overflow-hidden border border-gray-200 dark:border-tako-dark-border transition-shadow">
             {/* Permalink icon in the corner */}
             <Link
                 href={`/collections/${username}/${card.cardId}`}
-                className="absolute top-2 right-2 z-10 p-1.5 bg-white bg-opacity-75 dark:bg-tako-dark-bg dark:bg-opacity-75 rounded-full hover:bg-opacity-100 dark:hover:bg-opacity-100 transition-all"
+                className="absolute top-2 right-2 z-10 p-1.5 bg-slate-100 bg-opacity-75 dark:bg-tako-dark-bg dark:bg-opacity-75 rounded-full hover:bg-opacity-100 dark:hover:bg-opacity-100 transition-all"
                 onClick={(e) => e.stopPropagation()}
             >
                 <ExternalLink className="h-4 w-4 text-gray-600 dark:text-tako-dark-text-secondary" />

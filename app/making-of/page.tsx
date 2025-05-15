@@ -62,7 +62,7 @@ export default function MakingOfPage() {
                         <li><strong>(Optionally):</strong> Reiterate ask. Literally I just repeat the initial ask at the end of a long prompt. Dunno if this is necessary, but it feels useful sometimes</li>
                     </ul>
 
-                    <div className="bg-gray-50 dark:bg-tako-dark-border dark:border-gray-700 rounded-lg p-6 mb-6 border border-gray-200">
+                    <div className="bg-slate-100 dark:bg-tako-dark-border dark:border-gray-700 rounded-lg p-6 mb-6 border border-gray-200">
                         <h4 className="font-semibold text-gray-800 dark:text-tako-dark-text-primary mb-3">Example: Initial Design Doc Prompt</h4>
                         <details className="mb-4">
                             <summary className="cursor-pointer text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline">
@@ -108,7 +108,7 @@ The webapp should automatically generate a new collection page when an as-yet un
                         </p>
                     </div>
 
-                    <div className="bg-gray-50 dark:bg-tako-dark-border dark:border-gray-700 rounded-lg p-6 mb-6 border border-gray-200">
+                    <div className="bg-slate-100 dark:bg-tako-dark-border dark:border-gray-700 rounded-lg p-6 mb-6 border border-gray-200">
                         <h4 className="font-semibold text-gray-800 dark:text-tako-dark-text-primary mb-3">Creating a Roadmap</h4>
                         <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
                             I want the AI to have a plan. I don't want it to do everything at once. Thus we request:
@@ -228,7 +228,7 @@ Could you help me add a readme and an about page to this webapp?`}
                 <section className="mb-12">
                     <h2 className="text-2xl font-bold text-gray-800 dark:text-tako-dark-text-primary mb-4">Lessons Learned</h2>
 
-                    <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 mb-6">
+                    <div className="bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 mb-6">
                         <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-tako-dark-text-primary">Vibe Coding Tips</h3>
                         <ul className="space-y-4">
                             <li className="flex">
@@ -318,7 +318,7 @@ Could you help me add a readme and an about page to this webapp?`}
                         Here's an example of a Tako card generated and stored in the gallery:
                     </p>
 
-                    <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 mb-6">
+                    <div className="bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 mb-6">
                         <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-tako-dark-text-primary">Example Tako Card</h3>
                         <div className="aspect-video w-full mb-4">
                             <iframe

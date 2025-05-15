@@ -56,7 +56,7 @@ export function CollectionHeader({ username, createdAt, cardCount }: CollectionH
 
 
     return (
-        <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-sm dark:shadow-md border border-gray-200 dark:border-tako-dark-border p-6 mb-6">
+        <div className="bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-sm dark:shadow-md border border-gray-200 dark:border-tako-dark-border p-6 mb-6">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div>
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-tako-dark-text-primary mb-2">{username}'s Collection</h1>

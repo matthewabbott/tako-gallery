@@ -39,7 +39,7 @@ export function UsernameForm({ className, initialApiKey, onSuccess }: UsernameFo
     }, [initialApiKey, setApiKey]);
 
     return (
-        <div className={`bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 ${className}`}>
+        <div className={`bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 ${className}`}>
             <h2 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-tako-dark-text-primary">Choose Your Username</h2>
 
             <p className="mb-6 text-gray-600 dark:text-tako-dark-text-secondary">

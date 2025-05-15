@@ -24,7 +24,7 @@ export function CollectionCard({ username, createdAt, cardCount, sampleCards }: 
     return (
         <Link
             href={`/collections/${username}`}
-            className="block bg-white dark:bg-tako-dark-surface rounded-lg shadow-sm dark:shadow-md border border-gray-200 dark:border-tako-dark-border overflow-hidden transition-all duration-300 hover:shadow-md dark:hover:shadow-lg hover:border-blue-300 dark:hover:border-tako-dark-accent hover:translate-y-[-4px]"
+            className="block bg-slate-50 dark:bg-tako-dark-surface rounded-lg shadow-sm dark:shadow-md border border-gray-200 dark:border-tako-dark-border overflow-hidden transition-all duration-300 hover:shadow-md dark:hover:shadow-lg hover:border-blue-300 dark:hover:border-tako-dark-accent hover:translate-y-[-4px]"
         >
             <div className="p-4 border-b border-gray-200 dark:border-tako-dark-border">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-tako-dark-text-primary mb-2">{username}'s Collection</h3>
