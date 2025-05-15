@@ -1,23 +1,25 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/outline'; // Placeholder icons
 
 export function ThemeToggleButton() {
-    const { theme, resolvedTheme, setTheme, toggleTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+    const { resolvedTheme, toggleTheme } = useTheme();
 
-    // Ensure the button only renders client-side where localStorage and window are available
-    // or that resolvedTheme is correctly initialized for SSR if needed.
-    // For now, relying on the context's handling.
+    // When mounted on client, now we can show the UI
+    useEffect(() => setMounted(true), []);
+
+    if (!mounted) {
+        // Render a placeholder or null to avoid hydration mismatch and incorrect icon display
+        // A simple div with fixed size can prevent layout shift
+        return <div className="h-10 w-10 p-2 rounded-md" />; // Matches button size approx.
+    }
 
     const handleToggle = () => {
         toggleTheme();
     };
-
-    // Or, if you want to cycle through light, dark, system:
-    // const handleSetTheme = (newTheme: 'light' | 'dark' | 'system') => {
-    //   setTheme(newTheme);
-    // };
 
     return (
         <button
@@ -28,7 +30,8 @@ export function ThemeToggleButton() {
             {resolvedTheme === 'dark' ? (
                 <SunIcon className="h-6 w-6 text-yellow-400" />
             ) : (
-                <MoonIcon className="h-6 w-6 text-gray-700" />
+                <MoonIcon className="h-6 w-6 text-gray-700 dark:text-tako-dark-text-primary" />
+                // Added dark:text for MoonIcon in case it ever renders on a dark bg before toggle
             )}
         </button>
     );

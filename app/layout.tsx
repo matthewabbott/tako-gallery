@@ -20,6 +20,36 @@ export default function RootLayout({
     return (
         <html lang="en">
             <head>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+(function() {
+  function getInitialTheme() {
+    try {
+      const storedTheme = localStorage.getItem('tako-gallery-theme');
+      if (storedTheme) {
+        return storedTheme;
+      }
+      // If no stored theme, check system preference
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      // Return 'system' to let ThemeProvider handle it, or resolve directly
+      // For this script, resolving directly is better to avoid flash
+      return systemPrefersDark ? 'dark' : 'light';
+    } catch (e) {
+      return 'light'; // Default to light in case of error or no support
+    }
+  }
+  const theme = getInitialTheme();
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+  }
+  // If theme is 'light', no class is needed initially as it's the default un-dark state
+  // The ThemeProvider will later ensure the correct class ('light' or 'dark') is set
+  // and remove 'dark' if the resolved theme becomes light.
+})();
+    `,
+                    }}
+                />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
