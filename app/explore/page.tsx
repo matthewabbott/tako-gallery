@@ -29,7 +29,7 @@ export default function ExplorePage() {
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="max-w-5xl mx-auto">
-                <h1 className="text-3xl font-bold text-gray-900 mb-6">Explore Collections</h1>
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-tako-dark-text-primary mb-6">Explore Collections</h1>
 
                 {/* Search Bar */}
                 <div className="mb-8">
