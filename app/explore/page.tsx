@@ -64,9 +64,9 @@ export default function ExplorePage() {
 
                 {/* Empty State */}
                 {!loading && collections.length === 0 && (
-                    <div className="text-center py-12 bg-gray-50 rounded-lg">
-                        <h3 className="text-xl font-semibold text-gray-700 mb-2">No collections found</h3>
-                        <p className="text-gray-600 mb-4">
+                    <div className="text-center py-12 bg-gray-50 dark:bg-slate-800 rounded-lg">
+                        <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2">No collections found</h3>
+                        <p className="text-gray-600 dark:text-gray-400 mb-4">
                             {searchInput
                                 ? `No results found for "${searchInput}"`
                                 : "There are no collections available yet."}
@@ -103,7 +103,7 @@ export default function ExplorePage() {
                 {/* Pagination */}
                 {pagination && pagination.totalPages > 1 && (
                     <div className="flex justify-between items-center mt-8">
-                        <div className="text-sm text-gray-600">
+                        <div className="text-sm text-gray-600 dark:text-gray-400">
                             Showing {(pagination.page - 1) * pagination.limit + 1} to{' '}
                             {Math.min(pagination.page * pagination.limit, pagination.totalCollections)} of{' '}
                             {pagination.totalCollections} collections
@@ -117,7 +117,7 @@ export default function ExplorePage() {
                             >
                                 Previous
                             </Button>
-                            <span className="flex items-center px-3 py-1 text-sm">
+                            <span className="flex items-center px-3 py-1 text-sm dark:text-gray-400">
                                 Page {pagination.page} of {pagination.totalPages}
                             </span>
                             <Button

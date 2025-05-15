@@ -41,7 +41,7 @@ export default async function CollectionPage({ params, searchParams }: Collectio
     const cardCount = await Card.countDocuments({ apiKeyHash: user.apiKeyHash });
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 dark:bg-slate-900">
             <CollectionHeader
                 username={username}
                 createdAt={user.createdAt.toString()}
