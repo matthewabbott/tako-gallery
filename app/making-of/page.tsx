@@ -12,11 +12,11 @@ export default function MakingOfPage() {
                     <h2 className="text-2xl font-bold text-gray-800 dark:text-tako-dark-text-primary mb-4">Motivation</h2>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
                         I wanted to toy around with the <a className="cursor-pointer text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline" href="https://docs.trytako.com/documentation/getting-started/what-is-tako/introduction">Tako API</a> and experiment with some 'vibe coding' tools.
-                        Tako is a data visualization service, and if you don't know what 'vibe coding' is I'll explain in a moment.
+                        For context: Tako is a data visualization service, and if you don't know what 'vibe coding' is I'll also explain that in a moment.
                     </p>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
-                        But basically Tako's software takes natural language queries, finds relevant data, then autogenerates charts for that data.
-                        So I thought building a gallery to showcase visualization 'cards' would give me a good feel for their API.
+                        But essentially Tako's software takes natural language queries, finds relevant data, then autogenerates charts for that data, which are saved as 'cards'.
+                        I thought building a gallery to showcase Tako cards would give me a good feel for their API.
                     </p>
                 </section>
 
