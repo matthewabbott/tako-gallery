@@ -15,21 +15,21 @@ export default function NotFound() {
             <div className="max-w-4xl mx-auto">
                 <Link
                     href={`/collections/${username}`}
-                    className="inline-flex items-center text-blue-600 hover:underline mb-6"
+                    className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-6"
                 >
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Back to Collection
                 </Link>
 
-                <div className="bg-white rounded-lg shadow-md p-8 text-center">
+                <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md p-8 text-center">
                     <div className="flex justify-center mb-6">
-                        <AlertTriangle className="h-16 w-16 text-amber-500" />
+                        <AlertTriangle className="h-16 w-16 text-amber-500 dark:text-amber-400" />
                     </div>
 
-                    <h1 className="text-2xl font-bold text-gray-900 mb-4">Card Not Found</h1>
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Card Not Found</h1>
 
-                    <p className="text-gray-600 mb-6">
-                        The card you&apos;re looking for doesn&apos;t exist or may have been removed.
+                    <p className="text-gray-600 dark:text-gray-300 mb-6">
+                        The card you're looking for doesn't exist or may have been removed.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">

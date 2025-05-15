@@ -24,28 +24,38 @@ export default function RootLayout({
                     dangerouslySetInnerHTML={{
                         __html: `
 (function() {
-  function getInitialTheme() {
-    try {
-      const storedTheme = localStorage.getItem('tako-gallery-theme');
-      if (storedTheme) {
-        return storedTheme;
+  var themeToApply = 'light'; // Default to light
+  try {
+    var storedTheme = localStorage.getItem('tako-gallery-theme');
+
+    if (storedTheme === 'light' || storedTheme === 'dark') {
+      themeToApply = storedTheme;
+    } else if (storedTheme === 'system') {
+      // If preference is 'system', check actual system preference
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        themeToApply = 'dark';
+      } else {
+        themeToApply = 'light';
       }
-      // If no stored theme, check system preference
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      // Return 'system' to let ThemeProvider handle it, or resolve directly
-      // For this script, resolving directly is better to avoid flash
-      return systemPrefersDark ? 'dark' : 'light';
-    } catch (e) {
-      return 'light'; // Default to light in case of error or no support
+    } else {
+      // No theme stored, or invalid value, so check system preference
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        themeToApply = 'dark';
+      }
+      // else it remains 'light'
     }
+  } catch (e) {
+    // In case of any error (e.g., localStorage not available), default to light
+    // themeToApply is already 'light'
   }
-  const theme = getInitialTheme();
-  if (theme === 'dark') {
+
+  if (themeToApply === 'dark') {
     document.documentElement.classList.add('dark');
   }
-  // If theme is 'light', no class is needed initially as it's the default un-dark state
-  // The ThemeProvider will later ensure the correct class ('light' or 'dark') is set
-  // and remove 'dark' if the resolved theme becomes light.
+  // The ThemeProvider will still run later to manage the theme,
+  // set the 'light' class if needed, and handle dynamic changes.
+  // It will also ensure localStorage 'tako-gallery-theme' reflects the user's *preference*
+  // (e.g., 'system'), even if 'dark' was applied here based on resolving 'system'.
 })();
     `,
                     }}

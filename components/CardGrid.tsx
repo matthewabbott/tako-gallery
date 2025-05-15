@@ -230,9 +230,9 @@ export function CardGrid({
 
             {/* Empty State */}
             {!loading && cards.length === 0 && (
-                <div className="text-center py-8 sm:py-12 bg-gray-50 rounded-lg px-4">
-                    <h3 className="text-lg sm:text-xl font-semibold text-gray-700 mb-2">No cards found</h3>
-                    <p className="text-gray-600 mb-4 text-sm sm:text-base">
+                <div className="text-center py-8 sm:py-12 bg-gray-50 dark:bg-slate-800 rounded-lg px-4">
+                    <h3 className="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2">No cards found</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm sm:text-base">
                         {clientSearchQuery
                             ? `No results found for "${clientSearchQuery}"`
                             : "This collection doesn't have any cards yet."}
@@ -272,7 +272,7 @@ export function CardGrid({
             {/* Pagination - Responsive */}
             {pagination && pagination.totalPages > 1 && (
                 <div className="flex flex-col xs:flex-row justify-between items-center mt-6 sm:mt-8 gap-4">
-                    <div className="text-xs xs:text-sm text-gray-600 order-2 xs:order-1 text-center xs:text-left w-full xs:w-auto">
+                    <div className="text-xs xs:text-sm text-gray-600 dark:text-gray-400 order-2 xs:order-1 text-center xs:text-left w-full xs:w-auto">
                         Showing {(pagination.page - 1) * pagination.limit + 1} to{' '}
                         {Math.min(pagination.page * pagination.limit, pagination.totalCards)} of{' '}
                         {pagination.totalCards} cards
@@ -289,7 +289,7 @@ export function CardGrid({
                             <span className="hidden xs:inline">Previous</span>
                             <span className="xs:hidden">Prev</span>
                         </Button>
-                        <span className="flex items-center px-2 xs:px-3 py-1 text-xs xs:text-sm bg-gray-50 rounded-md min-w-[80px] justify-center">
+                        <span className="flex items-center px-2 xs:px-3 py-1 text-xs xs:text-sm bg-gray-50 dark:bg-slate-700 rounded-md min-w-[80px] justify-center">
                             {pagination.page} / {pagination.totalPages}
                         </span>
                         <Button
