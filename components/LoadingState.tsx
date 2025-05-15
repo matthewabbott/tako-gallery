@@ -37,8 +37,8 @@ export function LoadingState({
 
     const content = (
         <div className={`flex items-center justify-center ${className}`}>
-            <Loader2 className={`${loaderSize} animate-spin text-blue-600`} aria-hidden="true" />
-            {text && <span className={`ml-2 text-gray-600 ${textSize}`}>{text}</span>}
+            <Loader2 className={`${loaderSize} animate-spin text-blue-600 dark:text-tako-dark-accent`} aria-hidden="true" />
+            {text && <span className={`ml-2 text-gray-600 dark:text-tako-dark-text-secondary ${textSize}`}>{text}</span>}
         </div>
     );
 
@@ -68,7 +68,7 @@ export function SkeletonLoader({
     rounded?: string;
 }) {
     return (
-        <div className={`${height} ${width} ${rounded} bg-gray-200 animate-pulse ${className}`}></div>
+        <div className={`${height} ${width} ${rounded} bg-gray-200 dark:bg-tako-dark-border animate-pulse ${className}`}></div>
     );
 }
 
@@ -77,8 +77,8 @@ export function SkeletonLoader({
  */
 export function CardSkeleton({ className = '' }: { className?: string }) {
     return (
-        <div className={`bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200 ${className}`}>
-            <div className="aspect-video bg-gray-200 animate-pulse"></div>
+        <div className={`bg-white dark:bg-tako-dark-surface rounded-lg shadow-sm dark:shadow-md overflow-hidden border border-gray-200 dark:border-tako-dark-border ${className}`}>
+            <div className="aspect-video bg-gray-200 dark:bg-tako-dark-border animate-pulse"></div>
             <div className="p-4">
                 <SkeletonLoader className="mb-3" height="h-5" width="w-3/4" />
                 <SkeletonLoader className="mb-3" height="h-4" />

@@ -59,16 +59,16 @@ export function FindCollectionForm({ className }: FindCollectionFormProps) {
     };
 
     return (
-        <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
-            <h2 className="text-2xl font-bold mb-6 text-center">Find Your Collection</h2>
+        <div className={`bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 ${className}`}>
+            <h2 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-tako-dark-text-primary">Find Your Collection</h2>
 
-            <p className="text-gray-600 mb-4 text-center">
+            <p className="text-gray-600 dark:text-tako-dark-text-secondary mb-4 text-center">
                 Already have a collection? Enter your Tako API key to find it.
             </p>
 
             <form onSubmit={handleFindCollection} className="space-y-6">
                 <div>
-                    <label htmlFor="findApiKey" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="findApiKey" className="block text-sm font-medium text-gray-700 dark:text-tako-dark-text-primary mb-1">
                         Tako API Key
                     </label>
                     <div className="relative">
@@ -83,7 +83,7 @@ export function FindCollectionForm({ className }: FindCollectionFormProps) {
                         />
                         <button
                             type="button"
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-text-primary"
                             onClick={() => setShowApiKey(!showApiKey)}
                         >
                             {showApiKey ? 'Hide' : 'Show'}
@@ -107,8 +107,8 @@ export function FindCollectionForm({ className }: FindCollectionFormProps) {
 
                     {error.includes('No collection found') && (
                         <div className="mt-4 space-y-2">
-                            <p className="text-sm text-gray-700">
-                                You don&apos;t have a collection yet. You can:
+                            <p className="text-sm text-gray-700 dark:text-tako-dark-text-secondary">
+                                You don't have a collection yet. You can:
                             </p>
                             <div className="flex flex-col xs:flex-row gap-2">
                                 <Button
@@ -121,7 +121,7 @@ export function FindCollectionForm({ className }: FindCollectionFormProps) {
                                     }}
                                     variant="outline"
                                     size="sm"
-                                    className="text-xs"
+                                    className="text-xs" // Button variant handles dark mode
                                 >
                                     Generate a card
                                 </Button>
@@ -129,10 +129,10 @@ export function FindCollectionForm({ className }: FindCollectionFormProps) {
                                     href="https://trytako.com/dashboard"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center justify-center rounded-md text-xs font-medium transition-colors bg-transparent border border-gray-300 hover:bg-gray-100 focus-visible:ring-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 h-8 py-1 px-3"
+                                    className="inline-flex items-center justify-center rounded-md text-xs font-medium transition-colors bg-transparent dark:text-tako-dark-text-primary border border-gray-300 dark:border-tako-dark-border hover:bg-gray-100 dark:hover:bg-tako-dark-border focus-visible:ring-gray-400 dark:focus-visible:ring-tako-dark-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 h-8 py-1 px-3"
                                 >
                                     <span>Is your API key valid?</span>
-                                    <ExternalLink className="h-3 w-3 ml-1" />
+                                    <ExternalLink className="h-3 w-3 ml-1" /> {/* Icon color will inherit from text */}
                                 </a>
                             </div>
                         </div>

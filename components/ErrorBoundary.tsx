@@ -78,14 +78,14 @@ export function ErrorDisplay({
     const errorMessage = typeof error === 'string' ? error : error.message || 'An unknown error occurred';
 
     const content = (
-        <div className={`bg-red-50 border border-red-200 rounded-lg p-4 sm:p-6 ${className}`}>
+        <div className={`bg-red-50 dark:bg-tako-dark-surface border border-red-200 dark:border-red-500 rounded-lg p-4 sm:p-6 ${className}`}>
             <div className="flex items-start">
                 <div className="flex-shrink-0">
-                    <AlertTriangle className="h-6 w-6 text-red-600" aria-hidden="true" />
+                    <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400" aria-hidden="true" />
                 </div>
                 <div className="ml-3 flex-1">
-                    <h3 className="text-sm sm:text-base font-medium text-red-800">Something went wrong</h3>
-                    <div className="mt-2 text-sm sm:text-base text-red-700">
+                    <h3 className="text-sm sm:text-base font-medium text-red-800 dark:text-red-400">Something went wrong</h3>
+                    <div className="mt-2 text-sm sm:text-base text-red-700 dark:text-red-500">
                         <p>{errorMessage}</p>
                     </div>
                     {reset && (
@@ -94,7 +94,7 @@ export function ErrorDisplay({
                                 type="button"
                                 onClick={reset}
                                 variant="outline"
-                                className="text-red-800 bg-red-50 hover:bg-red-100 border-red-300"
+                                className="text-red-800 bg-red-50 hover:bg-red-100 border-red-300 dark:text-red-400 dark:bg-tako-dark-surface dark:border-red-500 dark:hover:bg-red-500 dark:hover:text-white"
                             >
                                 <RefreshCw className="mr-2 h-4 w-4" />
                                 Try again

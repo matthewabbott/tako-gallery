@@ -3,7 +3,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Footer } from '@/components/ui/layout/Footer';
 import { Header } from '@/components/ui/layout/Header';
-import { Providers } from '@/components/Providers';
+import { Providers as AppProviders } from '@/components/Providers'; // Renaming to avoid conflict
+import { ThemeProvider } from '@/context/ThemeContext';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -18,16 +19,26 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
+            <head>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+                <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+            </head>
             <body className={inter.className}>
-                <Providers>
-                    <div className="flex flex-col min-h-screen">
-                        <Header />
-                        <main className="flex-grow">
-                            {children}
-                        </main>
-                        <Footer />
-                    </div>
-                </Providers>
+                <ThemeProvider
+                    defaultTheme="system"
+                    storageKey="tako-gallery-theme"
+                >
+                    <AppProviders>
+                        <div className="flex flex-col min-h-screen">
+                            <Header />
+                            <main className="flex-grow">
+                                {children}
+                            </main>
+                            <Footer />
+                        </div>
+                    </AppProviders>
+                </ThemeProvider>
             </body>
         </html>
     );

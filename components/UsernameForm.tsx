@@ -39,17 +39,17 @@ export function UsernameForm({ className, initialApiKey, onSuccess }: UsernameFo
     }, [initialApiKey, setApiKey]);
 
     return (
-        <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
-            <h2 className="text-2xl font-bold mb-6 text-center">Choose Your Username</h2>
+        <div className={`bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6 ${className}`}>
+            <h2 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-tako-dark-text-primary">Choose Your Username</h2>
 
-            <p className="mb-6 text-gray-600">
+            <p className="mb-6 text-gray-600 dark:text-tako-dark-text-secondary">
                 Choose a username for your collection. This will be used as the URL for your collection page.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
                 {!initialApiKey && (
                     <div>
-                        <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 dark:text-tako-dark-text-primary mb-1">
                             Tako API Key
                         </label>
                         <Input
@@ -65,7 +65,7 @@ export function UsernameForm({ className, initialApiKey, onSuccess }: UsernameFo
                 )}
 
                 <div>
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-tako-dark-text-primary mb-1">
                         Username
                     </label>
                     <div className="relative">
@@ -78,36 +78,36 @@ export function UsernameForm({ className, initialApiKey, onSuccess }: UsernameFo
                             fullWidth
                             required
                             className={
-                                isAvailable === true ? 'border-green-500 pr-10' :
-                                    isAvailable === false ? 'border-red-500 pr-10' : ''
+                                isAvailable === true ? 'border-green-500 dark:border-green-400 pr-10' :
+                                    isAvailable === false ? 'border-red-500 dark:border-red-500 pr-10' : ''
                             }
                         />
                         {isCheckingAvailability && (
                             <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                                <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
+                                <Loader2 className="h-4 w-4 animate-spin text-gray-400 dark:text-gray-500" />
                             </div>
                         )}
                         {!isCheckingAvailability && isAvailable === true && (
                             <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                                <CheckCircle2 className="h-4 w-4 text-green-500" />
+                                <CheckCircle2 className="h-4 w-4 text-green-500 dark:text-green-400" />
                             </div>
                         )}
                         {!isCheckingAvailability && isAvailable === false && !availabilityError && (
                             <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                                <AlertCircle className="h-4 w-4 text-red-500" />
+                                <AlertCircle className="h-4 w-4 text-red-500 dark:text-red-500" />
                             </div>
                         )}
                     </div>
                     {availabilityError && (
-                        <p className="mt-1 text-sm text-red-600">{availabilityError}</p>
+                        <p className="mt-1 text-sm text-red-600 dark:text-red-500">{availabilityError}</p>
                     )}
                     {isAvailable === true && (
-                        <p className="mt-1 text-sm text-green-600">Username is available!</p>
+                        <p className="mt-1 text-sm text-green-600 dark:text-green-400">Username is available!</p>
                     )}
                     {isAvailable === false && !availabilityError && (
-                        <p className="mt-1 text-sm text-red-600">Username is already taken</p>
+                        <p className="mt-1 text-sm text-red-600 dark:text-red-500">Username is already taken</p>
                     )}
-                    <p className="mt-1 text-xs text-gray-500">
+                    <p className="mt-1 text-xs text-gray-500 dark:text-tako-dark-text-secondary">
                         Username must be 3-30 characters long and can only contain letters, numbers, underscores, and hyphens.
                     </p>
                 </div>

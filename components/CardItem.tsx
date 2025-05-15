@@ -18,14 +18,14 @@ export function CardItem({ card, username, onClick }: CardItemProps) {
     };
 
     return (
-        <div className="relative bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
+        <div className="relative bg-white dark:bg-tako-dark-surface rounded-lg shadow-sm dark:shadow-md hover:shadow-md dark:hover:shadow-lg overflow-hidden border border-gray-200 dark:border-tako-dark-border transition-shadow">
             {/* Permalink icon in the corner */}
             <Link
                 href={`/collections/${username}/${card.cardId}`}
-                className="absolute top-2 right-2 z-10 p-1.5 bg-white bg-opacity-75 rounded-full hover:bg-opacity-100 transition-all"
+                className="absolute top-2 right-2 z-10 p-1.5 bg-white bg-opacity-75 dark:bg-tako-dark-bg dark:bg-opacity-75 rounded-full hover:bg-opacity-100 dark:hover:bg-opacity-100 transition-all"
                 onClick={(e) => e.stopPropagation()}
             >
-                <ExternalLink className="h-4 w-4 text-gray-600" />
+                <ExternalLink className="h-4 w-4 text-gray-600 dark:text-tako-dark-text-secondary" />
             </Link>
 
             {/* Main card content that opens the modal */}
@@ -45,14 +45,14 @@ export function CardItem({ card, username, onClick }: CardItemProps) {
 
                 {/* Card Content */}
                 <div className="p-4">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{card.title}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-tako-dark-text-primary mb-2 line-clamp-2">{card.title}</h3>
 
-                    <div className="flex items-center text-sm text-gray-600 mb-3">
+                    <div className="flex items-center text-sm text-gray-600 dark:text-tako-dark-text-secondary mb-3">
                         <Search className="h-4 w-4 mr-1" />
                         <span className="line-clamp-1">{card.query}</span>
                     </div>
 
-                    <div className="flex items-center gap-3 text-xs text-gray-500">
+                    <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-tako-dark-text-secondary">
                         <div className="flex items-center">
                             <Calendar className="h-3 w-3 mr-1" />
                             <span>{new Date(card.createdAt).toLocaleDateString()}</span>

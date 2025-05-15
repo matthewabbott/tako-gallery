@@ -38,6 +38,13 @@ body {
     /* Remove tap highlight on mobile */
 }
 
+html.dark {
+    --foreground-rgb: 229, 231, 235;
+    /* tako-dark-text-primary */
+    --background-rgb: 23, 25, 28;
+    /* tako-dark-bg */
+}
+
 /* Fluid typography system */
 @layer base {
     html {

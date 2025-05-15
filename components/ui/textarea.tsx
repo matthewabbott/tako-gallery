@@ -14,15 +14,15 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
                 {label && (
                     <label
                         htmlFor={props.id}
-                        className="block text-sm font-medium text-gray-700 mb-1"
+                        className="block text-sm font-medium text-gray-700 dark:text-tako-dark-text-primary mb-1"
                     >
                         {label}
                     </label>
                 )}
                 <textarea
                     className={cn(
-                        "flex w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-base leading-relaxed placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
-                        error && "border-red-500 focus:ring-red-600",
+                        "flex w-full rounded-md border border-gray-300 dark:border-tako-dark-border bg-white dark:bg-tako-dark-surface px-4 py-3 text-base dark:text-tako-dark-text-primary leading-relaxed placeholder:text-gray-400 dark:placeholder:text-tako-dark-text-secondary focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-tako-dark-accent focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50",
+                        error && "border-red-500 focus:ring-red-500 dark:border-red-500 dark:focus:ring-red-500",
                         className
                     )}
                     ref={ref}

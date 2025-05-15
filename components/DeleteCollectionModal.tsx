@@ -78,12 +78,12 @@ export function DeleteCollectionModal({ isOpen, onClose, username }: DeleteColle
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-                <div className="flex justify-between items-center p-6 border-b">
+            <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+                <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-tako-dark-border">
                     <h2 className="text-2xl font-bold text-red-600">Delete Collection</h2>
                     <button
                         onClick={onClose}
-                        className="text-gray-500 hover:text-gray-700"
+                        className="text-gray-500 hover:text-gray-700 dark:text-tako-dark-text-secondary dark:hover:text-tako-dark-text-primary"
                         disabled={isDeleting}
                     >
                         <X className="h-6 w-6" />
@@ -95,14 +95,14 @@ export function DeleteCollectionModal({ isOpen, onClose, username }: DeleteColle
                         <AlertTriangle className="h-5 w-5 text-red-600 mr-2 mt-0.5" />
                         <div>
                             <h3 className="font-semibold text-red-600">Delete this collection?</h3>
-                            <p className="text-sm text-gray-700 mt-1">
+                            <p className="text-sm text-gray-700 dark:text-tako-dark-text-secondary mt-1">
                                 This action cannot be undone. The collection and all its cards will be permanently deleted.
                             </p>
                         </div>
                     </div>
 
                     <div className="mb-6">
-                        <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 dark:text-tako-dark-text-primary mb-1">
                             Enter your API key to confirm deletion
                         </label>
                         <Input
