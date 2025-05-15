@@ -12,10 +12,11 @@ export default function MakingOfPage() {
                     <h2 className="text-2xl font-bold text-gray-800 dark:text-tako-dark-text-primary mb-4">Motivation</h2>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
                         I wanted to toy around with the <a className="cursor-pointer text-blue-600 visited:text-primary-600 hover:underline dark:text-blue-400 dark:visited:text-tako-dark-accent dark:hover:underline" href="https://docs.trytako.com/documentation/getting-started/what-is-tako/introduction">Tako API</a> and experiment with some 'vibe coding' tools.
-                        Tako is a data visualization service takes natural language queries, finds relevant data, then autogenerates charts for that data.
+                        Tako is a data visualization service, and if you don't know what 'vibe coding' is I'll explain in a moment.
                     </p>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
-                        I thought building a gallery to showcase visualization 'cards' would give me a good feel for their API.
+                        But basically Tako's software takes natural language queries, finds relevant data, then autogenerates charts for that data.
+                        So I thought building a gallery to showcase visualization 'cards' would give me a good feel for their API.
                     </p>
                 </section>
 
@@ -86,6 +87,7 @@ Don't produce any code just yet. First let's create a design specification and i
 
 For context, here is the API specification for the Tako Knowledge Search API:
 [... API documentation was pasted here ...]
+[Like literally I just copied the pages and pasted them in here.]
 
 ---
 
@@ -299,7 +301,7 @@ Could you help me add a readme and an about page to this webapp?`}
                     <h3 className="text-xl font-semibold text-gray-800 dark:text-tako-dark-text-primary mt-6 mb-3">The Main Snag</h3>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
                         But yeah the main issue I ran into in all this that REALLY required me to stop vibe coding and instead troubleshoot manually was related to
-                        performance optimizations. Later in the project, (the roadmap's step 19), I got it in my head to try a bunch of pre-fetching and caching tricks
+                        performance optimizations. Later in the project, (the roadmap's step 19), I got it in my head to try a bunch of pre-fetching and caching tricks,
                         but once I had it all set up, I realized these tricks were making it so new cards wouldn't show up after being created.
                     </p>
                     <p className="text-gray-700 dark:text-tako-dark-text-secondary mb-4">
