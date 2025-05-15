@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { X, ExternalLink, Info, Calendar, Search, ChevronUp, ChevronDown } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Card } from '@/hooks/useCards';
+import { useTheme } from '@/context/ThemeContext';
 
 interface CardDetailProps {
     card: Card;
@@ -17,6 +18,7 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
     const [isMobile, setIsMobile] = useState(false);
     const [iframeHeight, setIframeHeight] = useState(400);
     const modalRef = useRef<HTMLDivElement>(null);
+    const { resolvedTheme } = useTheme();
 
     // Check if mobile on mount and on resize
     useEffect(() => {
@@ -152,7 +154,7 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
                     <div className="mb-4 sm:mb-6 rounded-md overflow-hidden border dark:border-tako-dark-border">
                         <iframe
                             id="tako-iframe"
-                            src={card.embedUrl}
+                            src={resolvedTheme === 'dark' ? (card.embedUrl.includes('?') ? `${card.embedUrl}&dark_mode=true` : `${card.embedUrl}?dark_mode=true`) : card.embedUrl}
                             className="w-full"
                             style={{
                                 height: `${iframeHeight}px`,

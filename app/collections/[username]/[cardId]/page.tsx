@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, notFound } from 'next/navigation';
 import Link from 'next/link';
+import { useTheme } from '@/context/ThemeContext';
 import { ArrowLeft, ExternalLink, Info, Calendar, Search } from 'lucide-react';
 import { useCard } from '@/hooks/useCard';
 import { GroundingInfo } from '@/components/GroundingInfo';
@@ -17,6 +18,7 @@ export default function CardDetailPage() {
 
     const [showGrounding, setShowGrounding] = useState(false);
     const { card, loading, error } = useCard(cardId);
+    const { resolvedTheme } = useTheme();
 
     // Handle iframe resizing
     useEffect(() => {
@@ -104,7 +106,7 @@ export default function CardDetailPage() {
                         <div className="mb-6 rounded-md overflow-hidden border dark:border-tako-dark-border">
                             <iframe
                                 id="tako-iframe"
-                                src={card.embedUrl}
+                                src={resolvedTheme === 'dark' ? (card.embedUrl.includes('?') ? `${card.embedUrl}&dark_mode=true` : `${card.embedUrl}?dark_mode=true`) : card.embedUrl}
                                 className="w-full"
                                 style={{ height: '500px' }}
                                 frameBorder="0"
