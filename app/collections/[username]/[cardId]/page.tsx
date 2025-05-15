@@ -48,13 +48,13 @@ export default function CardDetailPage() {
                 <div className="max-w-4xl mx-auto">
                     <Link
                         href={`/collections/${username}`}
-                        className="inline-flex items-center text-blue-600 hover:underline mb-6"
+                        className="inline-flex items-center text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover mb-6"
                     >
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         Back to Collection
                     </Link>
 
-                    <div className="p-4 bg-red-50 text-red-700 rounded-md">
+                    <div className="p-4 bg-red-50 dark:bg-tako-dark-surface border border-red-200 dark:border-red-500 rounded-md text-red-700 dark:text-red-400">
                         <p className="font-medium">Error</p>
                         <p>{error}</p>
                     </div>
@@ -68,7 +68,7 @@ export default function CardDetailPage() {
             <div className="max-w-4xl mx-auto">
                 <Link
                     href={`/collections/${username}`}
-                    className="inline-flex items-center text-blue-600 hover:underline mb-6"
+                    className="inline-flex items-center text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:text-tako-dark-accent-hover mb-6"
                 >
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Back to Collection
@@ -76,20 +76,20 @@ export default function CardDetailPage() {
 
                 {loading ? (
                     <div className="animate-pulse">
-                        <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+                        <div className="h-8 bg-gray-200 dark:bg-tako-dark-border rounded w-3/4 mb-4"></div>
                         <div className="flex gap-4 mb-6">
-                            <div className="h-4 bg-gray-200 rounded w-40"></div>
-                            <div className="h-4 bg-gray-200 rounded w-32"></div>
+                            <div className="h-4 bg-gray-200 dark:bg-tako-dark-border rounded w-40"></div>
+                            <div className="h-4 bg-gray-200 dark:bg-tako-dark-border rounded w-32"></div>
                         </div>
-                        <div className="aspect-video bg-gray-200 rounded mb-6"></div>
-                        <div className="h-10 bg-gray-200 rounded w-40 mb-6"></div>
+                        <div className="aspect-video bg-gray-200 dark:bg-tako-dark-border rounded mb-6"></div>
+                        <div className="h-10 bg-gray-200 dark:bg-tako-dark-border rounded w-40 mb-6"></div>
                     </div>
                 ) : card ? (
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900 mb-4">{card.title}</h1>
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-tako-dark-text-primary mb-4">{card.title}</h1>
 
                         {/* Card Metadata */}
-                        <div className="mb-6 flex flex-wrap gap-4 text-sm text-gray-600">
+                        <div className="mb-6 flex flex-wrap gap-4 text-sm text-gray-600 dark:text-tako-dark-text-secondary">
                             <div className="flex items-center">
                                 <Search className="h-4 w-4 mr-1" />
                                 <span>{card.query}</span>
@@ -101,7 +101,7 @@ export default function CardDetailPage() {
                         </div>
 
                         {/* Card Iframe */}
-                        <div className="mb-6 rounded-md overflow-hidden border">
+                        <div className="mb-6 rounded-md overflow-hidden border dark:border-tako-dark-border">
                             <iframe
                                 id="tako-iframe"
                                 src={card.embedUrl}
@@ -129,7 +129,7 @@ export default function CardDetailPage() {
                                     href={card.webpageUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-transparent border border-gray-300 hover:bg-gray-100 focus-visible:ring-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 h-10 py-2 px-4"
+                                    className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-transparent dark:text-tako-dark-text-primary border border-gray-300 dark:border-tako-dark-border hover:bg-gray-100 dark:hover:bg-tako-dark-border focus-visible:ring-gray-400 dark:focus-visible:ring-tako-dark-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 h-10 py-2 px-4"
                                 >
                                     <ExternalLink className="h-4 w-4 mr-2" />
                                     View on Tako
