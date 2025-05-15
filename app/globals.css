@@ -189,7 +189,7 @@ html.dark {
     }
 
     .modal-responsive .modal-content {
-        @apply bg-white rounded-lg shadow-xl w-full max-h-[90vh] overflow-hidden flex flex-col;
+        @apply bg-white dark:bg-tako-dark-surface rounded-lg shadow-xl w-full max-h-[90vh] overflow-hidden flex flex-col;
         max-width: 95vw;
     }
 

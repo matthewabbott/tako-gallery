@@ -28,19 +28,19 @@ export default function Home() {
 
                             <ol className="space-y-4 mb-6">
                                 <li className="flex">
-                                    <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                                    <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">Enter your Tako API key and a natural language query</p>
                                 </li>
                                 <li className="flex">
-                                    <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                                    <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">Generate a data visualization from the Tako Knowledge Search API</p>
                                 </li>
                                 <li className="flex">
-                                    <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                                    <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">Save the visualization to your collection</p>
                                 </li>
                                 <li className="flex">
-                                    <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">4</span>
+                                    <span className="bg-blue-600 dark:bg-tako-dark-accent text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">4</span>
                                     <p className="text-gray-700 dark:text-tako-dark-text-secondary">Share your collection with others via a custom URL</p>
                                 </li>
                             </ol>

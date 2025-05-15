@@ -64,7 +64,7 @@ export function Header() {
                 <div className="flex items-center justify-between h-14 sm:h-16">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2">
-                        <span className="text-lg xs:text-xl font-bold text-blue-600 dark:text-blue-500">Tako Gallery</span>
+                        <span className="text-lg xs:text-xl font-bold text-blue-600 dark:text-tako-dark-accent">Tako Gallery</span>
                     </Link>
 
                     {/* Desktop Navigation */}

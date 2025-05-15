@@ -2,6 +2,10 @@
 
 import { useState } from 'react';
 import { UsernameForm } from '@/components/UsernameForm';
+import { Input } from '@/components/ui/input'; // Import custom Input
+import { Button, buttonVariants } from '@/components/ui/Button'; // Import custom Button and buttonVariants
+import Link from 'next/link'; // Import Link for the success button
+import { cn } from '@/lib/utils'; // Import cn
 
 export default function UsernamePage() {
     const [apiKey, setApiKey] = useState('');
@@ -24,35 +28,35 @@ export default function UsernamePage() {
         <div className="container mx-auto px-4 py-12">
             <div className="max-w-md mx-auto">
                 {!showForm && !success && (
-                    <div className="bg-white rounded-lg shadow-md p-6">
-                        <h1 className="text-2xl font-bold mb-6 text-center">Update Username</h1>
+                    <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6">
+                        <h1 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-tako-dark-text-primary">Update Username</h1>
 
-                        <p className="mb-6 text-gray-600">
+                        <p className="mb-6 text-gray-600 dark:text-tako-dark-text-secondary">
                             Enter your Tako API key to update your collection username.
                         </p>
 
                         <form onSubmit={handleApiKeySubmit} className="space-y-6">
                             <div>
-                                <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 mb-1">
+                                <label htmlFor="apiKeyInitial" className="block text-sm font-medium text-gray-700 dark:text-tako-dark-text-primary mb-1">
                                     Tako API Key
                                 </label>
-                                <input
-                                    id="apiKey"
+                                <Input
+                                    id="apiKeyInitial"
                                     type="password"
                                     value={apiKey}
                                     onChange={(e) => setApiKey(e.target.value)}
-                                    className="w-full p-2 border rounded"
                                     placeholder="Enter your Tako API key"
                                     required
+                                    fullWidth
                                 />
                             </div>
 
-                            <button
+                            <Button
                                 type="submit"
-                                className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors"
+                                fullWidth
                             >
                                 Continue
-                            </button>
+                            </Button>
                         </form>
                     </div>
                 )}
@@ -62,34 +66,34 @@ export default function UsernamePage() {
                 )}
 
                 {success && (
-                    <div className="bg-white rounded-lg shadow-md p-6">
-                        <h1 className="text-2xl font-bold mb-6 text-center">Username Updated</h1>
+                    <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-md dark:shadow-lg p-6">
+                        <h1 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-tako-dark-text-primary">Username Updated</h1>
 
-                        <div className="p-4 bg-green-50 text-green-700 rounded-md mb-6">
+                        <div className="p-4 bg-green-50 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-md mb-6">
                             <p className="font-medium">Success!</p>
-                            <p>Your username has been updated to <strong>{success.username}</strong>.</p>
+                            <p>Your username has been updated to <strong className="dark:text-green-200">{success.username}</strong>.</p>
                         </div>
 
-                        <p className="mb-4">
+                        <p className="mb-4 text-gray-700 dark:text-tako-dark-text-secondary">
                             Your collection is now available at:
                         </p>
 
-                        <div className="p-3 bg-gray-100 rounded mb-6 break-all">
+                        <div className="p-3 bg-gray-100 dark:bg-tako-dark-border rounded mb-6 break-all">
                             <a
                                 href={success.url}
-                                className="text-blue-600 hover:underline"
+                                className="text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:underline"
                             >
                                 {success.url}
                             </a>
                         </div>
 
                         <div className="flex justify-center">
-                            <a
-                                href={`/${success.username}`}
-                                className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors"
+                            <Link
+                                href={`/collections/${success.username}`}
+                                className={cn(buttonVariants({ variant: 'default', size: 'default', fullWidth: true }))}
                             >
                                 View Your Collection
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 )}

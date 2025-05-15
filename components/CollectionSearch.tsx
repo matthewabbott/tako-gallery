@@ -76,7 +76,7 @@ export function CollectionSearch({
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+        <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-sm dark:shadow-md border border-gray-200 dark:border-tako-dark-border p-4 mb-6">
             <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3">
                 <div className="relative flex-grow">
                     <Input
@@ -85,13 +85,13 @@ export function CollectionSearch({
                         onChange={(e) => setInputValue(e.target.value)}
                         placeholder="Search cards by title, description, or query..."
                         fullWidth
-                        className="pr-10"
+                        className="pr-10" // Input component handles dark mode
                     />
                     {inputValue && (
                         <button
                             type="button"
                             onClick={handleClear}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-tako-dark-text-secondary"
                         >
                             <X className="h-4 w-4" />
                         </button>
@@ -117,7 +117,7 @@ export function CollectionSearch({
                         type="button"
                         variant="outline"
                         onClick={() => setShowTakoFilters(!showTakoFilters)}
-                        className={showTakoFilters ? 'bg-blue-50 border-blue-300' : ''}
+                        className={showTakoFilters ? 'bg-blue-50 dark:bg-tako-dark-accent/20 border-blue-300 dark:border-tako-dark-accent/50' : ''}
                     >
                         <Filter className="h-4 w-4 mr-2" />
                         Tako Filters
@@ -133,10 +133,10 @@ export function CollectionSearch({
 
             {/* Sort Options */}
             {showSortOptions && (
-                <div className="mt-4 p-3 bg-gray-50 rounded-md">
+                <div className="mt-4 p-3 bg-gray-50 dark:bg-tako-dark-border rounded-md">
                     <div className="flex flex-wrap gap-3">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-tako-dark-text-primary mb-1">Sort By</label>
                             <div className="flex gap-2">
                                 <Button
                                     type="button"
@@ -182,7 +182,7 @@ export function CollectionSearch({
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Order</label>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-tako-dark-text-primary mb-1">Order</label>
                             <Button
                                 type="button"
                                 variant="outline"
@@ -209,13 +209,13 @@ export function CollectionSearch({
 
             {/* Tako-specific Filters */}
             {showTakoFilters && (
-                <div className="mt-4 p-3 bg-blue-50 rounded-md border border-blue-200">
-                    <h3 className="text-sm font-semibold text-blue-800 mb-3">Tako API Filters</h3>
+                <div className="mt-4 p-3 bg-blue-50 dark:bg-tako-dark-accent/10 rounded-md border border-blue-200 dark:border-tako-dark-accent/30">
+                    <h3 className="text-sm font-semibold text-blue-800 dark:text-tako-dark-accent mb-3">Tako API Filters</h3>
 
                     <div className="space-y-4">
                         {/* Source Filter */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-tako-dark-text-primary mb-1">
                                 Source Name
                             </label>
                             <div className="flex gap-2">
@@ -236,7 +236,7 @@ export function CollectionSearch({
 
                         {/* Source Index Filter */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-tako-dark-text-primary mb-1">
                                 Source Index
                             </label>
                             <select
@@ -247,7 +247,7 @@ export function CollectionSearch({
                                         onSourceIndexFilterChange(e.target.value);
                                     }
                                 }}
-                                className="w-full p-2 border rounded"
+                                className="w-full p-2 border rounded dark:bg-tako-dark-surface dark:border-tako-dark-border dark:text-tako-dark-text-primary focus:ring-2 focus:ring-blue-600 dark:focus:ring-tako-dark-accent focus:border-transparent"
                             >
                                 <option value="">All Indexes</option>
                                 <option value="tako">Tako</option>
@@ -257,7 +257,7 @@ export function CollectionSearch({
 
                         {/* Methodology Filter */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-tako-dark-text-primary mb-1">
                                 Methodology
                             </label>
                             <Input

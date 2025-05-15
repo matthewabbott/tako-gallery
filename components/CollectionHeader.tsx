@@ -56,11 +56,11 @@ export function CollectionHeader({ username, createdAt, cardCount }: CollectionH
 
 
     return (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+        <div className="bg-white dark:bg-tako-dark-surface rounded-lg shadow-sm dark:shadow-md border border-gray-200 dark:border-tako-dark-border p-6 mb-6">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">{username}&apos;s Collection</h1>
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-gray-600">
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-tako-dark-text-primary mb-2">{username}'s Collection</h1>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-gray-600 dark:text-tako-dark-text-secondary">
                         <div className="flex items-center">
                             <Calendar className="h-4 w-4 mr-2" />
                             <span>Created {formatDate(createdAt)}</span>

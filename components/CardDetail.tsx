@@ -105,11 +105,11 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Modal Header */}
-                <div className="flex justify-between items-center p-3 sm:p-4 border-b sticky top-0 bg-white z-10">
-                    <h2 className="text-lg sm:text-xl font-bold text-gray-900 truncate pr-2">{card.title}</h2>
+                <div className="flex justify-between items-center p-3 sm:p-4 border-b dark:border-tako-dark-border sticky top-0 bg-white dark:bg-tako-dark-surface z-10">
+                    <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-tako-dark-text-primary truncate pr-2">{card.title}</h2>
                     <button
                         onClick={onClose}
-                        className="p-2 rounded-full hover:bg-gray-100 transition-colors touch-target"
+                        className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-tako-dark-border transition-colors touch-target text-gray-700 dark:text-tako-dark-text-secondary"
                         aria-label="Close"
                     >
                         <X className="h-5 w-5" />
@@ -119,7 +119,7 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
                 {/* Modal Content */}
                 <div className="flex-1 overflow-y-auto p-3 sm:p-4 scrollbar-hide">
                     {/* Card Metadata - Responsive */}
-                    <div className="mb-3 sm:mb-4 flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
+                    <div className="mb-3 sm:mb-4 flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 dark:text-tako-dark-text-secondary">
                         <div className="flex items-center">
                             <Search className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                             <span className="truncate max-w-[200px] sm:max-w-none">{card.query}</span>
@@ -149,7 +149,7 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
                     </div>
 
                     {/* Card Iframe - Responsive */}
-                    <div className="mb-4 sm:mb-6 rounded-md overflow-hidden border">
+                    <div className="mb-4 sm:mb-6 rounded-md overflow-hidden border dark:border-tako-dark-border">
                         <iframe
                             id="tako-iframe"
                             src={card.embedUrl}
@@ -183,26 +183,26 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
                     {showGrounding && (
                         <div className="space-y-3 sm:space-y-4">
                             {/* Description */}
-                            <div className="p-3 sm:p-4 bg-gray-50 rounded-md">
-                                <h3 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Description</h3>
-                                <p className="text-xs sm:text-sm text-gray-700">{card.description}</p>
+                            <div className="p-3 sm:p-4 bg-gray-50 dark:bg-tako-dark-border rounded-md">
+                                <h3 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base text-gray-900 dark:text-tako-dark-text-primary">Description</h3>
+                                <p className="text-xs sm:text-sm text-gray-700 dark:text-tako-dark-text-secondary">{card.description}</p>
                             </div>
 
                             {/* Sources */}
                             {card.sources && card.sources.length > 0 && (
-                                <div className="p-3 sm:p-4 bg-gray-50 rounded-md">
-                                    <h3 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Sources</h3>
+                                <div className="p-3 sm:p-4 bg-gray-50 dark:bg-tako-dark-border rounded-md">
+                                    <h3 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base text-gray-900 dark:text-tako-dark-text-primary">Sources</h3>
                                     <div className="space-y-2 sm:space-y-3">
                                         {card.sources.map((source, index) => (
                                             <div key={index} className="text-xs sm:text-sm">
-                                                <div className="font-medium">{source.source_name}</div>
-                                                <p className="text-gray-700">{source.source_description}</p>
+                                                <div className="font-medium text-gray-900 dark:text-tako-dark-text-primary">{source.source_name}</div>
+                                                <p className="text-gray-700 dark:text-tako-dark-text-secondary">{source.source_description}</p>
                                                 {source.url && (
                                                     <a
                                                         href={source.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="text-blue-600 hover:underline flex items-center mt-1 touch-target"
+                                                        className="text-blue-600 hover:underline dark:text-tako-dark-accent dark:hover:underline flex items-center mt-1 touch-target"
                                                     >
                                                         <span>View Source</span>
                                                         <ExternalLink className="h-3 w-3 ml-1" />
@@ -216,13 +216,13 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
 
                             {/* Methodologies */}
                             {card.methodologies && card.methodologies.length > 0 && (
-                                <div className="p-3 sm:p-4 bg-gray-50 rounded-md">
-                                    <h3 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Methodologies</h3>
+                                <div className="p-3 sm:p-4 bg-gray-50 dark:bg-tako-dark-border rounded-md">
+                                    <h3 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base text-gray-900 dark:text-tako-dark-text-primary">Methodologies</h3>
                                     <div className="space-y-2 sm:space-y-3">
                                         {card.methodologies.map((methodology, index) => (
                                             <div key={index} className="text-xs sm:text-sm">
-                                                <div className="font-medium">{methodology.methodology_name}</div>
-                                                <p className="text-gray-700">{methodology.methodology_description}</p>
+                                                <div className="font-medium text-gray-900 dark:text-tako-dark-text-primary">{methodology.methodology_name}</div>
+                                                <p className="text-gray-700 dark:text-tako-dark-text-secondary">{methodology.methodology_description}</p>
                                             </div>
                                         ))}
                                     </div>
@@ -233,13 +233,13 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
                 </div>
 
                 {/* Modal Footer - Responsive */}
-                <div className="p-3 sm:p-4 border-t flex flex-col xs:flex-row justify-between gap-3">
+                <div className="p-3 sm:p-4 border-t dark:border-tako-dark-border flex flex-col xs:flex-row justify-between gap-3">
                     <div className="flex flex-col xs:flex-row gap-2 w-full xs:w-auto">
                         <a
                             href={card.webpageUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center rounded-md text-xs sm:text-sm font-medium transition-colors bg-transparent border border-gray-300 hover:bg-gray-100 focus-visible:ring-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 h-9 sm:h-10 py-1 sm:py-2 px-3 sm:px-4 w-full xs:w-auto"
+                            className="inline-flex items-center justify-center rounded-md text-xs sm:text-sm font-medium transition-colors bg-transparent dark:text-tako-dark-text-primary border border-gray-300 dark:border-tako-dark-border hover:bg-gray-100 dark:hover:bg-tako-dark-border focus-visible:ring-gray-400 dark:focus-visible:ring-tako-dark-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 h-9 sm:h-10 py-1 sm:py-2 px-3 sm:px-4 w-full xs:w-auto"
                         >
                             <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                             <span className="truncate">View on Tako</span>
@@ -247,7 +247,7 @@ export function CardDetail({ card, isOpen, onClose, username }: CardDetailProps)
 
                         <a
                             href={`/collections/${username}/${card.cardId}`}
-                            className="inline-flex items-center justify-center rounded-md text-xs sm:text-sm font-medium transition-colors bg-transparent border border-gray-300 hover:bg-gray-100 focus-visible:ring-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 h-9 sm:h-10 py-1 sm:py-2 px-3 sm:px-4 w-full xs:w-auto"
+                            className="inline-flex items-center justify-center rounded-md text-xs sm:text-sm font-medium transition-colors bg-transparent dark:text-tako-dark-text-primary border border-gray-300 dark:border-tako-dark-border hover:bg-gray-100 dark:hover:bg-tako-dark-border focus-visible:ring-gray-400 dark:focus-visible:ring-tako-dark-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 h-9 sm:h-10 py-1 sm:py-2 px-3 sm:px-4 w-full xs:w-auto"
                         >
                             <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                             <span>Permalink</span>
